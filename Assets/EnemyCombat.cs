@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombat : CombatEntity
+public class EnemyCombat : CombatEntity
 {
+
     // Start is called before the first frame update
     void Awake()
     {
-        health = 5f;
+        health = 3;
     }
 
     public override void Die()
     {
-        Debug.Log("player lost");
+        Debug.Log("player wins");
     }
 }
