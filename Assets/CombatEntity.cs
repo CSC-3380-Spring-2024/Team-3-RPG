@@ -4,21 +4,17 @@ using UnityEngine;
 
 public abstract class CombatEntity : MonoBehaviour
 {
-    public float health;
+    public HealthBar healthBar;
+
+    public float currentHealth;
+    public float maxHealth;
 
     public void DealDamage(CombatEntity c, float damage)
     {
         c.TakeDamage(damage);
     }
 
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
+    public abstract void TakeDamage(float damage);
 
     public abstract void Die();
 }
