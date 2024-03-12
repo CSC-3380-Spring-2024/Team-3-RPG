@@ -5,7 +5,7 @@ using UnityEngine;
 public class test : MonoBehaviour
 {
     [SerializeField]
-    private BoxCollider2D collider;
+    //private BoxCollider2D collider;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
