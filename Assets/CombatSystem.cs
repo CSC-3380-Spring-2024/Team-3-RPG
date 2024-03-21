@@ -15,19 +15,24 @@ public class CombatSystem : MonoBehaviour
 {
     public static CombatSystem instance;
 
-    public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    [SerializeField]
+    private GameObject playerPrefab;
+    [SerializeField]
+    private GameObject[] enemyPrefab; //size will be 6
 
     public Transform playerBattleStation;
-    public Transform enemyBattleStation;
+    public Transform[] enemyBattleStation; //size will be 6
 
     CombatEntity playerCombat;
-    EnemyCombat enemyCombat;
-
+    EnemyCombat[] enemyCombat; //size will be 6
+    
     public CombatState state;
 
     public Weapon currentWeapon;
     public EnemyCombat selectedEnemy;
+
+    public delegate void inSelectState();
+    public inSelectState enterSelect;
 
     private void Awake()
     {
@@ -39,6 +44,7 @@ public class CombatSystem : MonoBehaviour
         {
             instance = this;
         }
+        enemyCombat = new EnemyCombat[6];
     }
 
     // Start is called before the first frame update
@@ -55,36 +61,95 @@ public class CombatSystem : MonoBehaviour
         GameObject player = Instantiate(playerPrefab, playerBattleStation); //spawn units
         playerCombat = player.GetComponent<CombatEntity>();
 
-        GameObject enemy = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyCombat = enemy.GetComponent<EnemyCombat>();
-        CombatEnemyManager.instance.addEnemy(enemyCombat);
+        SetupEnemy();
 
         yield return new WaitForSeconds(2f); //wait
 
         state = CombatState.PLAYERTURN;
-        PlayerTurn();
+        EnterPlayerTurn();
     }
 
-    void PlayerTurn()
+    private void SetupEnemy()
     {
+        for (int i = 0; i < enemyPrefab.Length; i++) //length should be 6
+        {
+            if (enemyPrefab[i] == null)
+            {
+                return;
+            }
+            GameObject enemy = Instantiate(enemyPrefab[i], enemyBattleStation[i]);
 
+            if (enemyCombat[i] == null)
+            {
+                enemyCombat[i] = enemy.GetComponent<EnemyCombat>();
+            }
+        }
     }
 
-    public void OnAttackButton()
+    #region Player Turn
+
+    void EnterPlayerTurn()
     {
-        if (state != CombatState.PLAYERTURN)
+        StartCoroutine(PlayerTurn());
+    }
+
+    IEnumerator PlayerTurn()
+    {
+        Debug.Log("player turn time");
+        yield return new WaitUntil(() => state != CombatState.PLAYERTURN);
+        StartCoroutine(EnemyTurn());
+    }
+
+    public void Attack()
+    {
+        if (state != CombatState.PLAYERTURN) //not in player turn
         {
             return;
         }
 
+        if (selectedEnemy != null) //deal damage to selected enemy
+        {
+            Debug.Log("attemping damage");
+            selectedEnemy.TakeDamage(2);
+        }
+        Debug.Log("no enemy assigned!");
+
+        state = CombatState.ENEMYTURN;
     }
 
-
-    void EnemyTurn()
+    public void EndPlayerTurn()
     {
-
+        state = CombatState.ENEMYTURN;
     }
 
+    #endregion
+
+    #region Enemy Turn
+
+    IEnumerator EnemyTurn()
+    {
+        Debug.Log("enemy turn time");
+        yield return new WaitUntil(() => state != CombatState.ENEMYTURN);
+    }
+
+    void EnterEnemyTurn()
+    {
+        StartCoroutine(EnemyTurn());
+    }
+
+    #endregion
+
+    #region Setters and Getters
+
+    public void setPlayerPrefab(GameObject player)
+    {
+        this.playerPrefab = player;
+    }
+
+    public void setEnemyPrefab(GameObject[] enemy)
+    {
+        this.enemyPrefab = enemy;
+    }
 
     public void setWeapon(Weapon weapon)
     {
@@ -105,21 +170,7 @@ public class CombatSystem : MonoBehaviour
     {
         selectedEnemy = null;
     }
-    public void Attack()
-    {
-        if (state != CombatState.PLAYERTURN)
-        {
-            return;
-        }
 
-        if (selectedEnemy != null)
-        {
-            Debug.Log("attemping damage");
-            selectedEnemy.TakeDamage(2);
-            return;
-        }
-        Debug.Log("no enemy assigned!");
-
-    }
+    #endregion
 
 }

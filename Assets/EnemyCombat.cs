@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class EnemyCombat : CombatEntity
 {
     public Button button;
+    [SerializeField]
+    private SpriteRenderer renderer;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -13,6 +16,11 @@ public class EnemyCombat : CombatEntity
         currentHealth = maxHealth;
 
         button.onClick.AddListener(() => Select());
+    }
+
+    private void Start()
+    {
+        CombatSystem.instance.enterSelect += EnterSelect;
     }
 
     public override void TakeDamage(float damage)
@@ -30,9 +38,15 @@ public class EnemyCombat : CombatEntity
         Debug.Log("player wins");
     }
 
+    public void EnterSelect()
+    {
+        Debug.Log("test");
+    }
+
     public void Select()
     {
         Debug.Log("selected");
+        renderer.color = Color.red;
         CombatSystem.instance.setEnemy(this);
     }
 }

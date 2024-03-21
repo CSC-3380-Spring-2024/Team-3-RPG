@@ -625,3 +625,4 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 5
   button: {fileID: 9070193960980337550}
+  renderer: {fileID: 6753072353910919309}
