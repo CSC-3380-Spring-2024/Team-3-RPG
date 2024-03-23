@@ -34,6 +34,6 @@ public class NPCInteraction : MonoBehaviour
     {
         // Handle the interaction logic here
         // For example, starting a dialogue or giving a quest
-        Debug.Log("NPC gave you a quest!");
+        //Debug.Log("You talked to the NPC!");
     }
 }

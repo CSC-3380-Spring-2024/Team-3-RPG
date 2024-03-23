@@ -3,38 +3,39 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
+    // List of quests
     public List<Quest> quests = new List<Quest>();
 
-    // Singleton pattern for easy access
-    public static QuestManager Instance;
 
-    private void Awake()
+    void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        // Add quests to the list here
+        //AddQuest("Touch Grass!", "Go to the grassy area.");
+
     }
 
-    // Method to add a new quest
-    public void AddQuest(string title, string description, QuestType questType, Collider2D location)
+    public void AddQuest(string name, string description)
     {
-        Quest newQuest = new Quest(title, description, questType, location);
+        Quest newQuest = new Quest(name, description);
         quests.Add(newQuest);
     }
 
     // Method to complete a quest
     public void CompleteQuest(string title)
     {
-        Quest quest = quests.Find(q => q.title == title);
+        Quest quest = quests.Find(q => q.questName == title);
         if (quest != null)
         {
+            // Assume we have a method to mark the quest as completed or similar action
+            Debug.Log("YOU HAVE COMPLETED THE QUEST: " + quest.questName);
             quest.CompleteQuest();
+            // Optionally, you can remove the quest from the list or mark it as completed depending on your design
+            // quests.Remove(quest);
+        }
+        else
+        {
+            Debug.Log("Quest not found.");
         }
     }
 }
