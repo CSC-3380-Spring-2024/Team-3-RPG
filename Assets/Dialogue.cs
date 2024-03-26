@@ -161,6 +161,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+[System.Serializable]
+
+public class DialoguePrompt
+{
+    public string[] lines = { "this is your job now go do it", "oo whoopie you got it done", "ok so this is the next thing the list never ends", "big brain you got #2 done lets go", "yer a wizard", "3 for 3 lets go" };   // Array of dialogue lines for this prompt
+    public float textSpeed;  // Speed at which the text is displayed
+}
 
 public class Dialogue : MonoBehaviour
 {
@@ -171,6 +178,12 @@ public class Dialogue : MonoBehaviour
     public string[] lines;
     public float textSpeed;
     private int index;
+    public DialoguePrompt[] prompts;  // Array of dialogue prompts
+    private int currentPromptIndex;   // Index of the current prompt
+    private int currentLineIndex;     // Index of the current line within the prompt
+    private Coroutine typingCoroutine;  // Reference to the typing coroutine
+
+
 
 
 
@@ -197,14 +210,27 @@ public class Dialogue : MonoBehaviour
         // {
         //     StartDialogue(); // Start the dialogue when mouse button is clicked
         // }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     // Skip the current line of dialogue and proceed to the next one
+        //     TypeLine();
+        // }
+        Debug.Log("inside the update");
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // Skip the current line of dialogue and proceed to the next one
-            TypeLine();
+            // Check if there's an ongoing typing coroutine
+            if (typingCoroutine != null)
+            {
+                // Stop the typing coroutine
+                StopCoroutine(typingCoroutine);
+            }
+
+            // Proceed to the next line or prompt
+            NextLine();
         }
     }
 
-    void StartDialogue()
+    public void StartDialogue()
     {
         Debug.Log("Button clicked! Starting dialogue...");
         // Activate the dialogue box GameObject
@@ -213,13 +239,18 @@ public class Dialogue : MonoBehaviour
             dialogueBox.SetActive(true);
         }
 
-        // Stop all coroutines to prevent multiple dialogues from overlapping
-        StopAllCoroutines();
+        currentPromptIndex = 0;
+        currentLineIndex = 0;
+        typingCoroutine = StartCoroutine(TypeLine());
 
-        // Start typing out the dialogue lines
-        StartCoroutine(TypeLine());
+        // // Stop all coroutines to prevent multiple dialogues from overlapping
+        // StopAllCoroutines();
+
+        // // Start typing out the dialogue lines
+        // StartCoroutine(TypeLine());
     }
 
+    /**
     IEnumerator TypeLine()
     {
         index = 0;
@@ -241,6 +272,66 @@ public class Dialogue : MonoBehaviour
         if (dialogueBox != null)
         {
             dialogueBox.SetActive(false);
+        }
+    }
+    **/
+
+    void NextLine()
+    {
+        Debug.Log("inside nextline...");
+        // Check if the current prompt index is within bounds
+        if (currentPromptIndex < prompts.Length)
+        {
+            // Increment the current line index
+            currentLineIndex++;
+
+            // Check if we've reached the end of the current prompt's lines
+            if (currentLineIndex >= prompts[currentPromptIndex].lines.Length)
+            {
+                // Proceed to the next prompt if available
+                currentPromptIndex++;
+                currentLineIndex = 0;
+
+                // Check if we're still within bounds after incrementing the prompt index
+                if (currentPromptIndex >= prompts.Length)
+                {
+                    // Hide the dialogue box when all prompts are finished
+                    if (dialogueBox != null)
+                    {
+                        dialogueBox.SetActive(false);
+                    }
+                    return;
+                }
+            }
+
+            // Start typing out the next line
+            typingCoroutine = StartCoroutine(TypeLine());
+        }
+    }
+
+    IEnumerator TypeLine()
+    {
+        Debug.Log("inside typeline..");
+        // Clear text before typing the new line
+        textComponent.text = string.Empty;
+
+        // Check if the current prompt index is within bounds
+        if (currentPromptIndex < prompts.Length)
+        {
+            // Retrieve the current prompt's lines and text speed
+            string[] lines = prompts[currentPromptIndex].lines;
+            float textSpeed = prompts[currentPromptIndex].textSpeed;
+
+            // Check if the current line index is within bounds
+            if (currentLineIndex < lines.Length)
+            {
+                // Iterate through each character in the current line
+                foreach (char c in lines[currentLineIndex].ToCharArray())
+                {
+                    textComponent.text += c;
+                    yield return new WaitForSeconds(textSpeed);
+                }
+            }
         }
     }
 }
