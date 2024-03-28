@@ -1,14 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-public enum CombatState
+public enum CombatState //1 will be reserved for events that happen in the player's turn
 {
-    START,
-    PLAYERTURN,
-    SELECTMODE,
-    ENEMYTURN,
-    WON,
-    LOST
+    START = 0,
+    PLAYERTURN = 1,
+    SELECTMODE = 1,
+    ENEMYTURN = 2,
+    WON = 3,
+    LOST = 4
 }
 
 public class CombatSystem : MonoBehaviour
@@ -23,13 +23,16 @@ public class CombatSystem : MonoBehaviour
     public Transform playerBattleStation;
     public Transform[] enemyBattleStation; //size will be 6
 
-    CombatEntity playerCombat;
-    EnemyCombat[] enemyCombat; //size will be 6
-    
+    public CombatEntity playerCombat;
+    CombatEnemy[] enemyCombat; //size will be 6
+
+    public CombatEnemy selectedEnemy;
+
     public CombatState state;
 
+    public WeaponScriObj[] weaponObjects; //size will be 6
+    private Weapon[] weapons; //size will be 6
     public Weapon currentWeapon;
-    public EnemyCombat selectedEnemy;
 
     public delegate void inSelectState();
     public inSelectState enterSelect;
@@ -44,7 +47,16 @@ public class CombatSystem : MonoBehaviour
         {
             instance = this;
         }
-        enemyCombat = new EnemyCombat[6];
+
+        enemyCombat = new CombatEnemy[6];
+        for (int i = 0; i < weaponObjects.Length; i++) //initialize weapon array
+        {
+            if (weaponObjects[i] == null)
+            {
+                return;
+            }
+            weapons[i] = weaponObjects[i].weaponData;
+        }
     }
 
     // Start is called before the first frame update
@@ -81,7 +93,7 @@ public class CombatSystem : MonoBehaviour
 
             if (enemyCombat[i] == null)
             {
-                enemyCombat[i] = enemy.GetComponent<EnemyCombat>();
+                enemyCombat[i] = enemy.GetComponent<CombatEnemy>();
             }
         }
     }
@@ -97,44 +109,59 @@ public class CombatSystem : MonoBehaviour
     {
         Debug.Log("player turn time");
         yield return new WaitUntil(() => state != CombatState.PLAYERTURN);
-        StartCoroutine(EnemyTurn());
+        EnterEnemyTurn();
     }
 
     public void Attack()
     {
-        if (state != CombatState.PLAYERTURN) //not in player turn
+        if ((int) state != 1) //not in player turn
         {
             return;
         }
 
-        if (selectedEnemy != null) //deal damage to selected enemy
+        if (selectedEnemy == null) //deal damage to selected enemy
         {
-            Debug.Log("attemping damage");
-            selectedEnemy.TakeDamage(2);
+            Debug.Log("no enemy assigned!");
+            return;
         }
-        Debug.Log("no enemy assigned!");
-
+        Debug.Log("attemping damage");
+        selectedEnemy.TakeDamage(2);
+        selectedEnemy.Deselect();
         state = CombatState.ENEMYTURN;
     }
 
-    public void EndPlayerTurn()
+    public void EndPlayerTurn() //for skipping turn
     {
         state = CombatState.ENEMYTURN;
     }
 
+    public void SelectEnemy()
+    {
+        state = CombatState.SELECTMODE;
+    }
     #endregion
 
     #region Enemy Turn
 
-    IEnumerator EnemyTurn()
-    {
-        Debug.Log("enemy turn time");
-        yield return new WaitUntil(() => state != CombatState.ENEMYTURN);
-    }
+    //IEnumerator EnemyTurn()
+    //{
+    //    Debug.Log("enemy turn time");
+    //    yield return new WaitUntil(() => state != CombatState.ENEMYTURN);
+    //}
 
     void EnterEnemyTurn()
     {
-        StartCoroutine(EnemyTurn());
+        Debug.Log("enemy turn time");
+
+        //StartCoroutine(EnemyTurn());
+        for (int i = 0; i < enemyCombat.Length; i++)
+        {
+            if (enemyCombat[i] == null)
+            {
+                return;
+            }
+            enemyCombat[i].StartTurn();
+        }
     }
 
     #endregion
@@ -161,7 +188,7 @@ public class CombatSystem : MonoBehaviour
         currentWeapon = null;
     }
 
-    public void setEnemy(EnemyCombat enemy)
+    public void setEnemy(CombatEnemy enemy)
     {
         selectedEnemy = enemy;
     }

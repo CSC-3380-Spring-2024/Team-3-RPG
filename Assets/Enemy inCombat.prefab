@@ -585,6 +585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6753072354152735546}
   - component: {fileID: 4223854159430943129}
+  - component: {fileID: 1057008918191735459}
   m_Layer: 0
   m_Name: Enemy inCombat
   m_TagString: Untagged
@@ -625,4 +626,27 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 5
   button: {fileID: 9070193960980337550}
-  renderer: {fileID: 6753072353910919309}
+  render: {fileID: 6753072353910919309}
+  anim: {fileID: 1057008918191735459}
+  turnTaken: 0
+--- !u!95 &1057008918191735459
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753072354152735547}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 08b316002b4454f10b5b2bd3b0f1b76e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -11,10 +11,15 @@ public class PlayerCombat : CombatEntity
         currentHealth = maxHealth;
     }
 
+    private void Start()
+    {
+        healthBar = CombatUIManager.instance.playerHealth;
+    }
+
     public override void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        healthBar.SetHealth(currentHealth/maxHealth);
         if (currentHealth <= 0)
         {
             Die();
