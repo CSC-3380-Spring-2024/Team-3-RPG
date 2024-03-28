@@ -178,49 +178,10 @@ MonoBehaviour:
   dialogueBox: {fileID: 335104440}
   yourButton: {fileID: 384697386}
   textComponent: {fileID: 1482884440}
-  lines:
-  - fucking around
-  - and findinf out
-  - ricky
-  - when i catch you ricky
-  - this is your job now go do it
-  - oo whoopie you got it done
-  - ok so this is the next thing the list never ends
-  - big brain you got #2 done lets go
-  - yer a wizard
-  - 3 for 3 lets go
-  textSpeed: 0.1
   prompts:
-  - lines:
-    - 
-    - 
-    - 
-    - 
-    textSpeed: 0.1
-  - lines:
-    - 
-    textSpeed: 0.1
-  - lines:
-    - 
-    textSpeed: 0.1
-  - lines:
-    - 
-    textSpeed: 0.1
-  - lines:
-    - 
-    textSpeed: 0.1
-  - lines:
-    - 
-    textSpeed: 0.1
-  - lines:
-    - 
-    textSpeed: 0.1
-  - lines:
-    - 
-    textSpeed: 0.1
-  - lines:
-    - 
-    textSpeed: 0.1
+  - {fileID: 11400000, guid: ecab5f57a38583f4e97c14ce1f1ee03d, type: 2}
+  - {fileID: 11400000, guid: ecab5f57a38583f4e97c14ce1f1ee03d, type: 2}
+  - {fileID: 11400000, guid: ecab5f57a38583f4e97c14ce1f1ee03d, type: 2}
 --- !u!114 &335104443
 MonoBehaviour:
   m_ObjectHideFlags: 0

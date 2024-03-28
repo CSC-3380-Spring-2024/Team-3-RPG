@@ -163,11 +163,7 @@ using TMPro;
 using UnityEngine.UI;
 [System.Serializable]
 
-public class DialoguePrompt
-{
-    public string[] lines = { "this is your job now go do it", "oo whoopie you got it done", "ok so this is the next thing the list never ends", "big brain you got #2 done lets go", "yer a wizard", "3 for 3 lets go" };   // Array of dialogue lines for this prompt
-    public float textSpeed;  // Speed at which the text is displayed
-}
+
 
 public class Dialogue : MonoBehaviour
 {
@@ -175,17 +171,17 @@ public class Dialogue : MonoBehaviour
     public Button yourButton; // Reference to your UI button
 
     public TextMeshProUGUI textComponent;
-    public string[] lines;
-    public float textSpeed;
     private int index;
     public DialoguePrompt[] prompts;  // Array of dialogue prompts
     private int currentPromptIndex;   // Index of the current prompt
     private int currentLineIndex;     // Index of the current line within the prompt
     private Coroutine typingCoroutine;  // Reference to the typing coroutine
 
-
-
-
+    /*tasks
+    -each prompt should represent each own encounter
+    -currently the nextline function is treating each prompt as a line of some bigger prompt instead of them being independent encounters
+    -what we can do is that we can have some function ReadPrompt(int i) so we can tell the dialogue manager which prompt we need to read at the time and also make NextLine() go through the given prompt's lines instead of each prompt in one go
+    */
 
     void Start()
     {
@@ -221,6 +217,7 @@ public class Dialogue : MonoBehaviour
             // Check if there's an ongoing typing coroutine
             if (typingCoroutine != null)
             {
+                Debug.Log("stopping current prompt");
                 // Stop the typing coroutine
                 StopCoroutine(typingCoroutine);
             }
@@ -280,6 +277,8 @@ public class Dialogue : MonoBehaviour
     {
         Debug.Log("inside nextline...");
         // Check if the current prompt index is within bounds
+
+
         if (currentPromptIndex < prompts.Length)
         {
             // Increment the current line index
