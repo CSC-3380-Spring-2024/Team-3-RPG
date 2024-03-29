@@ -5,7 +5,6 @@ public enum CombatState //1 will be reserved for events that happen in the playe
 {
     START = 0,
     PLAYERTURN = 1,
-    SELECTMODE = 1,
     ENEMYTURN = 2,
     WON = 3,
     LOST = 4
@@ -21,22 +20,23 @@ public class CombatSystem : MonoBehaviour
     private GameObject[] enemyPrefab; //size will be 6
 
     public Transform playerBattleStation;
-    public Transform[] enemyBattleStation; //size will be 6
+    public GameObject enemyBattleStations; //parent gameobject that has 6 stations
+    public Transform[] enemyBattleStationsArray; //size will be 6
 
+    [HideInInspector]
     public CombatEntity playerCombat;
     CombatEnemy[] enemyCombat; //size will be 6
+
+    public Weapon[] weapons; //size will be 6
+    public Weapon currentWeapon;
+
 
     public CombatEnemy selectedEnemy;
 
     public CombatState state;
+    public bool inSelect; //tells if in enemy selection mode
 
-    public WeaponScriObj[] weaponObjects; //size will be 6
-    private Weapon[] weapons; //size will be 6
-    public Weapon currentWeapon;
-
-    public delegate void inSelectState();
-    public inSelectState enterSelect;
-
+    #region Setup
     private void Awake()
     {
         if (instance != null && instance != this) //singleton
@@ -49,19 +49,20 @@ public class CombatSystem : MonoBehaviour
         }
 
         enemyCombat = new CombatEnemy[6];
-        for (int i = 0; i < weaponObjects.Length; i++) //initialize weapon array
-        {
-            if (weaponObjects[i] == null)
-            {
-                return;
-            }
-            weapons[i] = weaponObjects[i].weaponData;
-        }
+
+        enemyBattleStationsArray = new Transform[6];
+
+        inSelect = false;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < enemyBattleStations.transform.childCount; i++)
+        {
+            enemyBattleStationsArray[i] = enemyBattleStations.transform.GetChild(i);
+        }
+
         state = CombatState.START;
         StartCoroutine(SetupCombat());
     }
@@ -89,7 +90,7 @@ public class CombatSystem : MonoBehaviour
             {
                 return;
             }
-            GameObject enemy = Instantiate(enemyPrefab[i], enemyBattleStation[i]);
+            GameObject enemy = Instantiate(enemyPrefab[i], enemyBattleStationsArray[i]);
 
             if (enemyCombat[i] == null)
             {
@@ -97,6 +98,7 @@ public class CombatSystem : MonoBehaviour
             }
         }
     }
+    #endregion
 
     #region Player Turn
 
@@ -135,33 +137,53 @@ public class CombatSystem : MonoBehaviour
         state = CombatState.ENEMYTURN;
     }
 
-    public void SelectEnemy()
+    // public void EnterSelectWeapon()
+    // public void ConfirmSelectWeapon()
+
+    public void EnterSelectEnemy()
     {
-        state = CombatState.SELECTMODE;
+        inSelect = true;
+    }
+
+    public void ConfirmSelectEnemy()
+    {
+        inSelect = false;
     }
     #endregion
 
     #region Enemy Turn
 
-    //IEnumerator EnemyTurn()
-    //{
-    //    Debug.Log("enemy turn time");
-    //    yield return new WaitUntil(() => state != CombatState.ENEMYTURN);
-    //}
+
 
     void EnterEnemyTurn()
     {
         Debug.Log("enemy turn time");
+        StartCoroutine(EnemyTurn());
 
-        //StartCoroutine(EnemyTurn());
+    }
+
+    IEnumerator EnemyTurn()
+    {
+        Debug.Log("enemy turn coroutine started");
         for (int i = 0; i < enemyCombat.Length; i++)
         {
             if (enemyCombat[i] == null)
             {
-                return;
+                break;
             }
             enemyCombat[i].StartTurn();
+            yield return new WaitUntil(() => enemyCombat[i].turnTaken == true);
         }
+
+        for (int i = 0; i < enemyCombat.Length; i++) //reset turn taken
+        {
+            if (enemyCombat[i] == null)
+            {
+                break;
+            }
+            enemyCombat[i].turnTaken = false;
+        }
+        state = CombatState.PLAYERTURN;
     }
 
     #endregion
@@ -190,6 +212,10 @@ public class CombatSystem : MonoBehaviour
 
     public void setEnemy(CombatEnemy enemy)
     {
+        if (selectedEnemy != null)
+        {
+            enemy.Deselect();
+        }
         selectedEnemy = enemy;
     }
 

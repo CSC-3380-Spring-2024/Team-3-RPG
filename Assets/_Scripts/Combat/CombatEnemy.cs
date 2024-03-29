@@ -30,11 +30,6 @@ public class CombatEnemy : CombatEntity
         button.onClick.AddListener(() => Select());
     }
 
-    private void Start()
-    {
-        CombatSystem.instance.enterSelect += EnterSelect;
-    }
-
     public void StartTurn()
     {
         Attack();
@@ -75,22 +70,19 @@ public class CombatEnemy : CombatEntity
 
     public override void Die()
     {
-        Debug.Log("player wins");
+        Debug.Log("enemy died");
+        anim.SetBool("isDead", true);
     }
 
 
 
     #region Selecting
 
-    public void EnterSelect()
-    {
-        Debug.Log("test");
-    }
-
     public void Select()
     {
-        if (CombatSystem.instance.state != CombatState.SELECTMODE)
+        if (!CombatSystem.instance.inSelect)
         {
+            Debug.Log("not in select mode!");
             return;
         }
 

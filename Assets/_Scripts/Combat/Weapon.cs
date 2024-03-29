@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : ScriptableObject
 {
+    public new string name;
+
     public Sprite defaultSprite; //default sprite
     public Sprite selectedSprite; //white border around sprite for when weapon is selected
 

@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class PlayerCombat : CombatEntity
 {
+    [SerializeField]
+    private SpriteRenderer render;
+    private Color originalColor;
+
+    //animation stuff
+    [SerializeField]
+    private Animator anim;
+    private bool inAnim;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -28,6 +37,6 @@ public class PlayerCombat : CombatEntity
 
     public override void Die()
     {
-        Debug.Log("player lost");
+        Debug.Log("player died");
     }
 }
