@@ -2,33 +2,39 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+// Image component for background
 [RequireComponent(typeof(Image))]
+
 public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
-    // Reference to tab group
-    public TabGroup tabGroup;
-    // Reference background depending on which tab selected
-    public Image background;
+    // Reference to Tabs.cs
+    public InventoryTabs tabs;
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        tabGroup.SelectTab(this);
+    // Allowing image changes
+    public Image bg;
+    
+    /* Using the event system to change the appearance of inventory
+        depending on which tab is selected */ 
+    public void OnPointerClick(PointerEventData eventData) {
+        tabs.SelectedTab(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        tabGroup.EnterTab(this);
+        tabs.EnterTab(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        tabGroup.ExitTab(this);
+        tabs.ExitTab(this);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        background = GetComponent<Image>();
-        tabGroup.Select(this);
+    // Selecting a tab in inventory menu
+    // Ensures Image is present before accessing
+    public void Awake() {
+        bg = GetComponent<Image>();
+        tabs.Select(this);
     }
+
+
 }
