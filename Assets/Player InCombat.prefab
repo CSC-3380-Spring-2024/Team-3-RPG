@@ -49,6 +49,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   currentHealth: 0
   maxHealth: 0
+  render: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1 &4315228973972963496
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +61,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4315228973972963497}
   - component: {fileID: 4793324892750540713}
-  - component: {fileID: 4923794778535832426}
+  - component: {fileID: 2329176376415755734}
   m_Layer: 0
   m_Name: Weapon Slot
   m_TagString: Untagged
@@ -134,7 +136,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4923794778535832426
+--- !u!114 &2329176376415755734
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +145,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4315228973972963496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 163f22a7449944684a244dc3226a8c0f, type: 3}
+  m_Script: {fileID: 11500000, guid: aab15e37f25284e71b3c1d81505e2e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4315228974654153872
@@ -176,7 +178,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4315228973972963497}
-  - {fileID: 144753803335920490}
   m_Father: {fileID: 4315228973898012070}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -192,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09811275f44444a7292c2e68388a2ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
+  parent: {fileID: 4315228973898012064}
 --- !u!1 &4315228975576643314
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,34 +278,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &4964545878334591984
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 144753803335920490}
-  m_Layer: 0
-  m_Name: Selected Weapon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &144753803335920490
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4964545878334591984}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4315228974654153873}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

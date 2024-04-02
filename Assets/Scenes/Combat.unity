@@ -5356,7 +5356,13 @@ MonoBehaviour:
   enemyBattleStations: {fileID: 196202004}
   enemyBattleStationsArray: []
   playerCombat: {fileID: 0}
-  weaponObjects: []
+  weapons:
+  - {fileID: 11400000, guid: 3e5b0be1c4d1a4ac8becc62fcf131ea2, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   currentWeapon: {fileID: 0}
   selectedEnemy: {fileID: 0}
   state: 0
