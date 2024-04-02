@@ -179,8 +179,7 @@ MonoBehaviour:
   yourButton: {fileID: 384697386}
   textComponent: {fileID: 1482884440}
   prompts:
-  - {fileID: 11400000, guid: ecab5f57a38583f4e97c14ce1f1ee03d, type: 2}
-  - {fileID: 11400000, guid: ecab5f57a38583f4e97c14ce1f1ee03d, type: 2}
+  - {fileID: 11400000, guid: 538d5bc277d8bed40aa60f0d1c107acb, type: 2}
   - {fileID: 11400000, guid: ecab5f57a38583f4e97c14ce1f1ee03d, type: 2}
 --- !u!114 &335104443
 MonoBehaviour:

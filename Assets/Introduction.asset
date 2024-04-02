@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Introduction
   m_EditorClassIdentifier: 
   lines:
-  - this is your job now go do it
-  - oo whoopie you got it done
-  - ok so this is the next thing the list never ends
-  - big brain you got #2 done lets go
-  - yer a wizard
+  - this is the introductionprompt
+  - i am lost as hell
+  - what lines are they pulling form
+  - do i have the code to back these up
+  - because what the fuck
   - 3 for 3 lets go
-  textSpeed: 0
+  textSpeed: 0.1
