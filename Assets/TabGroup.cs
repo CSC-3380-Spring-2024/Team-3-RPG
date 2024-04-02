@@ -1,0 +1,60 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TabGroup : MonoBehaviour
+{
+    // List tab buttons
+    public List<TabButton> tabButtons;
+    public Sprite tabIdle;
+    public Sprite tabHover;
+    public Sprite tabActive;
+    public TabButton selectedTab;
+    public List<GameObject> swapCategories;
+
+    // Takes in the type of tab button
+    public void Select(TabButton button) {
+        // The first button, create a list
+        if(tabButtons == null)
+            tabButtons = new List<TabButton>();
+
+        // Adds button to list
+        tabButtons.Add(button);
+    }
+
+    // Control tabs
+    public void EnterTab(TabButton button) {
+        ResetTabs();
+        if(selectedTab == null || button != selectedTab)
+            button.background.sprite = tabHover;
+    }
+
+    public void ExitTab(TabButton button) {
+        ResetTabs();
+    }
+
+    public void SelectTab(TabButton button) {
+        selectedTab = button;
+        ResetTabs();
+        button.background.sprite = tabActive;
+        int index = button.transform.GetSiblingIndex();
+        for(int i = 0; i < swapCategories.Count; i++) {
+            if(i == index)
+                swapCategories[i].SetActive(true);
+            else
+                swapCategories[i].SetActive(false);
+        }
+    }
+
+    // Puts tab in idle
+    public void ResetTabs() {
+        foreach(TabButton button in tabButtons) {
+
+            if(selectedTab != null && button == selectedTab)
+                continue;
+        
+            button.background.sprite = tabIdle;
+        }
+    }
+}
