@@ -8,10 +8,12 @@ public class MenuManager : MonoBehaviour
     // Game object in Unity Scene (Look at Inspector)
     public GameObject pausePanel;
     public GameObject inventoryPanel;
+    public GameObject mapPanel;
 
     // Declare and initialize variables for game state
     private static bool isPaused = false;
     private static bool isInvenOpen = false;
+    private static bool isMapOpen = false;
 
     // Player may either click the buttons
     // OR press a key on keyboard to pull up the menu
@@ -26,11 +28,20 @@ public class MenuManager : MonoBehaviour
         }
 
         // INVENTORY toggle
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.I)) {
             if(isInvenOpen)
                 CloseInven();
             else
                 OpenInven();
+        }
+
+        // MAP toggle
+        if(Input.GetKeyDown(KeyCode.M)) {
+            if(isMapOpen)
+                CloseMap();
+            else
+                OpenMap();
+        }
     }
 
     /******************************************/
@@ -38,7 +49,6 @@ public class MenuManager : MonoBehaviour
     /******************************************/
     // Returns back to game state
     public void ResumeGame() {
-        
         pausePanel.SetActive(false);    // Disables GameObject
         Time.timeScale = 1f;            // Unfreezes the game
         isPaused = false;
@@ -82,5 +92,22 @@ public class MenuManager : MonoBehaviour
         inventoryPanel.SetActive(false);
         Time.timeScale = 1f;
         isInvenOpen = false;
+    }
+
+    /******************************************/
+    /*              WORLD MAP                 */
+    /******************************************/
+    // Opens map
+    public void OpenMap() {
+        Debug.Log("[*]OPENNING MAP...");
+        mapPanel.SetActive(true);
+        isMapOpen = true;
+    }
+
+    // Closes map 
+    public void CloseMap() {
+        Debug.Log("[*]CLOSING MAP...");
+        mapPanel.SetActive(false);
+        isMapOpen = false;
     }
 }
