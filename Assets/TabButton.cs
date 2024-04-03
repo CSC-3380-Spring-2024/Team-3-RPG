@@ -7,11 +7,8 @@ using UnityEngine.UI;
 
 public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
-    // Reference to Tabs.cs
-    public InventoryTabs tabs;
-
-    // Allowing image changes
-    public Image bg;
+    public InventoryTabs tabs;      // Reference to InventoryTabs.cs
+    public Image bg;                // Allowing image changes
     
     /* Using the event system to change the appearance of inventory
         depending on which tab is selected */ 

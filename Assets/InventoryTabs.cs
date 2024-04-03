@@ -5,14 +5,9 @@ using UnityEngine.UI;
 
 public class InventoryTabs : MonoBehaviour
 {
-    // List of inventory categories (buttons to select)
-    public List<TabButton> tabButton;
-
-    // Reference TabButton.cs
-    public TabButton selectedTab;
-
-    // List of possible Inventory to switch to
-    public List<GameObject> swapTab;
+    public List<TabButton> tabButton;   // List of inventory categories (buttons to select)
+    public TabButton selectedTab;       // Reference TabButton.cs
+    public List<GameObject> swapTab;    // List of possible Inventory to switch to
 
     /* Visual differents in selected tab buttons */
     public Sprite tabIdle;
