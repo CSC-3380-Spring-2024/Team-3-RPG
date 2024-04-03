@@ -32,6 +32,4 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
         bg = GetComponent<Image>();
         tabs.Select(this);
     }
-
-
 }
