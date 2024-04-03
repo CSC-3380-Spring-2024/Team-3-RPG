@@ -1,4 +1,3 @@
-// Dialogue.cs
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,22 +6,26 @@ using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
-    public GameObject dialogueBox;
-    public Button yourButton;
+    public GameObject dialogueBox; // Reference to the GameObject containing the dialogue box UI elements
+    public Button yourButton; // Reference to your UI button
     public TextMeshProUGUI textComponent;
-    private int index;
+    private bool isIntroductionPrompt = true; // Indicates whether it's an introduction prompt
+    private int currentLineIndex; // Index of the current line within the prompt
+    private Coroutine typingCoroutine; // Reference to the typing coroutine
 
-    public IntroductionPrompt introductionPrompt;
-    public GiveQuestPrompt giveQuestPrompt;
+    public IntroductionPrompt IntroductionPrompt;
+    public GiveQuestPrompt GiveQuestPrompt;
+    string[] introductionLines = IntroductionPrompt.lines;
 
-    private bool isIntroductionPrompt;  // Flag to indicate whether the current prompt is an introduction prompt
+    // Accessing the lines array of the give quest prompt
+    string[] giveQuestLines = GiveQuestPrompt.lines;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (dialogueBox != null)
         {
             dialogueBox.SetActive(false);
+            // we dont need the dialogue box until 
         }
 
         if (yourButton != null)
@@ -31,7 +34,6 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -39,61 +41,63 @@ public class Dialogue : MonoBehaviour
             // Check if there's an ongoing typing coroutine
             if (typingCoroutine != null)
             {
-                // Stop the typing coroutine
                 StopCoroutine(typingCoroutine);
-
-                // Proceed to the next line or prompt
-                NextLine();
             }
-        }
 
-        // Check if we're currently displaying the introduction prompt
-        if (isIntroductionPrompt)
-        {
-            // Check if all lines in the introduction prompt have been displayed
-            if (currentLineIndex >= prompts[currentPromptIndex].lines.Length)
-            {
-                // All lines in the introduction prompt have been displayed, switch to give quest prompt
-                SwitchToGiveQuestPrompt();
-            }
+            // Proceed to the next line or prompt
+            NextLine(introductionLines);
         }
     }
-
 
     public void StartDialogue()
     {
-        if (dialogueBox != null)
-        {
-            dialogueBox.SetActive(true);
-        }
+        dialogueBox.SetActive(true); // Activate the dialogue box
 
-        // Set initial indices to start with the introduction prompt
-        currentPromptIndex = introductionPromptIndex;
+        // Start with the introduction prompt
+        isIntroductionPrompt = true;
         currentLineIndex = 0;
-        typingCoroutine = StartCoroutine(TypeLine());
+        typingCoroutine = StartCoroutine(TypeLine(introductionLines));
     }
-    void SwitchToGiveQuestPrompt()
+
+    void NextLine(string[] linesArray)
     {
-        // Set current prompt index to the index of the give quest prompt
-        currentPromptIndex = giveQuestPromptIndex;
-        currentLineIndex = 0;
-        typingCoroutine = StartCoroutine(TypeLine());
+
+
+        // Check if there are more lines in the current prompt
+        if (currentLineIndex < linesArray.Length - 1)
+        {
+            // Move to the next line
+            currentLineIndex++;
+            typingCoroutine = StartCoroutine(TypeLine(introductionLines));
+        }
+        else
+        {
+            // If it's the last line of the introduction prompt, switch to the quest prompt
+            if (isIntroductionPrompt)
+            {
+                isIntroductionPrompt = false;
+                currentLineIndex = 0;
+                typingCoroutine = StartCoroutine(TypeLine(giveQuestLines));
+            }
+            else
+            {
+                // Hide the dialogue box when all lines are finished
+                dialogueBox.SetActive(false);
+            }
+        }
     }
 
-    IEnumerator TypeLine(string[] lines, float textSpeed)
+    IEnumerator TypeLine(string[] linesArray)
     {
         textComponent.text = string.Empty;
 
-        if (lines != null && lines.Length > 0)
+        // Determine which prompt to use based on the context
+
+        // Display the current line character by character
+        foreach (char c in linesArray[currentLineIndex].ToCharArray())
         {
-            foreach (string line in lines)
-            {
-                foreach (char c in line.ToCharArray())
-                {
-                    textComponent.text += c;
-                    yield return new WaitForSeconds(textSpeed);
-                }
-            }
+            textComponent.text += c;
+            yield return null; // Wait for one frame
         }
     }
 }
