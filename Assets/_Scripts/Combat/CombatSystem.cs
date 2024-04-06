@@ -29,6 +29,8 @@ public class CombatSystem : MonoBehaviour
 
     public Weapon[] weapons; //size will be 6
     public Weapon currentWeapon;
+    public int currentWeaponIndex;
+    private int numOfWeapons;
 
 
     public CombatEnemy selectedEnemy;
@@ -53,6 +55,16 @@ public class CombatSystem : MonoBehaviour
         enemyBattleStationsArray = new Transform[6];
 
         inSelect = false;
+
+        currentWeaponIndex = 0;
+        currentWeapon = weapons[currentWeaponIndex];
+
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i] == null) break;
+            numOfWeapons++;
+        }
+
     }
 
     // Start is called before the first frame update
@@ -68,7 +80,7 @@ public class CombatSystem : MonoBehaviour
     }
 
     IEnumerator SetupCombat() //uses a coroutine to buffer the setup
-                              //set as coroutine because it waits for user to read
+                              //set as coroutine because it waits for user to read a potential textbox
                               //need to change back to void when we implement user interaction instead
     {
         GameObject player = Instantiate(playerPrefab, playerBattleStation); //spawn units
@@ -76,7 +88,7 @@ public class CombatSystem : MonoBehaviour
 
         SetupEnemy();
 
-        yield return new WaitForSeconds(2f); //wait
+        yield return null; //wait condition if needed
 
         state = CombatState.PLAYERTURN;
         EnterPlayerTurn();
@@ -114,6 +126,36 @@ public class CombatSystem : MonoBehaviour
         EnterEnemyTurn();
     }
 
+    // public void EnterSelectWeapon()
+    // public void ConfirmSelectWeapon()
+
+    public void SwapWeapon(int direction) //0 to select the left weapon, 1 to select the right weapon
+                                          //should not be called on its own; use the rotate functions in PlayerWeaponManager
+    {
+        if (direction != 0 && direction != 1)
+        {
+            Debug.Log("invalid weapon rotation direction!");
+            return;
+        }
+        if (direction == 0) //switch to the weapon on left
+        {
+            currentWeaponIndex--;
+            if (currentWeaponIndex < 0) //needs to loop around
+            {
+                currentWeaponIndex = numOfWeapons - 1;
+            }
+            currentWeapon = weapons[currentWeaponIndex];
+        } else //switch to the weapon on right
+        {
+            currentWeaponIndex++;
+            if (currentWeaponIndex >= numOfWeapons) //needs to loop around
+            {
+                currentWeaponIndex = 0;
+            }
+            currentWeapon = weapons[currentWeaponIndex];
+        }
+    }
+
     public void Attack()
     {
         if ((int) state != 1) //not in player turn
@@ -127,7 +169,7 @@ public class CombatSystem : MonoBehaviour
             return;
         }
         Debug.Log("attemping damage");
-        selectedEnemy.TakeDamage(2);
+        selectedEnemy.TakeDamage(currentWeapon.damage);
         selectedEnemy.Deselect();
         state = CombatState.ENEMYTURN;
     }
@@ -137,8 +179,7 @@ public class CombatSystem : MonoBehaviour
         state = CombatState.ENEMYTURN;
     }
 
-    // public void EnterSelectWeapon()
-    // public void ConfirmSelectWeapon()
+
 
     public void EnterSelectEnemy()
     {

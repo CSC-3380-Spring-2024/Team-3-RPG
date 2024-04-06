@@ -15,4 +15,5 @@ MonoBehaviour:
   name: Dagger
   defaultSprite: {fileID: -488273094, guid: 8106c5f6fb86a4dd7a46c6826e5df2d9, type: 3}
   selectedSprite: {fileID: 0}
+  damage: 2
   didAction: 0

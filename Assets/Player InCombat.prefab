@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 4315228973898012064}
+  weaponSlot: {fileID: 2329176376415755734}
 --- !u!1 &4315228975576643314
 GameObject:
   m_ObjectHideFlags: 0

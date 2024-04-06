@@ -12,11 +12,11 @@ public class WeaponSlot : MonoBehaviour
         render = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    //// Update is called once per frame
+    //void Update()
+    //{
         
-    }
+    //}
 
     public void SetWeapon(Weapon weapon)
     {

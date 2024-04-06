@@ -15,4 +15,5 @@ MonoBehaviour:
   name: Hammer
   defaultSprite: {fileID: 1421693130, guid: 8106c5f6fb86a4dd7a46c6826e5df2d9, type: 3}
   selectedSprite: {fileID: 0}
+  damage: 3
   didAction: 0
