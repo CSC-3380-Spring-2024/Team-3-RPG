@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class NPCTouchGrass : MonoBehaviour
+public class NPCTalkToGhost : MonoBehaviour
 {
     public TextMeshProUGUI questTextUI;
-    public string questName = "Touch Grass!";
-    public string questDescription = "Go to the grassy area.";
+    public string questName = "Talk to the Ghost Guy.";
+    public string questDescription = "Don't be afraid.";
     private bool isPlayerInRange = false;
 
     private QuestManager questManager;
@@ -50,7 +50,7 @@ public class NPCTouchGrass : MonoBehaviour
         if (questManager != null)
         {
             questManager.AddQuest(questName, questDescription);
-            questTextUI.text = "New Quest: Touch Grass!";
+            questTextUI.text = "New Quest: Talk to the Ghost Guy.";
             StartCoroutine(HideQuestTextAfterDelay(5)); // Hide after 5 seconds
             //Debug.Log("Quest Activated: " + questName);
             // Optionally, disable further interactions if the quest should only be given once

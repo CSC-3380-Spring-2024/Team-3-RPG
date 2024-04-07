@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
-public class NPCTouchGrass : MonoBehaviour
+public class TalkToGhost : MonoBehaviour
 {
-    public TextMeshProUGUI questTextUI;
-    public string questName = "Touch Grass!";
-    public string questDescription = "Go to the grassy area.";
-    private bool isPlayerInRange = false;
-
     private QuestManager questManager;
+    public TextMeshProUGUI questCompletionTextUI;
+    private bool isPlayerInRange = false;
 
     private void Start()
     {
+        // Find the QuestManager instance in the scene and store a reference to it
         questManager = FindObjectOfType<QuestManager>();
-        // questTextUI.text = "";
+        if (questManager == null)
+        {
+            Debug.LogError("QuestManager not found in the scene.");
+        }
     }
 
     private void Update()
@@ -23,7 +24,8 @@ public class NPCTouchGrass : MonoBehaviour
         // Check for interaction (e.g., if the player presses the 'E' key while in range)
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            ActivateQuest();
+            questManager.CompleteQuest("Talk to the Ghost Guy.");
+            ShowCompletionMessage();
         }
     }
 
@@ -45,23 +47,15 @@ public class NPCTouchGrass : MonoBehaviour
         }
     }
 
-    private void ActivateQuest()
+    private void ShowCompletionMessage()
     {
-        if (questManager != null)
-        {
-            questManager.AddQuest(questName, questDescription);
-            questTextUI.text = "New Quest: Touch Grass!";
-            StartCoroutine(HideQuestTextAfterDelay(5)); // Hide after 5 seconds
-            //Debug.Log("Quest Activated: " + questName);
-            // Optionally, disable further interactions if the quest should only be given once
-            this.enabled = false;
-        }
+        questCompletionTextUI.text = "You talked to the Ghost Guy!";
+        StartCoroutine(HideQuestTextAfterDelay(5)); // Hide after 5 seconds
     }
 
     IEnumerator HideQuestTextAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        questTextUI.text = "";
+        questCompletionTextUI.text = "";
     }
-
 }

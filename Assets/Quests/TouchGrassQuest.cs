@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; // Make sure to include this for TextMeshPro
+using TMPro;
 
-public class TouchGrass : MonoBehaviour
+public class TouchGrassQuest : MonoBehaviour
 {
     private QuestManager questManager;
     public TextMeshProUGUI questCompletionTextUI;
