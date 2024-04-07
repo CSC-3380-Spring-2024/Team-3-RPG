@@ -178,9 +178,8 @@ MonoBehaviour:
   dialogueBox: {fileID: 335104440}
   yourButton: {fileID: 384697386}
   textComponent: {fileID: 1482884440}
-  prompts:
-  - {fileID: 11400000, guid: 538d5bc277d8bed40aa60f0d1c107acb, type: 2}
-  - {fileID: 11400000, guid: ecab5f57a38583f4e97c14ce1f1ee03d, type: 2}
+  IntroductionPrompt: {fileID: 0}
+  GiveQuestPrompt: {fileID: 0}
 --- !u!114 &335104443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,9 +231,9 @@ GameObject:
   - component: {fileID: 384697387}
   - component: {fileID: 384697386}
   m_Layer: 5
-  m_Name: Button
+  m_Name: IntroButton
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3113,7 +3112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Intro Button
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

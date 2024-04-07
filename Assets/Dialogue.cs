@@ -9,10 +9,8 @@ public class Dialogue : MonoBehaviour
     public GameObject dialogueBox; // Reference to the GameObject containing the dialogue box UI elements
     public Button yourButton; // Reference to your UI button
     public TextMeshProUGUI textComponent;
-    private bool isIntroductionPrompt = true; // Indicates whether it's an introduction prompt
     private int currentLineIndex; // Index of the current line within the prompt
     private Coroutine typingCoroutine; // Reference to the typing coroutine
-
     public IntroductionPrompt IntroductionPrompt;
     public GiveQuestPrompt GiveQuestPrompt;
     string[] introductionLines = IntroductionPrompt.lines;
@@ -54,7 +52,6 @@ public class Dialogue : MonoBehaviour
         dialogueBox.SetActive(true); // Activate the dialogue box
 
         // Start with the introduction prompt
-        isIntroductionPrompt = true;
         currentLineIndex = 0;
         typingCoroutine = StartCoroutine(TypeLine(introductionLines));
     }
@@ -62,28 +59,19 @@ public class Dialogue : MonoBehaviour
     void NextLine(string[] linesArray)
     {
 
-
         // Check if there are more lines in the current prompt
         if (currentLineIndex < linesArray.Length - 1)
         {
             // Move to the next line
             currentLineIndex++;
-            typingCoroutine = StartCoroutine(TypeLine(introductionLines));
+            typingCoroutine = StartCoroutine(TypeLine(giveQuestLines));
         }
         else
         {
-            // If it's the last line of the introduction prompt, switch to the quest prompt
-            if (isIntroductionPrompt)
-            {
-                isIntroductionPrompt = false;
-                currentLineIndex = 0;
-                typingCoroutine = StartCoroutine(TypeLine(giveQuestLines));
-            }
-            else
-            {
-                // Hide the dialogue box when all lines are finished
-                dialogueBox.SetActive(false);
-            }
+
+            // Hide the dialogue box when all lines are finished
+            dialogueBox.SetActive(false);
+
         }
     }
 
@@ -91,13 +79,24 @@ public class Dialogue : MonoBehaviour
     {
         textComponent.text = string.Empty;
 
-        // Determine which prompt to use based on the context
-
-        // Display the current line character by character
-        foreach (char c in linesArray[currentLineIndex].ToCharArray())
+        // Display each line of the prompt one by one
+        for (int i = 0; i < linesArray.Length; i++)
         {
-            textComponent.text += c;
-            yield return null; // Wait for one frame
+            // Display the current line character by character
+            foreach (char c in linesArray[i].ToCharArray())
+            {
+                textComponent.text += c;
+                yield return null; // Wait for one frame
+            }
+
+            // Wait for a short delay after displaying each line
+            yield return new WaitForSeconds(1f);
+            textComponent.text = string.Empty;
+            //if i want to change between making it an enter or space do it here
         }
+        dialogueBox.SetActive(false);
+
+        // After displaying all lines, move to the next prompt
+        //NextLine(giveQuestLines); this will make it go onto the give questlines
     }
 }
