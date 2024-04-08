@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class Dialogue : MonoBehaviour
 {
     public GameObject dialogueBox; // Reference to the GameObject containing the dialogue box UI elements
-    public Button yourButton; // Reference to your UI button
+    public Button yourButton; // Reference to your intro button
+    public Button giveQuestButton; // Reference to your give quest button
     public TextMeshProUGUI textComponent;
     private int currentLineIndex; // Index of the current line within the prompt
     private Coroutine typingCoroutine; // Reference to the typing coroutine
@@ -28,12 +29,19 @@ public class Dialogue : MonoBehaviour
 
         if (yourButton != null)
         {
-            yourButton.onClick.AddListener(StartDialogue);
+            yourButton.onClick.AddListener(() => StartDialogue(introductionLines));
+            Debug.Log("start button is clicked");
         }
+
     }
 
     void Update()
     {
+        if (giveQuestButton != null)
+        {
+            giveQuestButton.onClick.AddListener(() => StartDialogue(giveQuestLines));
+            Debug.Log("quest button is clicked");
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // Check if there's an ongoing typing coroutine
@@ -47,13 +55,13 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    public void StartDialogue()
+    public void StartDialogue(string[] linesArray)
     {
         dialogueBox.SetActive(true); // Activate the dialogue box
 
         // Start with the introduction prompt
         currentLineIndex = 0;
-        typingCoroutine = StartCoroutine(TypeLine(introductionLines));
+        typingCoroutine = StartCoroutine(TypeLine(linesArray));
     }
 
     void NextLine(string[] linesArray)
@@ -94,7 +102,7 @@ public class Dialogue : MonoBehaviour
             textComponent.text = string.Empty;
             //if i want to change between making it an enter or space do it here
         }
-        dialogueBox.SetActive(false);
+        //dialogueBox.SetActive(false);
 
         // After displaying all lines, move to the next prompt
         //NextLine(giveQuestLines); this will make it go onto the give questlines
