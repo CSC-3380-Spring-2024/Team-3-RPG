@@ -46,7 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8353e40ed179421599b683892bb51af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  healthBar: {fileID: 0}
+  currentHealth: 0
+  maxHealth: 0
+  render: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1 &4315228973972963496
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,6 +61,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4315228973972963497}
   - component: {fileID: 4793324892750540713}
+  - component: {fileID: 2329176376415755734}
   m_Layer: 0
   m_Name: Weapon Slot
   m_TagString: Untagged
@@ -131,6 +136,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2329176376415755734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4315228973972963496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab15e37f25284e71b3c1d81505e2e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4315228974654153872
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09811275f44444a7292c2e68388a2ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 4315228973898012064}
+  weaponSlot: {fileID: 2329176376415755734}
 --- !u!1 &4315228975576643314
 GameObject:
   m_ObjectHideFlags: 0
