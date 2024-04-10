@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatUIManager : MonoBehaviour
+public class CombatUIManager : MonoBehaviour //provides functions for all button presses in combat scene
 {
     public static CombatUIManager instance;
     private CombatSystem combatSystem;
 
-    public HealthBar playerHealth;
+    [SerializeField] private HealthBar playerHealth;
 
-    public GameObject defaultPanel;
-    public GameObject selectWeaponPanel;
-    public GameObject selectEnemyPanel;
-    public GameObject attackPanel;
+    [SerializeField] private GameObject defaultPanel;
+    [SerializeField] private GameObject selectWeaponPanel;
+    [SerializeField] private GameObject attackPanel;
+
+    
 
     public int numOfPanels;
     private GameObject[] panels;
@@ -30,8 +31,7 @@ public class CombatUIManager : MonoBehaviour
         panels = new GameObject[numOfPanels];
         panels[0] = defaultPanel;
         panels[1] = selectWeaponPanel;
-        panels[2] = selectEnemyPanel;
-        panels[3] = attackPanel;
+        panels[2] = attackPanel;
     }
 
     private void Start()
@@ -51,6 +51,11 @@ public class CombatUIManager : MonoBehaviour
             }
             panels[i].SetActive(false);
         }
+    }
+
+    public HealthBar GetPlayerHealthbar()
+    {
+        return this.playerHealth;
     }
 
     public void ShowAttackingScreen()
@@ -75,7 +80,24 @@ public class CombatUIManager : MonoBehaviour
 
     public void SelectWeapon()
     {
-        ShowOnly(selectEnemyPanel);
+        combatSystem.EnterSelectEnemy();
+        ShowOnly(attackPanel);
+    }
+
+    public void InitializeWeaponAblityButtons()
+    {
+        combatSystem.currentWeapon.abilityList[0] = null;
+    }
+
+    public void AbilityButton()
+    {
+
+    }
+
+    public void Attack()
+    {
+        combatSystem.ConfirmSelectEnemy();
+        combatSystem.Attack();
     }
 
     public void ShowBag()

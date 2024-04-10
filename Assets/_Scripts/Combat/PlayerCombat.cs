@@ -22,7 +22,7 @@ public class PlayerCombat : CombatEntity
 
     private void Start()
     {
-        healthBar = CombatUIManager.instance.playerHealth;
+        healthBar = CombatUIManager.instance.GetPlayerHealthbar();
     }
 
     public override void TakeDamage(float damage)

@@ -163,13 +163,13 @@ public class CombatSystem : MonoBehaviour
             return;
         }
 
-        if (selectedEnemy == null) //deal damage to selected enemy
+        if (selectedEnemy == null) 
         {
             Debug.Log("no enemy assigned!");
             return;
         }
         Debug.Log("attemping damage");
-        selectedEnemy.TakeDamage(currentWeapon.damage);
+        selectedEnemy.TakeDamage(currentWeapon.abilityList[0].damage); //deal damage
         selectedEnemy.Deselect();
         state = CombatState.ENEMYTURN;
     }
@@ -178,8 +178,6 @@ public class CombatSystem : MonoBehaviour
     {
         state = CombatState.ENEMYTURN;
     }
-
-
 
     public void EnterSelectEnemy()
     {
