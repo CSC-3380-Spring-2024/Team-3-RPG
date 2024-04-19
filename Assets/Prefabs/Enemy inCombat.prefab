@@ -479,13 +479,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 6a665d99dcc284a5f803b1b3893df491, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 4223854159430943129}
+        m_TargetAssemblyTypeName: CombatEnemy, Assembly-CSharp
+        m_MethodName: Select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -629,6 +629,7 @@ MonoBehaviour:
   render: {fileID: 6753072353910919309}
   anim: {fileID: 1057008918191735459}
   turnTaken: 0
+  isDead: 0
 --- !u!95 &1057008918191735459
 Animator:
   serializedVersion: 5
