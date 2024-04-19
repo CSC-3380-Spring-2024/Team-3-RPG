@@ -121,7 +121,6 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerTurn()
     {
-        Debug.Log("player turn time");
         yield return new WaitUntil(() => state != CombatState.PLAYERTURN);
         EnterEnemyTurn();
     }
@@ -156,22 +155,33 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public void EnterSelectEnemy()
+    {
+        inSelect = true;
+    }
+
+    public void EndSelectEnemy()
+    {
+        inSelect = false;
+    }
+
+    public bool Attack(Ability ability) //returns true if attack is successful, false if fails
     {
         if ((int) state != 1) //not in player turn
         {
-            return;
+            return false;
         }
 
-        if (selectedEnemy == null) //deal damage to selected enemy
+        if (selectedEnemy == null) 
         {
             Debug.Log("no enemy assigned!");
-            return;
+            return false;
         }
-        Debug.Log("attemping damage");
-        selectedEnemy.TakeDamage(currentWeapon.damage);
+        Debug.Log("attemping ability");
+        if (!ability.OnActivated()) return false; //attempting ability
         selectedEnemy.Deselect();
         state = CombatState.ENEMYTURN;
+        return true;
     }
 
     public void EndPlayerTurn() //for skipping turn
@@ -180,16 +190,6 @@ public class CombatSystem : MonoBehaviour
     }
 
 
-
-    public void EnterSelectEnemy()
-    {
-        inSelect = true;
-    }
-
-    public void ConfirmSelectEnemy()
-    {
-        inSelect = false;
-    }
     #endregion
 
     #region Enemy Turn
@@ -216,7 +216,7 @@ public class CombatSystem : MonoBehaviour
             yield return new WaitUntil(() => enemyCombat[i].turnTaken == true);
         }
 
-        for (int i = 0; i < enemyCombat.Length; i++) //reset turn taken
+        for (int i = 0; i < enemyCombat.Length; i++) //reset turn taken on all enemies
         {
             if (enemyCombat[i] == null)
             {
