@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     // Game object in Unity Scene (Look at Inspector)
     public GameObject pausePanel;
-    public GameObject inventoryPanel;
+    // public GameObject inventoryPanel;
     public GameObject mapPanel;
 
     // Declare and initialize variables for game state
@@ -81,7 +81,7 @@ public class MenuManager : MonoBehaviour
     // Opens inventory menu
     public void OpenInven() {
         Debug.Log("[*]OPENNING INVENTORY...");
-        inventoryPanel.SetActive(true);
+        // inventoryPanel.SetActive(true);
         Time.timeScale = 0f;
         isInvenOpen = true;
     }
@@ -89,7 +89,7 @@ public class MenuManager : MonoBehaviour
     // Closes inventory menu
     public void CloseInven() {
         Debug.Log("[*]CLOSING INVENTORY...");
-        inventoryPanel.SetActive(false);
+        // inventoryPanel.SetActive(false);
         Time.timeScale = 1f;
         isInvenOpen = false;
     }
