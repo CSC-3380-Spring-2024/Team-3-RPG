@@ -87,7 +87,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -233,6 +233,8 @@ MonoBehaviour:
         m_UserAcceptedRename: 0
         m_Name: 
         m_OriginalName: 
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
@@ -240,8 +242,10 @@ MonoBehaviour:
           width: 0
           height: 0
         m_UserData: 0
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
+        m_OriginalEventType: 11
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 5}
@@ -356,7 +360,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar
@@ -717,7 +721,7 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/_Scripts/Combat
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: /Users/rickyliang/Documents/GitHub/Team-3-RPG
+  m_LastProjectPath: C:\Users\kimbe\OneDrive\Desktop\VSCODE\Team-3-RPG
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
