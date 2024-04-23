@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Dialogue : MonoBehaviour
 {
     public GameObject dialogueBox; // Reference to the GameObject containing the dialogue box UI elements
-    public Button yourButton; // Reference to your intro button
+    //public Button yourButton; // Reference to your intro button
     public Button giveQuestButton; // Reference to your give quest button
     public TextMeshProUGUI textComponent;
     private int currentLineIndex; // Index of the current line within the prompt
@@ -23,15 +23,17 @@ public class Dialogue : MonoBehaviour
     {
         if (dialogueBox != null)
         {
-            dialogueBox.SetActive(false);
-            // we dont need the dialogue box until 
+            dialogueBox.SetActive(true);
+            // we need the dialogye box at the start to display the introduction prompt 
+            //changed to include the diallogye box from the beinning
         }
 
-        if (yourButton != null)
-        {
-            yourButton.onClick.AddListener(() => StartDialogue(introductionLines));
-            Debug.Log("start button is clicked");
-        }
+        //if (yourButton != null)
+        //{
+        //yourButton.onClick.AddListener(() => StartDialogue(introductionLines));
+        StartDialogue(introductionLines);
+        Debug.Log("start button is clicked");
+        //}
 
     }
 
