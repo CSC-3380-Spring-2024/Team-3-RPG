@@ -2,111 +2,112 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
     public GameObject dialogueBox; // Reference to the GameObject containing the dialogue box UI elements
-    //public Button yourButton; // Reference to your intro button
-    public Button giveQuestButton; // Reference to your give quest button
     public TextMeshProUGUI textComponent;
-    private int currentLineIndex; // Index of the current line within the prompt
-    private Coroutine typingCoroutine; // Reference to the typing coroutine
     public IntroductionPrompt IntroductionPrompt;
     public GiveQuestPrompt GiveQuestPrompt;
-    string[] introductionLines = IntroductionPrompt.lines;
+    public float textSpeed = 0.05f; // Default text speed value
 
-    // Accessing the lines array of the give quest prompt
-    string[] giveQuestLines = GiveQuestPrompt.lines;
+    private string[] introductionLines;
+    private string[] giveQuestLines;
+    private bool introCompleted = false; // Indicates if the intro dialogue is completed
+    private bool waitingForSpace = false; // Indicates if the script is waiting for space bar input
 
     void Start()
     {
-        if (dialogueBox != null)
-        {
-            dialogueBox.SetActive(true);
-            // we need the dialogye box at the start to display the introduction prompt 
-            //changed to include the diallogye box from the beinning
-        }
+        introductionLines = IntroductionPrompt.lines;
+        giveQuestLines = GiveQuestPrompt.lines;
 
-        //if (yourButton != null)
-        //{
-        //yourButton.onClick.AddListener(() => StartDialogue(introductionLines));
-        StartDialogue(introductionLines);
-        Debug.Log("start button is clicked");
-        //}
-
+        StartCoroutine(ShowIntroduction());
     }
 
     void Update()
     {
-        if (giveQuestButton != null)
+        if (waitingForSpace && Input.GetKeyDown(KeyCode.Space))
         {
-            giveQuestButton.onClick.AddListener(() => StartDialogue(giveQuestLines));
-            Debug.Log("quest button is clicked");
+            // If waiting for space and space bar is pressed, proceed to the next line
+            waitingForSpace = false;
+            NextLine();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // Check if there's an ongoing typing coroutine
-            if (typingCoroutine != null)
-            {
-                StopCoroutine(typingCoroutine);
-            }
 
-            // Proceed to the next line or prompt
-            NextLine(introductionLines);
+        // Check for "E" key to proceed to the give quest prompt
+        if (Input.GetKeyDown(KeyCode.E) && introCompleted)
+        {
+            // If intro is completed and "E" is pressed, proceed to the give quest prompt
+            StartCoroutine(ShowGiveQuest());
         }
     }
 
-    public void StartDialogue(string[] linesArray)
+    IEnumerator ShowIntroduction()
     {
         dialogueBox.SetActive(true); // Activate the dialogue box
 
-        // Start with the introduction prompt
-        currentLineIndex = 0;
-        typingCoroutine = StartCoroutine(TypeLine(linesArray));
-    }
-
-    void NextLine(string[] linesArray)
-    {
-
-        // Check if there are more lines in the current prompt
-        if (currentLineIndex < linesArray.Length - 1)
+        // Display the introduction lines
+        for (int i = 0; i < introductionLines.Length; i++)
         {
-            // Move to the next line
-            currentLineIndex++;
-            typingCoroutine = StartCoroutine(TypeLine(giveQuestLines));
-        }
-        else
-        {
+            textComponent.text = string.Empty;
 
-            // Hide the dialogue box when all lines are finished
-            dialogueBox.SetActive(false);
-
-        }
-    }
-
-    IEnumerator TypeLine(string[] linesArray)
-    {
-        textComponent.text = string.Empty;
-
-        // Display each line of the prompt one by one
-        for (int i = 0; i < linesArray.Length; i++)
-        {
             // Display the current line character by character
-            foreach (char c in linesArray[i].ToCharArray())
+            foreach (char c in introductionLines[i].ToCharArray())
             {
                 textComponent.text += c;
-                yield return null; // Wait for one frame
+                yield return new WaitForSeconds(textSpeed); // Use textSpeed variable
             }
 
             // Wait for a short delay after displaying each line
-            yield return new WaitForSeconds(1f);
-            textComponent.text = string.Empty;
-            //if i want to change between making it an enter or space do it here
-        }
-        //dialogueBox.SetActive(false);
+            //yield return new WaitForSeconds(1f);
 
-        // After displaying all lines, move to the next prompt
-        //NextLine(giveQuestLines); this will make it go onto the give questlines
+            // Set waiting for space to true after displaying the line
+            waitingForSpace = true;
+
+            // Wait until space bar is pressed to proceed to the next line
+            while (waitingForSpace)
+            {
+                yield return null;
+            }
+        }
+
+        // Hide the dialogue box when the introduction lines are finished
+        //dialogueBox.SetActive(false);
+        introCompleted = true;
+    }
+
+    IEnumerator ShowGiveQuest()
+    {
+        dialogueBox.SetActive(true); // Activate the dialogue box
+
+        // Display the give quest lines
+        for (int i = 0; i < giveQuestLines.Length; i++)
+        {
+            textComponent.text = string.Empty;
+
+            // Display the current line character by character
+            foreach (char c in giveQuestLines[i].ToCharArray())
+            {
+                textComponent.text += c;
+                yield return new WaitForSeconds(textSpeed); // Use textSpeed variable
+            }
+
+            // Wait for a short delay after displaying each line
+            //yield return new WaitForSeconds(1f);
+            while (!Input.GetKeyDown(KeyCode.Space))
+            {
+                yield return null;
+            }
+        }
+
+        // Hide the dialogue box when the give quest lines are finished
+        dialogueBox.SetActive(false);
+    }
+
+    void NextLine()
+    {
+        if (introCompleted)
+        {
+            StartCoroutine(ShowGiveQuest());
+        }
     }
 }
