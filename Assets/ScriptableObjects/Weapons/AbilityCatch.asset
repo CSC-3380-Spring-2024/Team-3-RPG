@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AbilityCatch
   m_EditorClassIdentifier: 
   name: Catch
-  description: Catch the Exception.
+  description: 'Catch the Exception. Deal 5 damage to a marked enemy '
   id: 0
   needsMarking: 1
   markName: Try
-  damage: 3
+  damage: 5
