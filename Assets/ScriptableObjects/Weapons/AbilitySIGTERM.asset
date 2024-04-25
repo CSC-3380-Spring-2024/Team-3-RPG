@@ -15,6 +15,7 @@ MonoBehaviour:
   name: SIG_TERM
   description: Executes an enemy under 15% HP
   id: 0
+  weapon: {fileID: 11400000, guid: d2cf08e9ec8674561878899d917ed09f, type: 2}
   needsMarking: 0
   markName: 
   damage: 0

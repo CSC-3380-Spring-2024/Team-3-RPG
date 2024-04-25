@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Weapon")]
-public class Weapon : ScriptableObject
+public class WeaponData : ScriptableObject
 {
     public new string name;
 
@@ -13,4 +13,6 @@ public class Weapon : ScriptableObject
     public Ability[] abilityList = new Ability[2]; //List of usable abilities
 
     public bool didAction = false;
+
+    public bool isRanged = false;
 }

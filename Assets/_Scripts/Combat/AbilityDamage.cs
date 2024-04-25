@@ -10,7 +10,7 @@ public class AbilityDamage : Ability
 
     public override bool OnActivated()
     {
-        if (needsMarking && !CombatSystem.instance.selectedEnemy.CheckEffect(markName))
+        if (needsMarking && !CombatSystem.instance.selectedEnemy.CheckEffect(markName)) //fails when needs marking and there exists no mark
         {
             Debug.Log("mark not applied!");
             return false;
@@ -20,6 +20,7 @@ public class AbilityDamage : Ability
         {
             CombatSystem.instance.selectedEnemy.statuses.Remove(markName);
         }
+        weapon.didAction = true;
         return true;
     }
 }

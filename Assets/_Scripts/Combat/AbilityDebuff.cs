@@ -10,6 +10,7 @@ public class AbilityDebuff : Ability
     public override bool OnActivated()
     {
         CombatSystem.instance.selectedEnemy.statuses.Add(name, duration);
+        weapon.didAction = true;
         return true;
     }
 }

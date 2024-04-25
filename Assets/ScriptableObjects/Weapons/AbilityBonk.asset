@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b91201c27d149648ec2a7375ad89da, type: 3}
   m_Name: AbilityBonk
   m_EditorClassIdentifier: 
-  name: 
-  description: 
+  name: "bO(n\xB2)k"
+  description: Linearly search an enemy's vitals. Deal 3 damage.
   id: 0
+  weapon: {fileID: 11400000, guid: ddec3b60ffbda4e6184ceaab71d2a379, type: 2}
   needsMarking: 0
   markName: 
-  damage: 0
+  damage: 2

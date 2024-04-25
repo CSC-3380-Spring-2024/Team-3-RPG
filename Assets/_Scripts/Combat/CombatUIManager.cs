@@ -69,32 +69,36 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
         currentPanelIndex = 1;
     }
 
-    public void SelectLeftWeapon()
-    {
-        PlayerWeaponManager.instance.rotateLeft();
-    }
+    //public void SelectLeftWeapon()
+    //{
+    //    PlayerWeaponManager.instance.rotateLeft();
+    //}
 
-    public void SelectRightWeapon()
-    {
-        PlayerWeaponManager.instance.rotateRight();
-    }
+    //public void SelectRightWeapon()
+    //{
+    //    PlayerWeaponManager.instance.rotateRight();
+    //}
 
     public void SelectWeapon() //called when player chooses a weapon
     {
         combatSystem.EnterSelectEnemy(); //allow player to select enemies; turns on enemyselect buttons
-        abilityButton1.setAbility(combatSystem.currentWeapon.abilityList[0]); //initialize ability buttons
-        abilityButton2.setAbility(combatSystem.currentWeapon.abilityList[1]);
+        abilityButton1.setAbility(combatSystem.currentWeapon.GetComponent<WeaponData>().abilityList[0]); //initialize ability buttons
+        abilityButton2.setAbility(combatSystem.currentWeapon.GetComponent<WeaponData>().abilityList[1]);
         currentPanelIndex = 2; //allow player to choose ability to use
         ShowOnly(attackPanel); 
     }
 
     public void Attack(int id) //called when player confirms attack to use via abilityButton press
     {
+        //id is 0 or 1; which attack to use
         if (combatSystem.selectedEnemy == null) return;
-        if (!combatSystem.Attack(combatSystem.currentWeapon.abilityList[id])) return; //perform the attack
+        if (!combatSystem.Attack(id)) return; //attempt to perform the attack
+
         combatSystem.EndSelectEnemy(); //unallow player to select enemies; turns off enemyselect buttons
+
         abilityButton1.unsetAbility(); //reset ability buttons
         abilityButton2.unsetAbility();
+
         currentPanelIndex = 0; //return to default panel
         ShowOnly(defaultPanel);
     }

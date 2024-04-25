@@ -27,11 +27,12 @@ public class CombatSystem : MonoBehaviour
     public CombatEntity playerCombat;
     CombatEnemy[] enemyCombat; //size will be 6
 
-    public Weapon[] weapons; //size will be 6
-    public Weapon currentWeapon;
+    public GameObject[] weapons; //size will be 6
+    public GameObject currentWeaponObject;
+    public WeaponObject currentWeapon;
+
     public int currentWeaponIndex;
     private int numOfWeapons;
-
 
     public CombatEnemy selectedEnemy;
 
@@ -57,7 +58,8 @@ public class CombatSystem : MonoBehaviour
         inSelect = false;
 
         currentWeaponIndex = 0;
-        currentWeapon = weapons[currentWeaponIndex];
+        currentWeaponObject = weapons[currentWeaponIndex];
+        currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
 
         for (int i = 0; i < weapons.Length; i++)
         {
@@ -76,7 +78,7 @@ public class CombatSystem : MonoBehaviour
         }
 
         state = CombatState.START;
-        StartCoroutine(SetupCombat());
+         StartCoroutine(SetupCombat());
     }
 
     IEnumerator SetupCombat() //uses a coroutine to buffer the setup
@@ -128,6 +130,16 @@ public class CombatSystem : MonoBehaviour
     // public void EnterSelectWeapon()
     // public void ConfirmSelectWeapon()
 
+    public void EnterSelectEnemy()
+    {
+        inSelect = true;
+    }
+
+    public void EndSelectEnemy()
+    {
+        inSelect = false;
+    }
+
     public void SwapWeapon(int direction) //0 to select the left weapon, 1 to select the right weapon
                                           //should not be called on its own; use the rotate functions in PlayerWeaponManager
     {
@@ -143,7 +155,8 @@ public class CombatSystem : MonoBehaviour
             {
                 currentWeaponIndex = numOfWeapons - 1;
             }
-            currentWeapon = weapons[currentWeaponIndex];
+            currentWeaponObject = weapons[currentWeaponIndex];
+            currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
         } else //switch to the weapon on right
         {
             currentWeaponIndex++;
@@ -151,21 +164,12 @@ public class CombatSystem : MonoBehaviour
             {
                 currentWeaponIndex = 0;
             }
-            currentWeapon = weapons[currentWeaponIndex];
+            currentWeaponObject = weapons[currentWeaponIndex];
+            currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
         }
     }
 
-    public void EnterSelectEnemy()
-    {
-        inSelect = true;
-    }
-
-    public void EndSelectEnemy()
-    {
-        inSelect = false;
-    }
-
-    public bool Attack(Ability ability) //returns true if attack is successful, false if fails
+    public bool Attack(int id) //returns true if attack is successful, false if fails
     {
         if ((int) state != 1) //not in player turn
         {
@@ -177,9 +181,11 @@ public class CombatSystem : MonoBehaviour
             Debug.Log("no enemy assigned!");
             return false;
         }
-        Debug.Log("attemping ability");
-        if (!ability.OnActivated()) return false; //attempting ability
+
+        currentWeapon.BeginAbilityAnimation(id, selectedEnemy); //attacks
+
         selectedEnemy.Deselect();
+
         state = CombatState.ENEMYTURN;
         return true;
     }
@@ -241,9 +247,9 @@ public class CombatSystem : MonoBehaviour
         this.enemyPrefab = enemy;
     }
 
-    public void setWeapon(Weapon weapon)
+    public void setWeapon(GameObject weapon)
     {
-        currentWeapon = weapon;
+        currentWeaponObject = weapon;
     }
 
     public void unsetWeapon()

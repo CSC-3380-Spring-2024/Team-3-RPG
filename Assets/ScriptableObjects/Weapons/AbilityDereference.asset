@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Dereference
   description: 
   id: 0
+  weapon: {fileID: 11400000, guid: 30a4de870dd884881a1e2624b795e5d6, type: 2}
   needsMarking: 0
   markName: 
   damage: 0
