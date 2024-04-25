@@ -16,6 +16,6 @@ MonoBehaviour:
   defaultSprite: {fileID: -1479526263, guid: 8106c5f6fb86a4dd7a46c6826e5df2d9, type: 3}
   selectedSprite: {fileID: 0}
   abilityList:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 0b2d8d33cd1ab443aa6ba9666e44141c, type: 2}
+  - {fileID: 11400000, guid: 8b0179e2a02b4443a947f314edd409c4, type: 2}
   didAction: 0
