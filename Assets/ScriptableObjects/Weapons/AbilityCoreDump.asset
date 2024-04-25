@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e65fd187112d148359c41db032e602ff, type: 3}
-  m_Name: WeaponDagger
+  m_Script: {fileID: 11500000, guid: d7b91201c27d149648ec2a7375ad89da, type: 3}
+  m_Name: AbilityCoreDump
   m_EditorClassIdentifier: 
-  name: Dagger
-  defaultSprite: {fileID: -488273094, guid: 8106c5f6fb86a4dd7a46c6826e5df2d9, type: 3}
-  selectedSprite: {fileID: 0}
-  abilityList:
-  - {fileID: 0}
-  - {fileID: 0}
-  didAction: 0
+  name: 
+  description: 
+  id: 0
+  needsMarking: 0
+  markName: 
+  damage: 0
