@@ -15,6 +15,7 @@ public class Dialogue : MonoBehaviour
     private string[] giveQuestLines;
     private bool introCompleted = false; // Indicates if the intro dialogue is completed
     private bool waitingForSpace = false; // Indicates if the script is waiting for space bar input
+    private bool instantFinish = false;
 
     void Start()
     {
@@ -31,6 +32,10 @@ public class Dialogue : MonoBehaviour
             // If waiting for space and space bar is pressed, proceed to the next line
             waitingForSpace = false;
             NextLine();
+        }
+        if (instantFinish == false && Input.GetKeyDown(KeyCode.Space))
+        {
+            instantFinish = true;
         }
 
         // Check for "E" key to proceed to the give quest prompt
@@ -49,13 +54,20 @@ public class Dialogue : MonoBehaviour
         for (int i = 0; i < introductionLines.Length; i++)
         {
             textComponent.text = string.Empty;
+            instantFinish = false;
 
             // Display the current line character by character
             foreach (char c in introductionLines[i].ToCharArray())
             {
                 textComponent.text += c;
                 yield return new WaitForSeconds(textSpeed); // Use textSpeed variable
+                if (instantFinish == true)
+                {
+                    break;
+                }
             }
+            textComponent.text = introductionLines[i];
+
 
             // Wait for a short delay after displaying each line
             //yield return new WaitForSeconds(1f);
@@ -83,13 +95,19 @@ public class Dialogue : MonoBehaviour
         for (int i = 0; i < giveQuestLines.Length; i++)
         {
             textComponent.text = string.Empty;
+            instantFinish = false;
 
             // Display the current line character by character
             foreach (char c in giveQuestLines[i].ToCharArray())
             {
                 textComponent.text += c;
                 yield return new WaitForSeconds(textSpeed); // Use textSpeed variable
+                if (instantFinish == true)
+                {
+                    break;
+                }
             }
+            textComponent.text = giveQuestLines[i];
 
             // Wait for a short delay after displaying each line
             //yield return new WaitForSeconds(1f);
