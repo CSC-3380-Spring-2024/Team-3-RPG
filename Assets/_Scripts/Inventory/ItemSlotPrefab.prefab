@@ -170,8 +170,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   quantity: 0
-  itemSprite: {fileID: 21300000, guid: 16454f84e31444d788efe2c32a4c80f4, type: 3}
-  emptySprite: {fileID: 0}
+  itemSprite: {fileID: 0}
+  emptySprite: {fileID: 21300000, guid: 16454f84e31444d788efe2c32a4c80f4, type: 3}
   itemDescription: 
   isFull: 0
   quantityText: {fileID: 2829021180716601056}

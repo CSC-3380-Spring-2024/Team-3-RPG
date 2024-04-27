@@ -1,5 +1,7 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 // using UnityEngine.SceneManagement;  // Use later when there's a main menu screen
 
 /* HUD management: world map, inventory, pause screen
@@ -18,6 +20,11 @@ public class MenuManager : MonoBehaviour
 
     /* INVENTORY DATA */
     public ItemSlot[] itemSlot;     // Number of slots avaliable in inventory
+    // public ItemSO[] itemSO;
+    // public Image descriptionImg;
+    // public Sprite emptySprite;
+    // public TMP_Text descriptionName;
+    // public TMP_Text descriptionText;
 
     // Player may either click the buttons
     // OR press a key on keyboard to pull up the menu
@@ -86,7 +93,7 @@ public class MenuManager : MonoBehaviour
         inventoryPanel.SetActive(true);
         Time.timeScale = 0f;
         isInvenOpen = true;
-        DeselectAllSlots();
+        RefeshInventory();
     }
 
     // Closes inventory menu
@@ -95,6 +102,14 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1f;
         isInvenOpen = false;
     }
+
+    // public void UseItem(string itemName) {
+    //     // Looks through SO array
+    //     for(int i = 0; i < itemSO.Length; i++) {
+    //         if(itemSO[i].itemName == itemName)
+    //             itemSO[i].UseItem();
+    //     }
+    // }
 
     // Adds item into player's inventory
     public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription)
@@ -114,14 +129,18 @@ public class MenuManager : MonoBehaviour
         return quantity;
     }
 
-    // Only one slot can be selected at a time
-    public void DeselectAllSlots() {
+    // Inventory view is reset to default state
+    public void RefeshInventory() {
         for (int i = 0; i < itemSlot.Length; i++)
         {
             itemSlot[i].selectedSlot.SetActive(false);
             itemSlot[i].itemSelected = false;
+            itemSlot[i].descriptionImg.sprite = itemSlot[i].emptySprite;
+            itemSlot[i].descriptionName.text = itemSlot[i].emptyText;
+            itemSlot[i].descriptionText.text = itemSlot[i].emptyText;
         }
     }
+
 
     /******************************************/
     /*              WORLD MAP                 */

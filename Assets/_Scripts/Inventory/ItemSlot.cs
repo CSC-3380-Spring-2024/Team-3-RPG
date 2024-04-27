@@ -14,10 +14,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public string itemDescription;
     public bool isFull;
     private int maxItem = 99;               // The max amount player can hold an item
+    public string emptyText = "";
 
     /* ITEM SLOT */
-    [SerializeField] private TMP_Text quantityText;
-    [SerializeField] private Image itemImage;
+    [SerializeField] 
+    private TMP_Text quantityText;
+    [SerializeField] 
+    private Image itemImage;
 
     /* ITEM DESCRIPTION */
     public GameObject Description;
@@ -30,7 +33,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public bool itemSelected;               // Declare and initialize variables for game state
     private MenuManager inventoryManager;   // Reference to MenuManager.cs
 
-    private void Start() {
+    private void Start() {;
         inventoryManager = GameObject.Find("Canvas").GetComponent<MenuManager>();
     }
 
@@ -71,6 +74,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if(eventData.button == PointerEventData.InputButton.Left) {
             OnLeftClick();
         }
+
         if(eventData.button == PointerEventData.InputButton.Right) {
             OnRightClick();
         }
@@ -80,13 +84,24 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     private void OnRightClick()
     {
         throw new NotImplementedException();
+        // if(selectedSlot) {
+        //     inventoryManager.UseItem(itemName);
+        //     this.quantity -= 1;
+        //     quantityText.text = this.quantity.ToString();
+        //     if(this.quantity <0)
+        //         EmptySlot();
+        // }
+        // else {
+        //     inventoryManager.DeselectAllSlots();
+        //     selectedSlot.SetActive(true);
+        // }
     }
 
     // Using mouse LEFT click to select a slot
     // Only one slot will be indicated as selected
     private void OnLeftClick()
     {
-        inventoryManager.DeselectAllSlots();
+        inventoryManager.RefeshInventory();
         selectedSlot.SetActive(true);
         itemSelected = true;
 
@@ -99,4 +114,16 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             descriptionImg.sprite = emptySprite;
         }
     }
+
+    /*
+    private void EmptySlot() {
+        quantityText.enabled = false;
+        itemImage.sprite = emptySprite;
+
+        descriptionName.text = "";
+        descriptionText.text = "";
+        descriptionImg.sprite = itemSprite;
+
+    }
+    */
 }
