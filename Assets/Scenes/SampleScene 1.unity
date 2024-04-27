@@ -1350,12 +1350,24 @@ CompositeCollider2D:
         Y: -50000000
       - X: 60000000
         Y: -50000000
+    - - X: 0
+        Y: 0
+      - X: 0
+        Y: 10000000
+      - X: 10000000
+        Y: 10000000
+      - X: 10000000
+        Y: 0
   m_CompositePaths:
     m_Paths:
     - - {x: 5.999971, y: -5}
       - {x: 5.999971, y: 5}
       - {x: -6, y: 4.999971}
       - {x: -5.999971, y: -5}
+    - - {x: 1, y: 0.0000294}
+      - {x: 0, y: 0.0000294}
+      - {x: 0.0000294, y: 1}
+      - {x: 1, y: 0.9999706}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &2098526261
@@ -1415,7 +1427,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f1b44e7579b14be4cb2a494d36bc617f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

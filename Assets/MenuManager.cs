@@ -10,7 +10,7 @@ public class MenuManager : MonoBehaviour
 {
     // Game object in Unity Scene (Look at Inspector)
     public GameObject pausePanel;
-    public GameObject inventoryPanel;
+    // public GameObject inventoryPanel;
     public GameObject mapPanel;
 
     // Declare and initialize variables for game state
