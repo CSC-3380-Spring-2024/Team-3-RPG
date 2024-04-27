@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Begniets
   m_EditorClassIdentifier: 
   itemName: Begniets
-  itemType: 1
+  itemType: 0
   quantity: 1
   itemSprite: {fileID: 21300000, guid: 8846c2858bae34276bfde3552e03472c, type: 3}
   itemDescription: A plate of golden-brown pastries, dusted with powdered sugar and
     emitting a tantalizing aroma of sweetness and warmth. Indulging in these delectable
     treats may lead to a momentary escape from the rigors of academia, though beware
     the inevitable sugar crash.
-  restoreHealth: 0
+  restoreHealth: 10
   attackBonus: 0
+  debuffDmg: 0

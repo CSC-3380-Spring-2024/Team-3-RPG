@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Raising Cane's Box
   m_EditorClassIdentifier: 
   itemName: Kain Box
-  itemType: 1
+  itemType: 0
   quantity: 1
   itemSprite: {fileID: 21300000, guid: 18ff7a483302e40eba3729d08a00f7f7, type: 3}
-  itemDescription: A greasy container overflowing with the guilty pleasures of convenience
-    and indulgence. Savor the flavors of temptation, but beware the toll it may take
-    on mind, body, and soul.
-  restoreHealth: 0
+  itemDescription: 'One Love
+
+'
+  restoreHealth: 50
   attackBonus: 0
+  debuffDmg: 0

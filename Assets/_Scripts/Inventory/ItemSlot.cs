@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
@@ -27,7 +26,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public Image descriptionImg;
     public TMP_Text descriptionName;
     public TMP_Text descriptionText;
-
 
     public GameObject selectedSlot;         // Game object in Unity Scene
     public bool itemSelected;               // Declare and initialize variables for game state
@@ -83,47 +81,80 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     // Using mouse RIGHT click to use item
     private void OnRightClick()
     {
-        throw new NotImplementedException();
-        // if(selectedSlot) {
-        //     inventoryManager.UseItem(itemName);
-        //     this.quantity -= 1;
-        //     quantityText.text = this.quantity.ToString();
-        //     if(this.quantity <0)
-        //         EmptySlot();
-        // }
-        // else {
-        //     inventoryManager.DeselectAllSlots();
-        //     selectedSlot.SetActive(true);
-        // }
+        Debug.Log("[*]You right clicked!");
+        inventoryManager.RefeshInventory();
+
+        if(quantity == 0) {
+            selectedSlot.SetActive(false);
+            itemSelected = false;
+        }
+        else {
+            // Selected slot is highlighted and information about selected item
+            // will be displayed in the description section
+            selectedSlot.SetActive(true);
+            itemSelected = true;
+
+            if(itemSelected) {
+                bool usable = inventoryManager.UseItem(itemName);
+                if(usable) {                        // Item is used, amt of it descreases
+                    quantity -= 1;
+                    quantityText.text = this.quantity.ToString();
+                    if(quantity == 0)           // Once item is used up, the slot becomes empty
+                        EmptySlot();
+                }
+            }
+
+            // For the description side of the inventory
+            descriptionName.text = itemName;
+            descriptionText.text = itemDescription;
+            descriptionImg.sprite = itemSprite;
+
+            if(descriptionImg.sprite == null) {
+                descriptionImg.sprite = emptySprite;
+            }
+        }
     }
 
     // Using mouse LEFT click to select a slot
     // Only one slot will be indicated as selected
     private void OnLeftClick()
     {
+        Debug.Log("[*]You left clicked!");
         inventoryManager.RefeshInventory();
-        selectedSlot.SetActive(true);
-        itemSelected = true;
 
-        // For the description side of the inventory
-        descriptionName.text = itemName;
-        descriptionText.text = itemDescription;
-        descriptionImg.sprite = itemSprite;
+        // If a slot is empty, player should not be able to do anything with it
+        // (which it shouldn't highlight selected slot if empty)
+        if(quantity == 0) {
+            selectedSlot.SetActive(false);
+            itemSelected = false;
+        }
+        else {
+            // Selected slot is highlighted and information about selected item
+            // will be displayed in the description section
+            selectedSlot.SetActive(true);
+            itemSelected = true;
 
-        if (descriptionImg.sprite == null) {
-            descriptionImg.sprite = emptySprite;
+            // For the description side of the inventory
+            descriptionName.text = itemName;
+            descriptionText.text = itemDescription;
+            descriptionImg.sprite = itemSprite;
+
+            if(descriptionImg.sprite == null) {
+                descriptionImg.sprite = emptySprite;
+            }
         }
     }
 
-    /*
+    // Slot is empty, no information will be displayed
     private void EmptySlot() {
         quantityText.enabled = false;
         itemImage.sprite = emptySprite;
 
-        descriptionName.text = "";
-        descriptionText.text = "";
-        descriptionImg.sprite = itemSprite;
+        descriptionName.text = emptyText;
+        descriptionText.text = emptyText;
+        descriptionImg.sprite = emptySprite;
 
+        selectedSlot.SetActive(false);
+        itemSelected = false;
     }
-    */
 }

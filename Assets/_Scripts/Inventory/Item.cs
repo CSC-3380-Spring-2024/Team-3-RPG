@@ -14,7 +14,7 @@ public class Item : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision) {
         // Make sure to tag player sprite as "Player" in Inspector
         // If the object touches "Player", item will be added into inventory
-        if(collision.gameObject.name == "Player") {
+        if(collision.gameObject.CompareTag("Player")) {
             int maxStackItem = inventoryManager.AddItem(itemSO.itemName, itemSO.quantity, itemSO.itemSprite, itemSO.itemDescription);
             if(maxStackItem <= 0)
                 Destroy(gameObject);

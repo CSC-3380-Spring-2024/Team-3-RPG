@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Panera's Charged Lemonade
   m_EditorClassIdentifier: 
   itemName: Charged Lemon
-  itemType: 1
+  itemType: 0
   quantity: 1
   itemSprite: {fileID: 21300000, guid: 7e2b5b5479be2439cb222ec9f08fbd89, type: 3}
   itemDescription: A refreshing elixir infused with the zest of citrus and the revitalizing
     energy of the sun. Quench your thirst and invigorate your spirit with each electrifying
     sip.
-  restoreHealth: 0
-  attackBonus: 0
+  restoreHealth: 5
+  attackBonus: 20
+  debuffDmg: 2

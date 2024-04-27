@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Monster Energy Drink
   m_EditorClassIdentifier: 
   itemName: Monstre Drink
-  itemType: 1
+  itemType: 0
   quantity: 1
   itemSprite: {fileID: 21300000, guid: 289df3f095781406fac0ca32f856c40b, type: 3}
   itemDescription: A can pulsating with neon energy, promising to awaken the inner
     beast within. Consume with caution, for its electrifying effects may grant a
     surge of vitality, but at the cost of an impending crash.
   restoreHealth: 0
-  attackBonus: 0
+  attackBonus: 25
+  debuffDmg: 5

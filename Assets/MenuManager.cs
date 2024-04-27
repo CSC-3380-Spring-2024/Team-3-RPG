@@ -1,16 +1,13 @@
-using System;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 // using UnityEngine.SceneManagement;  // Use later when there's a main menu screen
 
 /* HUD management: world map, inventory, pause screen
     This is also mostly inventory management (sorry, i just dumped it here) */
 public class MenuManager : MonoBehaviour
 {
-    // Game object in Unity Scene (Look at Inspector)
+    // Game object in Unity Scene (Look at Inspector under "Canvas" in Hierarchy)
     public GameObject pausePanel;
-    // public GameObject inventoryPanel;
+    public GameObject inventoryPanel;
     public GameObject mapPanel;
 
     // Declare and initialize variables for game state
@@ -20,11 +17,7 @@ public class MenuManager : MonoBehaviour
 
     /* INVENTORY DATA */
     public ItemSlot[] itemSlot;     // Number of slots avaliable in inventory
-    // public ItemSO[] itemSO;
-    // public Image descriptionImg;
-    // public Sprite emptySprite;
-    // public TMP_Text descriptionName;
-    // public TMP_Text descriptionText;
+    public ItemSO[] itemSO;         // Item Scriptable Objects
 
     // Player may either click the buttons
     // OR press a key on keyboard to pull up the menu
@@ -103,13 +96,18 @@ public class MenuManager : MonoBehaviour
         isInvenOpen = false;
     }
 
-    // public void UseItem(string itemName) {
-    //     // Looks through SO array
-    //     for(int i = 0; i < itemSO.Length; i++) {
-    //         if(itemSO[i].itemName == itemName)
-    //             itemSO[i].UseItem();
-    //     }
-    // }
+    // Use the items in the player's inventory
+    public bool UseItem(string itemName) {
+        // Looks through array of Scriptable Objects items
+        for(int i = 0; i < itemSO.Length; i++) {
+            if(itemSO[i].itemName == itemName) {
+                bool usable = itemSO[i].UseItem();
+                return usable;
+            }
+        }
+
+        return false;
+    }
 
     // Adds item into player's inventory
     public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription)
@@ -140,7 +138,6 @@ public class MenuManager : MonoBehaviour
             itemSlot[i].descriptionText.text = itemSlot[i].emptyText;
         }
     }
-
 
     /******************************************/
     /*              WORLD MAP                 */

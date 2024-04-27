@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Beer
   m_EditorClassIdentifier: 
   itemName: Beer
-  itemType: 1
+  itemType: 0
   quantity: 1
   itemSprite: {fileID: 21300000, guid: e3038e4d16fd949cdbdb07dad8ac4764, type: 3}
   itemDescription: A frothy mug filled with the amber nectar of celebration and camaraderie.
     Imbibe responsibly, for its intoxicating influence may blur the lines between
     revelry and regret.
   restoreHealth: 0
-  attackBonus: 0
+  attackBonus: 10
+  debuffDmg: 5

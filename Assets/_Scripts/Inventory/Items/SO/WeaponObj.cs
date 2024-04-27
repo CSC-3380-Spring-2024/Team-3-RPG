@@ -11,4 +11,13 @@ public class WeaponObj : ItemSO
     // public void Awake() {
     //     itemType = ItemType.Weapon;
     // }
+
+    /****************************************************/
+    /* IT'S UP TO RICKY IF HE WANTS TO USE THIS OR NOT. */
+    /* REMEMBER TO REMOVE THIS BEFORE SUBMITTING FINAL  */
+    /* CODE                                             */
+    /****************************************************/
+    // public override bool UseItem() {
+    //     return true;
+    // }
 }
