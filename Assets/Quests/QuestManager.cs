@@ -3,35 +3,54 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    // List of quests
+    // instance of QuestManager
+    public static QuestManager Instance{get; private set;}
+
+    // list of quests
     public List<Quest> quests = new List<Quest>();
 
-
-    void Update()
+    // function to start at beginning of game to make sure there is only one instance
+    // of this manager
+    private void Awake()
     {
-        // Add quests to the list here
-        //AddQuest("Touch Grass!", "Go to the grassy area.");
+        if (Instance == null)
+        {
+            Instance = this;
+            // ensures persistence across scenes
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            // destroys any duplicate instances
+            Destroy(gameObject);
+        }
     }
 
-    public void AddQuest(string name, string description)
+    // function to add quest to the quest list
+    public void AddQuest(Quest questToAdd)
     {
-        Quest newQuest = new Quest(name, description);
-        quests.Add(newQuest);
+        if (!quests.Contains(questToAdd))
+        {
+            quests.Add(questToAdd);
+            Debug.Log($"Quest '{questToAdd.questName}' added to the list.");
+        }
     }
 
-    // Method to complete a quest
+    // function to complete a quest
+    // it looks in the quest list to find a matching title
+    // if it finds one, it completes the quest and the removes it from the list
     public void CompleteQuest(string title)
     {
         Quest quest = quests.Find(q => q.questName == title);
         if (quest != null)
         {
-            Debug.Log("YOU HAVE COMPLETED THE QUEST: " + quest.questName);
             quest.CompleteQuest();
             quests.Remove(quest);
+            // Debug.Log($"Quest '{title}' completed and removed from the list.");
         }
         else
         {
-            Debug.Log("Quest not found.");
+            // Debug.LogError($"Quest '{title}' not found.");
         }
     }
 }

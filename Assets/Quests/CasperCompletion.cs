@@ -1,30 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCInteraction : MonoBehaviour
+public class CasperCompletion : MonoBehaviour
 {
-    // flag to determine if the player is in range
-    public bool isPlayerInRange = false;
-
-    // specific quest to give to player
-    public Quest questToActivate;
-
     // QuestManager reference
     private QuestManager questManager;
 
+    // name of the quest to complete
+    public string questToComplete;
+
+    // flag to determine if the player is in range
+    public bool isPlayerInRange = false;
+
+    // function to ensure the QuestManager is initialized
     private void Awake()
     {
         questManager = QuestManager.Instance;
     }
 
+    // function to constantly check if the player is in range and has pressed E
+    // if true, completes this specific quest
     private void Update()
     {
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            if (questManager != null && !questManager.quests.Contains(questToActivate))
+            if (questManager != null)
             {
-                questManager.AddQuest(questToActivate);
-                Debug.Log($"Quest '{questToActivate}' has been accepted!");
-                this.enabled = false;
+                questManager.CompleteQuest(questToComplete);
+                Debug.Log($"Quest '{questToComplete}' has been completed");
             }
         }
     }
