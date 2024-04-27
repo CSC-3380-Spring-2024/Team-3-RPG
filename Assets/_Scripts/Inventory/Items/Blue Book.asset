@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e01b911780c754a7cb8e6d85c6af27a4, type: 3}
+  m_Name: Blue Book
+  m_EditorClassIdentifier: 
+  itemName: Blue Book
+  itemType: 2
+  quantity: 1
+  itemSprite: {fileID: 21300000, guid: 0cfc3f6f54a924ec28dfb3f04e355ae3, type: 3}
+  itemDescription: A blank canvas awaiting the ink of knowledge and the strokes of
+    scholarly insight. Enter its pages with trepidation, for within lies the challenge
+    of examination and the opportunity to prove one's academic mettle.

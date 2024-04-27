@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
+// using UnityEngine.SceneManagement;  // Use later when there's a main menu screen
 
-// Use later when there's a main menu screen
-// using UnityEngine.SceneManagement;
-
+/* HUD management: world map, inventory, pause screen
+    This is also mostly inventory management (sorry, i just dumped it here) */
 public class MenuManager : MonoBehaviour
 {
     // Game object in Unity Scene (Look at Inspector)
@@ -14,6 +15,9 @@ public class MenuManager : MonoBehaviour
     private static bool isPaused = false;
     private static bool isInvenOpen = false;
     private static bool isMapOpen = false;
+
+    /* INVENTORY DATA */
+    public ItemSlot[] itemSlot;     // Number of slots avaliable in inventory
 
     // Player may either click the buttons
     // OR press a key on keyboard to pull up the menu
@@ -57,7 +61,6 @@ public class MenuManager : MonoBehaviour
 
     // Stops current game state
     public void PauseGame() {
-        Debug.Log("[*]GAME ON PAUSED...");
         pausePanel.SetActive(true);    // Enables GameObject
         Time.timeScale = 0f;           // Complete freezes the game
         isPaused = true;
@@ -80,18 +83,44 @@ public class MenuManager : MonoBehaviour
     /******************************************/
     // Opens inventory menu
     public void OpenInven() {
-        Debug.Log("[*]OPENNING INVENTORY...");
         inventoryPanel.SetActive(true);
         Time.timeScale = 0f;
         isInvenOpen = true;
+        DeselectAllSlots();
     }
 
     // Closes inventory menu
     public void CloseInven() {
-        Debug.Log("[*]CLOSING INVENTORY...");
         inventoryPanel.SetActive(false);
         Time.timeScale = 1f;
         isInvenOpen = false;
+    }
+
+    // Adds item into player's inventory
+    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription)
+    {
+        // Loops though slots in inventory
+        for(int i = 0; i < itemSlot.Length; i++)
+            // Adds item into a slot if there's an empty slot
+            if(itemSlot[i].isFull == false && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0) {
+                int maxStackItem = itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription);
+
+                if(maxStackItem > 0)   // There is leftover items
+                    maxStackItem = AddItem(itemName, maxStackItem, itemSprite, itemDescription);
+                // or just use return for a single slot holding one item (like zelda's inven)
+                return maxStackItem;
+            }
+        
+        return quantity;
+    }
+
+    // Only one slot can be selected at a time
+    public void DeselectAllSlots() {
+        for (int i = 0; i < itemSlot.Length; i++)
+        {
+            itemSlot[i].selectedSlot.SetActive(false);
+            itemSlot[i].itemSelected = false;
+        }
     }
 
     /******************************************/
@@ -99,14 +128,12 @@ public class MenuManager : MonoBehaviour
     /******************************************/
     // Opens map
     public void OpenMap() {
-        Debug.Log("[*]OPENNING MAP...");
         mapPanel.SetActive(true);
         isMapOpen = true;
     }
 
     // Closes map 
     public void CloseMap() {
-        Debug.Log("[*]CLOSING MAP...");
         mapPanel.SetActive(false);
         isMapOpen = false;
     }
