@@ -4,24 +4,34 @@ using UnityEngine;
 
 public class WeaponObject : MonoBehaviour //purpose is to handle animation essentially
 {
-    [SerializeField]
-    private WeaponData weapon;
+    public WeaponData weapon;
     private SpriteRenderer render;
 
     [SerializeField]
     private Animator anim;
 
-    private bool inAttack = false;
+    public bool inAttack;
 
     //for weapon floating
     private Transform originalLocation;
     private Transform targetLocation;
+    private bool isFloating = false;
 
+    private void Start()
+    {
+        inAttack = false;
+    }
     public void BeginAbilityAnimation(int id, CombatEnemy enemy) //id is 0 or 1
     {
-        if (inAttack) return;
+        if (inAttack)
+        {
+            Debug.Log("already in attack");
+            return;
+        }
 
         inAttack = true;
+
+        Debug.Log(weapon.abilityList[id].name);
 
         if (weapon.isRanged)
         {
@@ -29,15 +39,27 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
         }
         else
         {
+            Debug.Log("called");
             originalLocation = transform;
             targetLocation = enemy.GetComponentInParent<Transform>();
-            StartCoroutine(FloatToEnemy());
+            //StartCoroutine(FloatToPosition(transform.position, enemy.transform.position));
+            anim.SetTrigger(weapon.abilityList[id].name);
         }
     }
 
-    IEnumerator FloatToEnemy()
+    public IEnumerator FloatToPosition(Vector3 original, Vector3 target)
     {
-        return null;
+        if (isFloating) yield break;
+        isFloating = true;
+
+        while (transform.position != target)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target, 0.5f);
+            yield return null;
+        }
+
+        transform.position = target; //just in case
+        isFloating = false;
     }
 
     public void Activate(int id) //called via animation events
@@ -45,7 +67,7 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
         weapon.abilityList[id].OnActivated();
     }
 
-    void ReturnToIdle()
+    void ReturnToIdle() //called via animation events
     {
         anim.SetTrigger("Idle");
         inAttack = false;

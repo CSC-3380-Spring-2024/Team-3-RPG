@@ -104,15 +104,15 @@ public class CombatEnemy : CombatEntity
             return;
         }
         if (CombatSystem.instance.selectedEnemy == gameObject) Deselect();
-        Debug.Log("selected");
+        //Debug.Log("selected");
         render.color = Color.red;
-        Debug.Log(render.color.ToString());
+        //Debug.Log(render.color.ToString());
         CombatSystem.instance.setEnemy(this);
     }
 
     public void Deselect()
     {
-        Debug.Log("unselected");
+        //Debug.Log("unselected");
         render.color = originalColor;
         CombatSystem.instance.unsetEnemy();
     }

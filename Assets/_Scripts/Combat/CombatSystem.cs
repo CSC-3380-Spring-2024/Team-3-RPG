@@ -32,7 +32,7 @@ public class CombatSystem : MonoBehaviour
     public WeaponObject currentWeapon;
 
     public int currentWeaponIndex;
-    private int numOfWeapons;
+    public int numOfWeapons;
 
     public CombatEnemy selectedEnemy;
 
@@ -66,7 +66,6 @@ public class CombatSystem : MonoBehaviour
             if (weapons[i] == null) break;
             numOfWeapons++;
         }
-
     }
 
     // Start is called before the first frame update

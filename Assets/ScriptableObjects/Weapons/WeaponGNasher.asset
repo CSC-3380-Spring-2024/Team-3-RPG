@@ -17,5 +17,6 @@ MonoBehaviour:
   selectedSprite: {fileID: 0}
   abilityList:
   - {fileID: 11400000, guid: 4aec5eda03df6454ea216473ff80bc7c, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 4ec96ceb74b114f0b9db4024bc366207, type: 2}
   didAction: 0
+  isRanged: 0
