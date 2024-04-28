@@ -3405,7 +3405,17 @@ MonoBehaviour:
   - {fileID: 1121197505}
   - {fileID: 1208253967}
   - {fileID: 59512697}
-  itemSO: []
+  itemSO:
+  - {fileID: 11400000, guid: 4b3972d6309c14eeab89f78c944aceb6, type: 2}
+  - {fileID: 11400000, guid: b4444e26032bc47e3987eda4fee0f7d0, type: 2}
+  - {fileID: 11400000, guid: 038e3a978d783402e89ad72ae8738164, type: 2}
+  - {fileID: 11400000, guid: 94a83cff7359e4c7aaa50b16290f5cb8, type: 2}
+  - {fileID: 11400000, guid: 3de27ff9234ad4d939271be9145483b5, type: 2}
+  - {fileID: 11400000, guid: b4ba661a52b104e9f88002880057048b, type: 2}
+  - {fileID: 11400000, guid: 653dac6617db94724bcd2beb4f3865da, type: 2}
+  - {fileID: 11400000, guid: 585afb73cd1d94969890ff1359ef0f07, type: 2}
+  - {fileID: 11400000, guid: 0472bf9047a9d40b285105c9f73dda82, type: 2}
+  - {fileID: 11400000, guid: a08a0238954834a289710b9af2cc33fb, type: 2}
 --- !u!114 &938210675
 MonoBehaviour:
   m_ObjectHideFlags: 0

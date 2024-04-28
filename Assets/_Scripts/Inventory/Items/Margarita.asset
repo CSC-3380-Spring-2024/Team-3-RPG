@@ -16,10 +16,14 @@ MonoBehaviour:
   itemType: 0
   quantity: 1
   itemSprite: {fileID: 21300000, guid: f0d7176010bb54fc9a9acf6e8279f9ee, type: 3}
-  itemDescription: A cocktail inspired by the enigmatic teachings of Sister Cindy,
-    blending tangy lime with a hint of righteous fervor. Consume with contemplation,
-    for its potent mix of spirituality and spirits may lead to profound revelations
-    or irreverent revelry.
+  itemDescription: '"If you buy her one margarita, she will spread her legs.
+
+    If
+    you buy her two margaritas, she will pounce right on your ---"
+
+
+    [Attack
+    +50]'
   restoreHealth: 0
   attackBonus: 50
-  debuffDmg: 50
+  debuffDmg: 0

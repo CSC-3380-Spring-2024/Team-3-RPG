@@ -16,9 +16,14 @@ MonoBehaviour:
   itemType: 0
   quantity: 1
   itemSprite: {fileID: 21300000, guid: 18ff7a483302e40eba3729d08a00f7f7, type: 3}
-  itemDescription: 'One Love
+  itemDescription: 'A box combo: 4 chicken fingers, crinkle-cut fries, Cane''s sauce,
+    Texas toast, coleslaw, and a cup of fountain drink your choice.
 
-'
+    ONE LOVE!
+
+
+    [Heal
+    +50]'
   restoreHealth: 50
   attackBonus: 0
   debuffDmg: 0

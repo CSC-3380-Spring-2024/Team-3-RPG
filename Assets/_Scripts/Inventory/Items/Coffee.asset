@@ -16,9 +16,8 @@ MonoBehaviour:
   itemType: 0
   quantity: 1
   itemSprite: {fileID: 21300000, guid: 33423b83357fc428bab4c08ad3e43145, type: 3}
-  itemDescription: A steaming cup of liquid ambition, swirling with the dark hues
-    of roasted determination. Consume to fuel the fires of productivity, but beware
-    the addictive embrace of its caffeinated embrace.
-  restoreHealth: 7
-  attackBonus: 7
+  itemDescription: "That assignment you said you'll do tomorrow? \nIt's due today.\n\n
+    [Attack +10]"
+  restoreHealth: 10
+  attackBonus: 10
   debuffDmg: 0

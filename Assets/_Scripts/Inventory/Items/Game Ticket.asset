@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Game Ticket
   m_EditorClassIdentifier: 
   itemName: Game Ticket
-  itemType: 2
+  itemType: 1
   quantity: 1
   itemSprite: {fileID: 21300000, guid: 400a8f8e4f609462898904a9fcf79111, type: 3}
-  itemDescription: A coveted token granting entry to the arena of athletic prowess
-    and collegiate camaraderie. Hold tight to this ticket, for within its folds lies
-    the promise of victory, defeat, and memories forged in the crucible of competition.
+  itemDescription: T-I-G-E-R-S! Tigers!

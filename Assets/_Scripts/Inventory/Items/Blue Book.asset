@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Blue Book
   m_EditorClassIdentifier: 
   itemName: Blue Book
-  itemType: 2
+  itemType: 1
   quantity: 1
   itemSprite: {fileID: 21300000, guid: 0cfc3f6f54a924ec28dfb3f04e355ae3, type: 3}
-  itemDescription: A blank canvas awaiting the ink of knowledge and the strokes of
-    scholarly insight. Enter its pages with trepidation, for within lies the challenge
-    of examination and the opportunity to prove one's academic mettle.
+  itemDescription: Let's just hope there's a curve on the grade...
