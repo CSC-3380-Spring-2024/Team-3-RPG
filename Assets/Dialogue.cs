@@ -9,11 +9,14 @@ public class Dialogue : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public IntroductionPrompt IntroductionPrompt;
     public GiveQuestPrompt GiveQuestPrompt;
+    public SisterCindy SisterCindy;
     public float textSpeed = 0.05f; // Default text speed value
-
     private string[] introductionLines;
     private string[] giveQuestLines;
+    private string[] sisterCindylines;
     private bool introCompleted = false; // Indicates if the intro dialogue is completed
+    private bool giveQuestCompleted = false;
+    private bool sisterCindyCompleted = false;
     private bool waitingForSpace = false; // Indicates if the script is waiting for space bar input
     private bool instantFinish = false;
 
@@ -21,6 +24,7 @@ public class Dialogue : MonoBehaviour
     {
         introductionLines = IntroductionPrompt.lines;
         giveQuestLines = GiveQuestPrompt.lines;
+        sisterCindylines = SisterCindy.lines;
 
         StartCoroutine(ShowIntroduction());
     }
@@ -31,19 +35,26 @@ public class Dialogue : MonoBehaviour
         {
             // If waiting for space and space bar is pressed, proceed to the next line
             waitingForSpace = false;
-            NextLine();
+            //NextLine();
         }
         if (instantFinish == false && Input.GetKeyDown(KeyCode.Space))
         {
             instantFinish = true;
         }
 
+        if (Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted)
+        {
+            // If intro is completed and "E" is pressed, proceed to the give quest prompt
+            StartCoroutine(ShowSisterCindy());
+        }
+
         // Check for "E" key to proceed to the give quest prompt
-        if (Input.GetKeyDown(KeyCode.E) && introCompleted)
+        else if (Input.GetKeyDown(KeyCode.E) && introCompleted)
         {
             // If intro is completed and "E" is pressed, proceed to the give quest prompt
             StartCoroutine(ShowGiveQuest());
         }
+
     }
 
     IEnumerator ShowIntroduction()
@@ -118,14 +129,63 @@ public class Dialogue : MonoBehaviour
         }
 
         // Hide the dialogue box when the give quest lines are finished
-        dialogueBox.SetActive(false);
+        //dialogueBox.SetActive(false);
+        giveQuestCompleted = true;
     }
 
-    void NextLine()
+    IEnumerator ShowSisterCindy()
     {
-        if (introCompleted)
+        dialogueBox.SetActive(true); // Activate the dialogue box
+
+        // Display the introduction lines
+        for (int i = 0; i < sisterCindylines.Length; i++)
         {
-            StartCoroutine(ShowGiveQuest());
+            textComponent.text = string.Empty;
+            instantFinish = false;
+
+            // Display the current line character by character
+            foreach (char c in sisterCindylines[i].ToCharArray())
+            {
+                textComponent.text += c;
+                yield return new WaitForSeconds(textSpeed); // Use textSpeed variable
+                if (instantFinish == true)
+                {
+                    break;
+                }
+            }
+            Debug.Log(sisterCindylines[i]);
+            textComponent.text = sisterCindylines[i];
+
+
+            // Wait for a short delay after displaying each line
+            //yield return new WaitForSeconds(1f);
+
+            // Set waiting for space to true after displaying the line
+            waitingForSpace = true;
+
+            // Wait until space bar is pressed to proceed to the next line
+            while (waitingForSpace)
+            {
+                yield return null;
+            }
         }
+
+        // Hide the dialogue box when the introduction lines are finished
+        sisterCindyCompleted = true;
+        dialogueBox.SetActive(false);
+
     }
+
+    // void NextLine()
+    // {
+    //     if (introCompleted && giveQuestCompleted)
+    //     {
+    //         StartCoroutine(ShowSisterCindy());
+    //     }
+    //     else if (introCompleted)
+    //     {
+    //         StartCoroutine(ShowGiveQuest());
+    //     }
+
+    // }
 }
