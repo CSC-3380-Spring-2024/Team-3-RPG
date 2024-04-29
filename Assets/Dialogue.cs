@@ -2,109 +2,104 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
     public GameObject dialogueBox; // Reference to the GameObject containing the dialogue box UI elements
-    public Button yourButton; // Reference to your intro button
-    public Button giveQuestButton; // Reference to your give quest button
     public TextMeshProUGUI textComponent;
-    private int currentLineIndex; // Index of the current line within the prompt
-    private Coroutine typingCoroutine; // Reference to the typing coroutine
     public IntroductionPrompt IntroductionPrompt;
     public GiveQuestPrompt GiveQuestPrompt;
-    string[] introductionLines = IntroductionPrompt.lines;
-
-    // Accessing the lines array of the give quest prompt
-    string[] giveQuestLines = GiveQuestPrompt.lines;
+    public SisterCindy SisterCindy;
+    public float textSpeed = 0.05f; // Default text speed value
+    private string[] introductionLines;
+    private string[] giveQuestLines;
+    private string[] sisterCindylines;
+    private bool introCompleted = false; // Indicates if the intro dialogue is completed
+    private bool giveQuestCompleted = false;
+    private bool sisterCindyCompleted = false;
+    private bool waitingForSpace = false; // Indicates if the script is waiting for space bar input
+    private bool instantFinish = false;
 
     void Start()
     {
-        if (dialogueBox != null)
-        {
-            dialogueBox.SetActive(false);
-            // we dont need the dialogue box until 
-        }
+        introductionLines = IntroductionPrompt.lines;
+        giveQuestLines = GiveQuestPrompt.lines;
+        sisterCindylines = SisterCindy.lines;
 
-        if (yourButton != null)
-        {
-            yourButton.onClick.AddListener(() => StartDialogue(introductionLines));
-            Debug.Log("start button is clicked");
-        }
-
+        StartCoroutine(ShowDialogue(introductionLines));
     }
 
     void Update()
     {
-        if (giveQuestButton != null)
+        if (waitingForSpace && Input.GetKeyDown(KeyCode.Space))
         {
-            giveQuestButton.onClick.AddListener(() => StartDialogue(giveQuestLines));
-            Debug.Log("quest button is clicked");
+            // If waiting for space and space bar is pressed, proceed to the next line
+            waitingForSpace = false;
+            //NextLine();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (instantFinish == false && Input.GetKeyDown(KeyCode.Space))
         {
-            // Check if there's an ongoing typing coroutine
-            if (typingCoroutine != null)
-            {
-                StopCoroutine(typingCoroutine);
-            }
+            instantFinish = true;
+        }
 
-            // Proceed to the next line or prompt
-            NextLine(introductionLines);
+        if (Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted)
+        {
+            // If intro is completed and "E" is pressed, proceed to the give quest prompt
+            StartCoroutine(ShowDialogue(sisterCindylines));
         }
+
+        // Check for "E" key to proceed to the give quest prompt
+        else if (Input.GetKeyDown(KeyCode.E) && introCompleted)
+        {
+            // If intro is completed and "E" is pressed, proceed to the give quest prompt
+            StartCoroutine(ShowDialogue(giveQuestLines));
+        }
+
     }
-
-    public void StartDialogue(string[] linesArray)
+    IEnumerator ShowDialogue(string[] lines)
     {
         dialogueBox.SetActive(true); // Activate the dialogue box
 
-        // Start with the introduction prompt
-        currentLineIndex = 0;
-        typingCoroutine = StartCoroutine(TypeLine(linesArray));
-    }
-
-    void NextLine(string[] linesArray)
-    {
-
-        // Check if there are more lines in the current prompt
-        if (currentLineIndex < linesArray.Length - 1)
+        for (int i = 0; i < lines.Length; i++)
         {
-            // Move to the next line
-            currentLineIndex++;
-            typingCoroutine = StartCoroutine(TypeLine(giveQuestLines));
-        }
-        else
-        {
+            textComponent.text = string.Empty;
+            instantFinish = false;
 
-            // Hide the dialogue box when all lines are finished
-            dialogueBox.SetActive(false);
-
-        }
-    }
-
-    IEnumerator TypeLine(string[] linesArray)
-    {
-        textComponent.text = string.Empty;
-
-        // Display each line of the prompt one by one
-        for (int i = 0; i < linesArray.Length; i++)
-        {
             // Display the current line character by character
-            foreach (char c in linesArray[i].ToCharArray())
+            foreach (char c in lines[i].ToCharArray())
             {
                 textComponent.text += c;
-                yield return null; // Wait for one frame
+                yield return new WaitForSeconds(textSpeed); // Use textSpeed variable
+                if (instantFinish == true)
+                {
+                    break;
+                }
             }
+            textComponent.text = lines[i];
 
-            // Wait for a short delay after displaying each line
-            yield return new WaitForSeconds(1f);
-            textComponent.text = string.Empty;
-            //if i want to change between making it an enter or space do it here
+            // Set waiting for space to true after displaying the line
+            waitingForSpace = true;
+
+            // Wait until space bar is pressed to proceed to the next line
+            while (waitingForSpace)
+            {
+                yield return null;
+            }
         }
-        //dialogueBox.SetActive(false);
 
-        // After displaying all lines, move to the next prompt
-        //NextLine(giveQuestLines); this will make it go onto the give questlines
+        if (lines == introductionLines)
+        {
+            introCompleted = true;
+
+        }
+        else if (lines == giveQuestLines)
+        {
+            giveQuestCompleted = true;
+        }
+        else if (lines == sisterCindylines)
+        {
+            sisterCindyCompleted = true;
+            dialogueBox.SetActive(false);
+        }
     }
 }
