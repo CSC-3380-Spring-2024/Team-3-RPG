@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    private MenuManager inventoryManager;   // References MenuManager.cs
+    private HUDManager inventoryManager;   // References MenuManager.cs
     public ItemSO itemSO;                   // References ItemSO.cs
 
     void Start() {
-        inventoryManager = GameObject.Find("Canvas").GetComponent<MenuManager>();
+        inventoryManager = GameObject.Find("Canvas").GetComponent<HUDManager>();
     }
 
     // Item must have a Box Collider 2D for this to work

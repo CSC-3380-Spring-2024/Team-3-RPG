@@ -29,10 +29,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public GameObject selectedSlot;         // Game object in Unity Scene
     public bool itemSelected;               // Declare and initialize variables for game state
-    private MenuManager inventoryManager;   // Reference to MenuManager.cs
+    private HUDManager inventoryManager;   // Reference to MenuManager.cs
 
     private void Start() {;
-        inventoryManager = GameObject.Find("Canvas").GetComponent<MenuManager>();
+        inventoryManager = GameObject.Find("Canvas").GetComponent<HUDManager>();
     }
 
     // Sets the item data player obtained

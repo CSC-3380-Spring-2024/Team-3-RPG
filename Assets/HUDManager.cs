@@ -1,9 +1,9 @@
 using UnityEngine;
-// using UnityEngine.SceneManagement;  // Use later when there's a main menu screen
+using UnityEngine.SceneManagement;  
 
 /* HUD management: world map, inventory, pause screen
     This is also mostly inventory management (sorry, i just dumped it here) */
-public class MenuManager : MonoBehaviour
+public class HUDManager : MonoBehaviour
 {
     // Game object in Unity Scene (Look at Inspector under "Canvas" in Hierarchy)
     public GameObject pausePanel;
@@ -68,8 +68,7 @@ public class MenuManager : MonoBehaviour
 
     // Returns to the main menu
     public void MainMenu() {
-        // SceneManager.LoadScene("MainMenu");
-        Debug.Log("[*]RETURNING TO MAIN MENU...");
+        SceneManager.LoadScene("Menu");
     }
 
     // Turns off game completely
