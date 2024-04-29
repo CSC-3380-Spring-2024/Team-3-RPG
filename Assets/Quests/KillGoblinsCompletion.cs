@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CasperCompletion : MonoBehaviour
+public class KillGoblinsCompletion : MonoBehaviour
 {
     // QuestManager reference
     private QuestManager questManager;
@@ -22,33 +22,25 @@ public class CasperCompletion : MonoBehaviour
         questManager = QuestManager.Instance;
     }
 
-    // function to constantly check if the player is in range and has pressed E
-    // if true, completes this specific quest
     private void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E) && questManager != null && questManager.quests.Contains(questToComplete))
+        if(questToComplete.killCount == 5)
         {
             if (questManager.IsQuestComplete(prerequisiteQuest))
             {
-                if (!questManager.IsQuestComplete(questToComplete)) // Check if this quest isn't already complete
-                {
-                    questManager.CompleteQuest(questToComplete); // Complete the quest
-                    Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
-                    this.enabled = false;
-                }
-            }
-            else
-            {
-                Debug.Log($"Prerequisite quest '{prerequisiteQuest.questName}' is not completed.");
+                questManager.CompleteQuest(questToComplete);
+                Debug.Log("ALL GOBLINS DEFEATED");
+                this.enabled = false;
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (questManager.IsQuestComplete(prerequisiteQuest))
         {
-            isPlayerInRange = true;
+            QuestEvents.TriggerGoblinDeath(null);
+            Debug.Log("Killed a goblin!");
         }
     }
 
