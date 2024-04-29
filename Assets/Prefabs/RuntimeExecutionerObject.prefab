@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: d2cf08e9ec8674561878899d917ed09f, type: 2}
   anim: {fileID: 3329264076959300139}
+  inAttack: 0
 --- !u!95 &3329264076959300139
 Animator:
   serializedVersion: 5
@@ -113,7 +114,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: f7beef01b1129448e86f4d00d6976b5d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 

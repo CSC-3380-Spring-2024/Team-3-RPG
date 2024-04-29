@@ -13,7 +13,7 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField]
     private Transform parent;
 
-    private GameObject[] weapons; //stores the created weapons
+    public GameObject[] weapons; //stores the created weapons
     private Vector3[] weaponPositions; //all the weapon positionings for the orbit; initialized in DrawOrbit()
     private int index; //used to rotate weapons array
 
@@ -43,13 +43,19 @@ public class PlayerWeaponManager : MonoBehaviour
 
         weaponPositions = new Vector3[numOfWeapons];
         weapons = new GameObject[numOfWeapons];
+
+        for (int i = 0; i < numOfWeapons; i++)
+        {
+            weapons[i] = combatSystem.weapons[i];
+        }
         DrawOrbit();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    //// Update is called once per frame
+    //void Update()
+    //{
+    //    weapons[0].transform.RotateAround(transform.position, Vector3.forward, 0.4f);
+    //}
 
     void DrawOrbit() //draws the regular polygon for the weapon placement
     {
@@ -64,14 +70,19 @@ public class PlayerWeaponManager : MonoBehaviour
             weaponPositions[currentPoint] = new Vector3(x, y, 0) + parent.position;
 
             weapons[currentPoint] = Instantiate(CombatSystem.instance.weapons[currentPoint], weaponPositions[currentPoint], Quaternion.identity, transform);
-            weapons[currentPoint].transform.Translate(3f, 0, 0);
         }
     }
 
     public void RotateLeft()
     {
         if (isRotating) return; //if in the action of rotating, dont do it again
-        Debug.Log("rotate called");
+        isRotating = true;
+        StartCoroutine(RL());
+    }
+
+    IEnumerator RR()
+    {
+        Coroutine a = null;
         for (int i = weapons.Length - 1; i >= 0; i--) //perform the physical rotation
         {
             if (i - 1 < 0)
@@ -82,33 +93,88 @@ public class PlayerWeaponManager : MonoBehaviour
             {
                 index = i - 1;
             }
-            weapons[i].GetComponent<WeaponObject>().FloatToPosition(weapons[i].transform.position, weaponPositions[index]);
+            //weapons[i].GetComponent<WeaponObject>().FloatToPosition(weapons[i].transform.position, weaponPositions[index]);
+            a = StartCoroutine(Rotate(weapons[i], weaponPositions[index]));
         }
-        //weaponSlot.SetWeapon(combatSystem.currentWeapon);
+        yield return a;
+
+        GameObject temp;
+        GameObject replace = weapons[weapons.Length - 1];
+        for (int i = weapons.Length - 1; i >= 0; i--) //rotates the weapons array accordingly so they line up with the weaponspositions array
+        {
+            if (i - 1 < 0)
+            {
+                weapons[weapons.Length - 1] = replace;
+            }
+            else
+            {
+                temp = weapons[i - 1];
+                weapons[i - 1] = replace;
+                replace = temp;
+            }
+        }
+        isRotating = false;
+
     }
 
-    IEnumerator Rotate(GameObject obj, Vector3 original, Vector3 target)
+    public void RotateRight()
     {
-        Debug.Log("Rotating " + obj + " from " + original + " to " + target);
-        Debug.Log(obj.transform.position == target);
-
+        if (isRotating) return; //if in the action of rotating, dont do it again
         isRotating = true;
-        while (obj.transform.position != target)
+        StartCoroutine(RR());
+    }
+
+    IEnumerator RL()
+    {
+        Coroutine a = null;
+        for (int i = 0; i < weapons.Length; i++) //perform the physical rotation
         {
-            obj.transform.RotateAround(parent.position, Vector3.forward, 0.5f);
+            if (i + 1 >= weapons.Length)
+            {
+                index = 0;
+            }
+            else
+            {
+                index = i + 1;
+            }
+            //weapons[i].GetComponent<WeaponObject>().FloatToPosition(weapons[i].transform.position, weaponPositions[index]);
+            a = StartCoroutine(Rotate(weapons[i], weaponPositions[index]));
+        }
+        yield return a;
+
+        GameObject temp;
+        GameObject replace = weapons[0];
+        for (int i = 0; i < weapons.Length; i++) //rotates the weapons array accordingly so they line up with the weaponspositions array
+        {
+            if (i + 1 >= weapons.Length)
+            {
+                weapons[0] = replace;
+            }
+            else
+            {
+                temp = weapons[i + 1];
+                weapons[i + 1] = replace;
+                replace = temp;
+            }
+        }
+        isRotating = false;
+
+    }
+
+
+    IEnumerator Rotate(GameObject obj, Vector3 target)
+    {
+        //Debug.Log("Rotating " + obj + " from " + obj.transform.position + " to " + target);
+        //Debug.Log(obj.transform.position == target);
+
+        float speed = 5f * Time.deltaTime;
+
+        while (Vector3.Distance(obj.transform.position, target) > 0.1f)
+        {
+            obj.transform.position = Vector3.Lerp(obj.transform.position, target, 8f * Time.deltaTime);
             yield return null;
         }
 
         obj.transform.position = target; //just in case
-        Debug.Log(obj.transform);
-        isRotating = false;
-        yield return null;
     }
-
-    //public void rotateRight()
-    //{
-    //    combatSystem.SwapWeapon(1); //performs the actual game system rotation
-    //    weaponSlot.SetWeapon(combatSystem.currentWeapon);
-    //}
-
 }

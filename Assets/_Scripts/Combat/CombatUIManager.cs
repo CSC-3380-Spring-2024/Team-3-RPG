@@ -75,10 +75,11 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
         combatSystem.SwapWeapon(0); //performs the actual game system rotation
     }
 
-    //public void SelectRightWeapon()
-    //{
-    //    PlayerWeaponManager.instance.rotateRight();
-    //}
+    public void SelectRightWeapon()
+    {
+        PlayerWeaponManager.instance.RotateRight();
+        combatSystem.SwapWeapon(1); //performs the actual game system rotation
+    }
 
     public void SelectWeapon() //called when player chooses a weapon
     {

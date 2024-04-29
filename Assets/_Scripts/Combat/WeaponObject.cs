@@ -20,14 +20,15 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
     private void Start()
     {
         inAttack = false;
+        anim.enabled = true;
     }
     public void BeginAbilityAnimation(int id, CombatEnemy enemy) //id is 0 or 1
     {
-        if (inAttack)
-        {
-            Debug.Log("already in attack");
-            return;
-        }
+        //if (inAttack)
+        //{
+        //    Debug.Log("already in attack");
+        //    return;
+        //}
 
         inAttack = true;
 
@@ -42,7 +43,7 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
             Debug.Log("called");
             originalLocation = transform;
             targetLocation = enemy.GetComponentInParent<Transform>();
-            //StartCoroutine(FloatToPosition(transform.position, enemy.transform.position));
+            StartCoroutine(FloatToPosition(transform.position, enemy.transform.position));
             anim.SetTrigger(weapon.abilityList[id].name);
         }
     }
@@ -52,11 +53,11 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
         if (isFloating) yield break;
         isFloating = true;
 
-        while (transform.position != target)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, target, 0.5f);
-            yield return null;
-        }
+        //while (transform.position != target)
+        //{
+        //    transform.position = Vector3.MoveTowards(transform.position, target, 0.5f);
+        //    yield return null;
+        //}
 
         transform.position = target; //just in case
         isFloating = false;

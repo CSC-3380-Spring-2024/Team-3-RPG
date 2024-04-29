@@ -63,6 +63,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 4315228973898012070}
+  weapons:
+  - {fileID: 0}
 --- !u!1 &4315228975576643314
 GameObject:
   m_ObjectHideFlags: 0
