@@ -26,7 +26,7 @@ public class Dialogue : MonoBehaviour
         giveQuestLines = GiveQuestPrompt.lines;
         sisterCindylines = SisterCindy.lines;
 
-        StartCoroutine(ShowIntroduction());
+        StartCoroutine(ShowDialogue(introductionLines));
     }
 
     void Update()
@@ -45,30 +45,28 @@ public class Dialogue : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted)
         {
             // If intro is completed and "E" is pressed, proceed to the give quest prompt
-            StartCoroutine(ShowSisterCindy());
+            StartCoroutine(ShowDialogue(sisterCindylines));
         }
 
         // Check for "E" key to proceed to the give quest prompt
         else if (Input.GetKeyDown(KeyCode.E) && introCompleted)
         {
             // If intro is completed and "E" is pressed, proceed to the give quest prompt
-            StartCoroutine(ShowGiveQuest());
+            StartCoroutine(ShowDialogue(giveQuestLines));
         }
 
     }
-
-    IEnumerator ShowIntroduction()
+    IEnumerator ShowDialogue(string[] lines)
     {
         dialogueBox.SetActive(true); // Activate the dialogue box
 
-        // Display the introduction lines
-        for (int i = 0; i < introductionLines.Length; i++)
+        for (int i = 0; i < lines.Length; i++)
         {
             textComponent.text = string.Empty;
             instantFinish = false;
 
             // Display the current line character by character
-            foreach (char c in introductionLines[i].ToCharArray())
+            foreach (char c in lines[i].ToCharArray())
             {
                 textComponent.text += c;
                 yield return new WaitForSeconds(textSpeed); // Use textSpeed variable
@@ -77,11 +75,7 @@ public class Dialogue : MonoBehaviour
                     break;
                 }
             }
-            textComponent.text = introductionLines[i];
-
-
-            // Wait for a short delay after displaying each line
-            //yield return new WaitForSeconds(1f);
+            textComponent.text = lines[i];
 
             // Set waiting for space to true after displaying the line
             waitingForSpace = true;
@@ -93,99 +87,19 @@ public class Dialogue : MonoBehaviour
             }
         }
 
-        // Hide the dialogue box when the introduction lines are finished
-        //dialogueBox.SetActive(false);
-        introCompleted = true;
-    }
-
-    IEnumerator ShowGiveQuest()
-    {
-        dialogueBox.SetActive(true); // Activate the dialogue box
-
-        // Display the give quest lines
-        for (int i = 0; i < giveQuestLines.Length; i++)
+        if (lines == introductionLines)
         {
-            textComponent.text = string.Empty;
-            instantFinish = false;
+            introCompleted = true;
 
-            // Display the current line character by character
-            foreach (char c in giveQuestLines[i].ToCharArray())
-            {
-                textComponent.text += c;
-                yield return new WaitForSeconds(textSpeed); // Use textSpeed variable
-                if (instantFinish == true)
-                {
-                    break;
-                }
-            }
-            textComponent.text = giveQuestLines[i];
-
-            // Wait for a short delay after displaying each line
-            //yield return new WaitForSeconds(1f);
-            while (!Input.GetKeyDown(KeyCode.Space))
-            {
-                yield return null;
-            }
         }
-
-        // Hide the dialogue box when the give quest lines are finished
-        //dialogueBox.SetActive(false);
-        giveQuestCompleted = true;
-    }
-
-    IEnumerator ShowSisterCindy()
-    {
-        dialogueBox.SetActive(true); // Activate the dialogue box
-
-        // Display the introduction lines
-        for (int i = 0; i < sisterCindylines.Length; i++)
+        else if (lines == giveQuestLines)
         {
-            textComponent.text = string.Empty;
-            instantFinish = false;
-
-            // Display the current line character by character
-            foreach (char c in sisterCindylines[i].ToCharArray())
-            {
-                textComponent.text += c;
-                yield return new WaitForSeconds(textSpeed); // Use textSpeed variable
-                if (instantFinish == true)
-                {
-                    break;
-                }
-            }
-            Debug.Log(sisterCindylines[i]);
-            textComponent.text = sisterCindylines[i];
-
-
-            // Wait for a short delay after displaying each line
-            //yield return new WaitForSeconds(1f);
-
-            // Set waiting for space to true after displaying the line
-            waitingForSpace = true;
-
-            // Wait until space bar is pressed to proceed to the next line
-            while (waitingForSpace)
-            {
-                yield return null;
-            }
+            giveQuestCompleted = true;
         }
-
-        // Hide the dialogue box when the introduction lines are finished
-        sisterCindyCompleted = true;
-        dialogueBox.SetActive(false);
-
+        else if (lines == sisterCindylines)
+        {
+            sisterCindyCompleted = true;
+            dialogueBox.SetActive(false);
+        }
     }
-
-    // void NextLine()
-    // {
-    //     if (introCompleted && giveQuestCompleted)
-    //     {
-    //         StartCoroutine(ShowSisterCindy());
-    //     }
-    //     else if (introCompleted)
-    //     {
-    //         StartCoroutine(ShowGiveQuest());
-    //     }
-
-    // }
 }
