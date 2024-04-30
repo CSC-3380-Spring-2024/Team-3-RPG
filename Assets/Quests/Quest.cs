@@ -18,6 +18,9 @@ public class Quest : ScriptableObject
     // kill count
     public int killCount = 0;
 
+    // is the quest active
+    public bool isActive = false;
+
     // constructor for this quest
     public void Initialize(string name, string description, string[] dialogue)
     {
