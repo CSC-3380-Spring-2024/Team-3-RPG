@@ -32,10 +32,12 @@ public class QuestManager : MonoBehaviour
             Destroy(gameObject);
         }
         AddQuest(startingQuest);
+        ActivateQuest(startingQuest);
     }
 
     public void Start()
     {
+        goblinQuest.isActive = false;
         goblinQuest.killCount = 0;
     }
 
@@ -98,5 +100,36 @@ public class QuestManager : MonoBehaviour
         }
 
         return false; // If quest isn't in the dictionary, return false
+    }
+
+    // Function to activate a quest
+    public void ActivateQuest(Quest questToActivate)
+    {
+        if (questToActivate != null && !IsQuestActive(questToActivate))
+        {
+            questToActivate.isActive = true;
+            Debug.Log($"Quest '{questToActivate.questName}' is now active.");
+        }
+    }
+
+    // Function to deactivate a quest
+    public void DeactivateQuest(Quest questToDeactivate)
+    {
+        if (questToDeactivate != null && IsQuestActive(questToDeactivate))
+        {
+            questToDeactivate.isActive = false;
+            Debug.Log($"Quest '{questToDeactivate.questName}' has been deactivated.");
+        }
+    }
+
+    // New function similar to IsQuestComplete to check if a quest is active
+    public bool IsQuestActive(Quest questToCheck)
+    {
+        if (questToCheck != null)
+        {
+            return questToCheck.isActive; // Return the isActive status
+        }
+
+        return false; // If the quest is null, return false
     }
 }

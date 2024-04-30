@@ -16,3 +16,4 @@ MonoBehaviour:
   description: lsjdf
   dialogue: []
   killCount: 5
+  isActive: 0

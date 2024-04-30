@@ -33,6 +33,7 @@ public class CasperCompletion : MonoBehaviour
                 if (!questManager.IsQuestComplete(questToComplete)) // Check if this quest isn't already complete
                 {
                     questManager.CompleteQuest(questToComplete); // Complete the quest
+                    questManager.DeactivateQuest(questToComplete);
                     Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
                     this.enabled = false;
                 }
