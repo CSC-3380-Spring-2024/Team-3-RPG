@@ -10,23 +10,32 @@ public class Dialogue : MonoBehaviour
     public IntroductionPrompt IntroductionPrompt;
     public GiveQuestPrompt GiveQuestPrompt;
     public SisterCindy SisterCindy;
+    public TouchGrass TouchGrass;
     public float textSpeed = 0.05f; // Default text speed value
     private string[] introductionLines;
     private string[] giveQuestLines;
     private string[] sisterCindylines;
+    private string[] touchGrasslines;
     private bool introCompleted = false; // Indicates if the intro dialogue is completed
     private bool giveQuestCompleted = false;
     private bool sisterCindyCompleted = false;
     private bool waitingForSpace = false; // Indicates if the script is waiting for space bar input
     private bool instantFinish = false;
+    private QuestManager questManager;
+    public Quest questToCheck;
 
     void Start()
     {
         introductionLines = IntroductionPrompt.lines;
         giveQuestLines = GiveQuestPrompt.lines;
         sisterCindylines = SisterCindy.lines;
+        touchGrasslines = TouchGrass.lines;
 
         StartCoroutine(ShowDialogue(introductionLines));
+    }
+    private void Awake()
+    {
+        questManager = QuestManager.Instance;
     }
 
     void Update()
@@ -41,8 +50,13 @@ public class Dialogue : MonoBehaviour
         {
             instantFinish = true;
         }
+        if (questManager.IsQuestActive(questToCheck) && Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted && sisterCindyCompleted)
+        {
+            // If intro is completed and "E" is pressed, proceed to the give quest prompt
+            StartCoroutine(ShowDialogue(touchGrasslines));
+        }
 
-        if (Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted)
+        else if (Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted)
         {
             // If intro is completed and "E" is pressed, proceed to the give quest prompt
             StartCoroutine(ShowDialogue(sisterCindylines));
@@ -99,7 +113,7 @@ public class Dialogue : MonoBehaviour
         else if (lines == sisterCindylines)
         {
             sisterCindyCompleted = true;
-            dialogueBox.SetActive(false);
+            //dialogueBox.SetActive(false);
         }
     }
 }
