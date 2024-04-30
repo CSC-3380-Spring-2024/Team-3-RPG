@@ -26,6 +26,7 @@ public class QuestGiverJLD : MonoBehaviour
             if (questManager != null && !questManager.IsQuestComplete(questManager.startingQuest))
             {
                 questManager.CompleteQuest(questManager.startingQuest);
+                questManager.DeactivateQuest(questManager.startingQuest);
                 Debug.Log($"Quest '{questManager.startingQuest}' has been completed!");
             }
 
@@ -35,6 +36,7 @@ public class QuestGiverJLD : MonoBehaviour
                 if (questManager != null && !questManager.quests.Contains(quest1))
                 {
                     questManager.AddQuest(quest1);
+                    questManager.ActivateQuest(quest1);
                     Debug.Log($"Quest '{quest1}' has been accepted!");
                 }
 
@@ -43,6 +45,7 @@ public class QuestGiverJLD : MonoBehaviour
                 if (questManager.IsQuestComplete(quest1) && !questManager.quests.Contains(quest2))
                 {
                     questManager.AddQuest(quest2);
+                    questManager.ActivateQuest(quest2);
                     Debug.Log($"Quest '{quest2}' has been accepted!");
                 }
 
@@ -51,6 +54,7 @@ public class QuestGiverJLD : MonoBehaviour
                 if (questManager.IsQuestComplete(quest2) && !questManager.quests.Contains(quest3))
                 {
                     questManager.AddQuest(quest3);
+                    questManager.ActivateQuest(quest3);
                     Debug.Log($"Quest '{quest3}' has been accepted!");
                 }
 
@@ -59,6 +63,7 @@ public class QuestGiverJLD : MonoBehaviour
                 if (questManager.IsQuestComplete(quest3) && !questManager.quests.Contains(quest4))
                 {
                     questManager.AddQuest(quest4);
+                    questManager.ActivateQuest(quest4);
                     Debug.Log($"Quest '{quest4}' has been accepted!");
                     this.enabled = false;
                 }

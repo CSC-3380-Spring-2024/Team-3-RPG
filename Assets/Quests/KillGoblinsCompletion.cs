@@ -29,6 +29,7 @@ public class KillGoblinsCompletion : MonoBehaviour
             if (questManager.IsQuestComplete(prerequisiteQuest))
             {
                 questManager.CompleteQuest(questToComplete);
+                questManager.DeactivateQuest(questToComplete);
                 Debug.Log("ALL GOBLINS DEFEATED");
                 this.enabled = false;
             }
@@ -37,7 +38,7 @@ public class KillGoblinsCompletion : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (questManager.IsQuestComplete(prerequisiteQuest))
+        if (questManager.IsQuestActive(questToComplete))
         {
             QuestEvents.TriggerGoblinDeath(null);
             Debug.Log("Killed a goblin!");

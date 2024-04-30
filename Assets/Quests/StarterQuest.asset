@@ -15,3 +15,5 @@ MonoBehaviour:
   questName: Starting Quest!
   description: Talk to JLD.
   dialogue: []
+  killCount: 0
+  isActive: 0

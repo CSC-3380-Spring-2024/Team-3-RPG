@@ -17,4 +17,5 @@ MonoBehaviour:
   dialogue:
   - '"Soon after, you learn you are the fabled hero of a prophecy tasked to slay
     Mikhail, Beast of the Ancient, located in the Ruins of Tiger Colosseum"'
-  isComplete: 0
+  killCount: 0
+  isActive: 0
