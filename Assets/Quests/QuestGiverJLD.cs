@@ -33,7 +33,7 @@ public class QuestGiverJLD : MonoBehaviour
             else if(questManager.IsQuestComplete(questManager.startingQuest))
             {
                 // gives first quest
-                if (questManager != null && !questManager.quests.Contains(quest1))
+                if (questManager.IsQuestComplete(questManager.startingQuest) && !questManager.quests.Contains(quest1))
                 {
                     questManager.AddQuest(quest1);
                     questManager.ActivateQuest(quest1);

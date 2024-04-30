@@ -50,11 +50,6 @@ public class Dialogue : MonoBehaviour
         {
             instantFinish = true;
         }
-        if (questManager.IsQuestActive(questToCheck) && Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted && sisterCindyCompleted)
-        {
-            // If intro is completed and "E" is pressed, proceed to the give quest prompt
-            StartCoroutine(ShowDialogue(touchGrasslines));
-        }
 
         else if (Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted)
         {
@@ -69,7 +64,13 @@ public class Dialogue : MonoBehaviour
             StartCoroutine(ShowDialogue(giveQuestLines));
         }
 
+        if (questManager.IsQuestActive(questToCheck) && Input.GetKeyDown(KeyCode.E))
+        {
+            // If intro is completed and "E" is pressed, proceed to the give quest prompt
+            StartCoroutine(ShowDialogue(touchGrasslines));
+        }
     }
+    
     IEnumerator ShowDialogue(string[] lines)
     {
         dialogueBox.SetActive(true); // Activate the dialogue box
