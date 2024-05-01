@@ -32,7 +32,9 @@ public class Dialogue : MonoBehaviour
     public Quest vikingQuest;
     public Quest casperQuest;
     public Quest goblinQuest;
+    private bool dialogueRunning;
     public static Dialogue Instance { get; private set; }
+    private PlayerController playerController;
 
     private void Awake()
     {
@@ -49,14 +51,19 @@ public class Dialogue : MonoBehaviour
 
     void Start()
     {
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         introductionLines = IntroductionPrompt.lines;
         // giveQuestLines = GiveQuestPrompt.lines;
         sisterCindylines = SisterCindy.lines;
         touchGrasslines = TouchGrass.lines;
         vikingLines = Viking.lines;
         goblinLines = GoblinQuest.lines;
-
+        playerController.canMove = false;
         StartCoroutine(ShowDialogue(introductionLines));
+        if (introCompleted)
+        {
+            playerController.canMove = true;
+        }
 
     }
 
@@ -81,7 +88,6 @@ public class Dialogue : MonoBehaviour
             //Debug.Log("setting dialogue box to true-touch grass");
             // Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
             //dialogueBox.SetActive(true);
-            //ShowBox();
             //StartCoroutine(ShowDialogue(touchGrasslines));
             touchGrassGiven = true;
         }
@@ -105,6 +111,7 @@ public class Dialogue : MonoBehaviour
 
     public IEnumerator ShowDialogue(string[] lines)
     {
+        dialogueRunning = true;
         dialogueBox.SetActive(true); // Activate the dialogue box
                                      //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
 
@@ -131,14 +138,16 @@ public class Dialogue : MonoBehaviour
             // Wait until the space bar is pressed to proceed to the next line
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         }
+        dialogueRunning = false;
         dialogueBox.SetActive(false);
+        playerController.canMove = true;
 
 
-        // if (lines == introductionLines)
-        // {
-        //     introCompleted = true;
+        if (lines == introductionLines)
+        {
+            introCompleted = true;
 
-        // }
+        }
         // // else if (lines == giveQuestLines)
         // // {
         // //     giveQuestCompleted = true;
@@ -153,18 +162,15 @@ public class Dialogue : MonoBehaviour
         //dialogueBox.SetActive(true);
         //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
     }
-    public void ShowBox()
-    {
-        if (dialogueBox != null)
-        {
-            dialogueBox.SetActive(true); // Turn on the dialogue box
-            //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
-        }
-    }
+
     public void TriggerDialogue(string[] lines)
     {
         dialogueBox.SetActive(true);
-        StartCoroutine(ShowDialogue(lines));
+        if (dialogueRunning == false)
+        {
+            playerController.canMove = false;
+            StartCoroutine(ShowDialogue(lines));
+        }
     }
 
     private void HandleInput()

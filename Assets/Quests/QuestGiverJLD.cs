@@ -11,10 +11,6 @@ public class QuestGiverJLD : MonoBehaviour
     public Quest quest3;
     public Quest quest4;
 
-    private bool giveGoblin = false;
-    private bool giveGrass = false;
-    private bool giveViking = false;
-    private bool giveSister = false;
 
     // QuestManager reference
     private QuestManager questManager;
@@ -75,25 +71,21 @@ public class QuestGiverJLD : MonoBehaviour
             }
         }
 
-        if (questManager.IsQuestActive(quest1) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange && giveGrass == false)
+        if (questManager.IsQuestActive(quest1) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
             Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
-            giveGrass = true;
         }
-        if (questManager.IsQuestActive(quest2) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange && giveGoblin == false)
+        if (questManager.IsQuestActive(quest2) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
             Dialogue.Instance.TriggerDialogue(Dialogue.Instance.goblinLines);
-            giveGoblin = true;
         }
-        if (questManager.IsQuestActive(quest3) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange && giveViking == false)
+        if (questManager.IsQuestActive(quest3) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
             Dialogue.Instance.TriggerDialogue(Dialogue.Instance.vikingLines);
-            giveViking = true;
         }
-        if (questManager.IsQuestActive(quest4) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange && giveSister == false)
+        if (questManager.IsQuestActive(quest4) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
             Dialogue.Instance.TriggerDialogue(Dialogue.Instance.sisterCindylines);//i figured wed eventually make this sister cindy so i put her in for the casper one
-            giveSister = true;
         }
 
     }

@@ -13,24 +13,29 @@ public class PlayerController : MonoBehaviour
     public bool isMoving = false;
     private float timeToMove = 0.2f;
 
+    public bool canMove = true;
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W) && !isMoving)
+        if (canMove)
         {
-            MovePlayer(Vector3.up);
-        }
-        if (Input.GetKey(KeyCode.A) && !isMoving)
-        {
-            MovePlayer(Vector3.left);
-        }
-        if (Input.GetKey(KeyCode.S) && !isMoving)
-        {
-            MovePlayer(Vector3.down);
-        }
-        if (Input.GetKey(KeyCode.D) && !isMoving)
-        {
-            MovePlayer(Vector3.right);
+            if (Input.GetKey(KeyCode.W) && !isMoving)
+            {
+                MovePlayer(Vector3.up);
+            }
+            if (Input.GetKey(KeyCode.A) && !isMoving)
+            {
+                MovePlayer(Vector3.left);
+            }
+            if (Input.GetKey(KeyCode.S) && !isMoving)
+            {
+                MovePlayer(Vector3.down);
+            }
+            if (Input.GetKey(KeyCode.D) && !isMoving)
+            {
+                MovePlayer(Vector3.right);
+            }
         }
     }
 
@@ -60,7 +65,7 @@ public class PlayerController : MonoBehaviour
         Vector3 originalPosition = transform.position;
         Vector3 targetPosition = originalPosition + (Vector3)direction;
 
-        while(elapsedTime < timeToMove)
+        while (elapsedTime < timeToMove)
         {
             transform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / timeToMove)); //smooths the movement
             elapsedTime += Time.deltaTime;
