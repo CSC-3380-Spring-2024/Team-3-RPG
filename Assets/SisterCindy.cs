@@ -7,5 +7,7 @@ using UnityEngine;
 public class SisterCindy : ScriptableObject
 {
     public static string[] lines = { "Challenge Sister Cindy!", "Sister Cindy has been a nuisance to our grounds for far too long!", "Get rid of her and get me a margarita.", };   // Array of dialogue lines for this prompt
+
+    public static string[] sisterDone = { "you met cindy", "quest done" };
     public float textSpeed;  // Speed at which the text is displayed
 }

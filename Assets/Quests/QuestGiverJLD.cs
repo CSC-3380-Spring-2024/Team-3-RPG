@@ -28,6 +28,7 @@ public class QuestGiverJLD : MonoBehaviour
             {
                 questManager.CompleteQuest(questManager.startingQuest);
                 questManager.DeactivateQuest(questManager.startingQuest);
+                Dialogue.Instance.TriggerDialogue(IntroductionPrompt.introDone);
                 Debug.Log($"Quest '{questManager.startingQuest}' has been completed!");
             }
 
@@ -66,8 +67,13 @@ public class QuestGiverJLD : MonoBehaviour
                     questManager.AddQuest(quest4);
                     questManager.ActivateQuest(quest4);
                     Debug.Log($"Quest '{quest4}' has been accepted!");
-                    this.enabled = false;
+
                 }
+
+            }
+            if (questManager.IsQuestComplete(quest4))
+            {
+                this.enabled = false;
             }
         }
 
