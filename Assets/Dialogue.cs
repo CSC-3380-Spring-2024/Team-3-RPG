@@ -27,7 +27,20 @@ public class Dialogue : MonoBehaviour
     public Quest sisterCindyQuest;
     public Quest vikingQuest;
     public Quest casperQuest;
+    public static Dialogue Instance {get; private set;}
 
+    private void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            questManager = QuestManager.Instance;
+        }
+    }
 
     void Start()
     {
@@ -39,39 +52,37 @@ public class Dialogue : MonoBehaviour
         StartCoroutine(ShowDialogue(introductionLines));
 
     }
-    private void Awake()
-    {
-        questManager = QuestManager.Instance;
-    }
+
 
     void Update()
     {
-        if (waitingForSpace && Input.GetKeyDown(KeyCode.Space))
-        {
-            // If waiting for space and space bar is pressed, proceed to the next line
-            waitingForSpace = false;
-        }
-        if (instantFinish == false && Input.GetKeyDown(KeyCode.Space))
-        {
-            instantFinish = true;
-        }
+        HandleInput();
+        // if (waitingForSpace && Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     // If waiting for space and space bar is pressed, proceed to the next line
+        //     waitingForSpace = false;
+        // }
+        // if (instantFinish == false && Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     instantFinish = true;
+        // }
 
-        Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+        //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
         if (questManager.IsQuestActive(questToCheck) && Input.GetKeyDown(KeyCode.Q) && touchGrassGiven == false)
         {
             // If intro is completed and "E" is pressed, proceed to the give quest prompt
-            Debug.Log("setting dialogue box to true-touch grass");
-            Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
-            dialogueBox.SetActive(true);
-            ShowBox();
-            StartCoroutine(ShowDialogue(touchGrasslines));
+            //Debug.Log("setting dialogue box to true-touch grass");
+            // Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+            //dialogueBox.SetActive(true);
+            //ShowBox();
+            //StartCoroutine(ShowDialogue(touchGrasslines));
             touchGrassGiven = true;
         }
         else if (questManager.IsQuestActive(sisterCindyQuest) && Input.GetKeyDown(KeyCode.Q))
         {
-            dialogueBox.SetActive(true);
+            //dialogueBox.SetActive(true);
             // If intro is completed and "E" is pressed, proceed to the give quest prompt
-            StartCoroutine(ShowDialogue(sisterCindylines));
+            //StartCoroutine(ShowDialogue(sisterCindylines));
         }
         // else if (questManager.IsQuestActive(vikingQuest) && Input.GetKeyDown(KeyCode.E))
         // {
@@ -89,33 +100,32 @@ public class Dialogue : MonoBehaviour
     {
         dialogueBox.SetActive(true); // Activate the dialogue box
         //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+ 
 
-        for (int i = 0; i < lines.Length; i++)
+        // Display the current line character by character
+        foreach (string line in lines)
         {
-            textComponent.text = string.Empty;
-            instantFinish = false;
-
-            // Display the current line character by character
-            foreach (char c in lines[i].ToCharArray())
+            textComponent.text = ""; // Clear the text component at the start of each line
+            foreach (char c in line)
             {
-                textComponent.text += c;
-                yield return new WaitForSeconds(textSpeed); // Use textSpeed variable
-                if (instantFinish == true)
+                textComponent.text += c; // Add each character to the text component
+                if (instantFinish)
                 {
-                    break;
+                    // If the player presses space to finish the line instantly
+                    textComponent.text = line; // Display the full line immediately
+                    break; // Exit the character loop
                 }
+                yield return new WaitForSeconds(textSpeed); // Wait before showing the next character
             }
-            textComponent.text = lines[i];
 
-            // Set waiting for space to true after displaying the line
-            waitingForSpace = true;
+            instantFinish = false; // Reset the instant finish flag
+            waitingForSpace = true; // Wait for the player to press space to continue
 
-            // Wait until space bar is pressed to proceed to the next line
-            while (waitingForSpace)
-            {
-                yield return null;
-            }
+            // Wait until the space bar is pressed to proceed to the next line
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         }
+        dialogueBox.SetActive(false);
+
 
         // if (lines == introductionLines)
         // {
@@ -132,16 +142,38 @@ public class Dialogue : MonoBehaviour
         //     //dialogueBox.SetActive(false);
         // }
         //dialogueBox.SetActive(false);
-        Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+        //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
         //dialogueBox.SetActive(true);
-        Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+        //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
     }
     public void ShowBox()
     {
         if (dialogueBox != null)
         {
             dialogueBox.SetActive(true); // Turn on the dialogue box
-            Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+            //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+        }
+    }
+    public void TriggerDialogue(string[] lines)
+    {
+        dialogueBox.SetActive(true);
+        StartCoroutine(ShowDialogue(lines));
+    }
+
+    private void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (waitingForSpace)
+            {
+                // Proceed to the next line of dialogue if the space bar is pressed
+                waitingForSpace = false;
+            }
+            else
+            {
+                // Allow instant finishing of the current line
+                instantFinish = true;
+            }
         }
     }
 }

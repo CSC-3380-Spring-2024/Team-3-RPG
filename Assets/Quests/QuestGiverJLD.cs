@@ -69,6 +69,11 @@ public class QuestGiverJLD : MonoBehaviour
                 }
             }
         }
+
+        if(questManager.IsQuestActive(quest1) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
