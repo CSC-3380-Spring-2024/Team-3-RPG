@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    private HUDManager inventoryManager;   // References MenuManager.cs
+    private HUDManager inventoryManager;   // References HUDManager.cs
     public ItemSO itemSO;                   // References ItemSO.cs
 
     void Start() {
