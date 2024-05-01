@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 53d4e6971a79d477e8a403dc3ff4d5b8, type: 2}
   anim: {fileID: 832994542059898806}
-  inAttack: 1
+  inAttack: 0
 --- !u!95 &832994542059898806
 Animator:
   serializedVersion: 5

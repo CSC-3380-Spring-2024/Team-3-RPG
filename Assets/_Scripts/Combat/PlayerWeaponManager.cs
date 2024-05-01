@@ -70,7 +70,14 @@ public class PlayerWeaponManager : MonoBehaviour
             weaponPositions[currentPoint] = new Vector3(x, y, 0) + parent.position;
 
             weapons[currentPoint] = Instantiate(CombatSystem.instance.weapons[currentPoint], weaponPositions[currentPoint], Quaternion.identity, transform);
+            weapons[currentPoint].SetActive(true);
         }
+
+        for (int i = 0; i < numOfWeapons; i++)
+        {
+            combatSystem.weapons[i] = weapons[i];
+        }
+        //combatSystem.weapons = weapons; //set combat system's weapons as references to the actual objects now
     }
 
     public void RotateLeft()
@@ -166,9 +173,6 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         //Debug.Log("Rotating " + obj + " from " + obj.transform.position + " to " + target);
         //Debug.Log(obj.transform.position == target);
-
-        float speed = 5f * Time.deltaTime;
-
         while (Vector3.Distance(obj.transform.position, target) > 0.1f)
         {
             obj.transform.position = Vector3.Lerp(obj.transform.position, target, 8f * Time.deltaTime);

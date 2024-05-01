@@ -58,8 +58,7 @@ public class CombatSystem : MonoBehaviour
         inSelect = false;
 
         currentWeaponIndex = 0;
-        currentWeaponObject = weapons[currentWeaponIndex];
-        currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
+
 
         for (int i = 0; i < weapons.Length; i++)
         {
@@ -149,23 +148,29 @@ public class CombatSystem : MonoBehaviour
         }
         if (direction == 0) //switch to the weapon on left
         {
+            Debug.Log("to left");
             currentWeaponIndex--;
             if (currentWeaponIndex < 0) //needs to loop around
             {
                 currentWeaponIndex = numOfWeapons - 1;
             }
-            currentWeaponObject = weapons[currentWeaponIndex];
-            currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
+            SelectWeapon();
         } else //switch to the weapon on right
         {
+            Debug.Log("to right");
             currentWeaponIndex++;
             if (currentWeaponIndex >= numOfWeapons) //needs to loop around
             {
                 currentWeaponIndex = 0;
             }
-            currentWeaponObject = weapons[currentWeaponIndex];
-            currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
+            SelectWeapon();
         }
+    }
+
+    public void SelectWeapon() //called by uimanager
+    {
+        currentWeaponObject = weapons[currentWeaponIndex];
+        currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
     }
 
     public bool Attack(int id) //returns true if attack is successful, false if fails
@@ -181,9 +186,7 @@ public class CombatSystem : MonoBehaviour
             return false;
         }
 
-        currentWeapon.BeginAbilityAnimation(id, selectedEnemy); //attacks
-
-        selectedEnemy.Deselect();
+        currentWeaponObject.GetComponent<WeaponObject>().BeginAbilityAnimation(id, selectedEnemy); //attacks
 
         state = CombatState.ENEMYTURN;
         return true;

@@ -566,11 +566,11 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.55
-    functionName: ActivateSecond
+    functionName: Activate
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
   - time: 1.7833333
     functionName: ReturnToIdle

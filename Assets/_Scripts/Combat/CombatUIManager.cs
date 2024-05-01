@@ -71,22 +71,27 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
 
     public void SelectLeftWeapon()
     {
-        PlayerWeaponManager.instance.RotateLeft();
         combatSystem.SwapWeapon(0); //performs the actual game system rotation
+        PlayerWeaponManager.instance.RotateLeft();
     }
 
     public void SelectRightWeapon()
     {
-        PlayerWeaponManager.instance.RotateRight();
         combatSystem.SwapWeapon(1); //performs the actual game system rotation
+        PlayerWeaponManager.instance.RotateRight();
     }
 
     public void SelectWeapon() //called when player chooses a weapon
     {
+        combatSystem.SelectWeapon();
+
         combatSystem.EnterSelectEnemy(); //allow player to select enemies; turns on enemyselect buttons
+
         abilityButton1.setAbility(combatSystem.currentWeapon.GetComponent<WeaponObject>().weapon.abilityList[0]); //initialize ability buttons
         abilityButton2.setAbility(combatSystem.currentWeapon.GetComponent<WeaponObject>().weapon.abilityList[1]);
+
         currentPanelIndex = 2; //allow player to choose ability to use
+
         ShowOnly(attackPanel); 
     }
 
