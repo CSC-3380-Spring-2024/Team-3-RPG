@@ -8,30 +8,36 @@ public class Dialogue : MonoBehaviour
     public GameObject dialogueBox; // Reference to the GameObject containing the dialogue box UI elements
     public TextMeshProUGUI textComponent;
     public IntroductionPrompt IntroductionPrompt;
-    public GiveQuestPrompt GiveQuestPrompt;
+    //public GiveQuestPrompt GiveQuestPrompt;
     public SisterCindy SisterCindy;
     public TouchGrass TouchGrass;
     public float textSpeed = 0.05f; // Default text speed value
     private string[] introductionLines;
-    private string[] giveQuestLines;
-    private string[] sisterCindylines;
-    private string[] touchGrasslines;
+    //private string[] giveQuestLines;
+    public string[] sisterCindylines;
+    public string[] touchGrasslines;
     private bool introCompleted = false; // Indicates if the intro dialogue is completed
-    private bool giveQuestCompleted = false;
+    //private bool giveQuestCompleted = false;
     private bool sisterCindyCompleted = false;
+    public bool touchGrassGiven = false;
     private bool waitingForSpace = false; // Indicates if the script is waiting for space bar input
     private bool instantFinish = false;
     private QuestManager questManager;
-    public Quest questToCheck;
+    public Quest questToCheck;//touch grass
+    public Quest sisterCindyQuest;
+    public Quest vikingQuest;
+    public Quest casperQuest;
+
 
     void Start()
     {
         introductionLines = IntroductionPrompt.lines;
-        giveQuestLines = GiveQuestPrompt.lines;
+        // giveQuestLines = GiveQuestPrompt.lines;
         sisterCindylines = SisterCindy.lines;
         touchGrasslines = TouchGrass.lines;
 
         StartCoroutine(ShowDialogue(introductionLines));
+
     }
     private void Awake()
     {
@@ -44,36 +50,45 @@ public class Dialogue : MonoBehaviour
         {
             // If waiting for space and space bar is pressed, proceed to the next line
             waitingForSpace = false;
-            //NextLine();
         }
         if (instantFinish == false && Input.GetKeyDown(KeyCode.Space))
         {
             instantFinish = true;
         }
 
-        else if (Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted)
+        Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+        if (questManager.IsQuestActive(questToCheck) && Input.GetKeyDown(KeyCode.Q) && touchGrassGiven == false)
         {
+            // If intro is completed and "E" is pressed, proceed to the give quest prompt
+            Debug.Log("setting dialogue box to true-touch grass");
+            Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+            dialogueBox.SetActive(true);
+            ShowBox();
+            StartCoroutine(ShowDialogue(touchGrasslines));
+            touchGrassGiven = true;
+        }
+        else if (questManager.IsQuestActive(sisterCindyQuest) && Input.GetKeyDown(KeyCode.Q))
+        {
+            dialogueBox.SetActive(true);
             // If intro is completed and "E" is pressed, proceed to the give quest prompt
             StartCoroutine(ShowDialogue(sisterCindylines));
         }
-
-        // Check for "E" key to proceed to the give quest prompt
-        else if (Input.GetKeyDown(KeyCode.E) && introCompleted)
-        {
-            // If intro is completed and "E" is pressed, proceed to the give quest prompt
-            StartCoroutine(ShowDialogue(giveQuestLines));
-        }
-
-        if (questManager.IsQuestActive(questToCheck) && Input.GetKeyDown(KeyCode.E))
-        {
-            // If intro is completed and "E" is pressed, proceed to the give quest prompt
-            StartCoroutine(ShowDialogue(touchGrasslines));
-        }
+        // else if (questManager.IsQuestActive(vikingQuest) && Input.GetKeyDown(KeyCode.E))
+        // {
+        //     // If intro is completed and "E" is pressed, proceed to the give quest prompt
+        //     StartCoroutine(ShowDialogue(sisterCindylines));
+        // }
+        // else if (questManager.IsQuestActive(casperQuest) && Input.GetKeyDown(KeyCode.E))
+        // {
+        //     // If intro is completed and "E" is pressed, proceed to the give quest prompt
+        //     StartCoroutine(ShowDialogue(sisterCindylines));
+        // }
     }
-    
-    IEnumerator ShowDialogue(string[] lines)
+
+    public IEnumerator ShowDialogue(string[] lines)
     {
         dialogueBox.SetActive(true); // Activate the dialogue box
+        //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
 
         for (int i = 0; i < lines.Length; i++)
         {
@@ -102,19 +117,31 @@ public class Dialogue : MonoBehaviour
             }
         }
 
-        if (lines == introductionLines)
-        {
-            introCompleted = true;
+        // if (lines == introductionLines)
+        // {
+        //     introCompleted = true;
 
-        }
-        else if (lines == giveQuestLines)
+        // }
+        // // else if (lines == giveQuestLines)
+        // // {
+        // //     giveQuestCompleted = true;
+        // // }
+        // else if (lines == sisterCindylines)
+        // {
+        //     sisterCindyCompleted = true;
+        //     //dialogueBox.SetActive(false);
+        // }
+        //dialogueBox.SetActive(false);
+        Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+        //dialogueBox.SetActive(true);
+        Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+    }
+    public void ShowBox()
+    {
+        if (dialogueBox != null)
         {
-            giveQuestCompleted = true;
-        }
-        else if (lines == sisterCindylines)
-        {
-            sisterCindyCompleted = true;
-            //dialogueBox.SetActive(false);
+            dialogueBox.SetActive(true); // Turn on the dialogue box
+            Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
         }
     }
 }

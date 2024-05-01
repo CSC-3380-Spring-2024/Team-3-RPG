@@ -2345,11 +2345,16 @@ MonoBehaviour:
   dialogueBox: {fileID: 2095505720}
   textComponent: {fileID: 2023160332}
   IntroductionPrompt: {fileID: 0}
-  GiveQuestPrompt: {fileID: 0}
   SisterCindy: {fileID: 0}
   TouchGrass: {fileID: 0}
   textSpeed: 0.05
+  sisterCindylines: []
+  touchGrasslines: []
+  touchGrassGiven: 0
   questToCheck: {fileID: 11400000, guid: 516b43f66754d614e930ddd869ae2086, type: 2}
+  sisterCindyQuest: {fileID: 11400000, guid: 1d017503fc422bd4eae2bb804302f59a, type: 2}
+  vikingQuest: {fileID: 11400000, guid: 89544dc0c7c6e6d48881362ae0715790, type: 2}
+  casperQuest: {fileID: 11400000, guid: dcbbd040cdc342d459c4b4c9f94c3436, type: 2}
 --- !u!114 &2095505723
 MonoBehaviour:
   m_ObjectHideFlags: 0
