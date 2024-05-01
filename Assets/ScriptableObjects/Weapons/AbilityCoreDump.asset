@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: AbilityCoreDump
   m_EditorClassIdentifier: 
   name: Core Dump
-  description: 
+  description: Dump the blade into the enemy.  Deal 3 damage total
   id: 0
   weapon: {fileID: 11400000, guid: 30a4de870dd884881a1e2624b795e5d6, type: 2}
   needsMarking: 0
   markName: 
-  damage: 0
+  damage: 1

@@ -120,6 +120,7 @@ public class PlayerWeaponManager : MonoBehaviour
                 replace = temp;
             }
         }
+        combatSystem.SwapWeapon(1); //performs the actual game system rotation
         isRotating = false;
 
     }
@@ -164,6 +165,7 @@ public class PlayerWeaponManager : MonoBehaviour
                 replace = temp;
             }
         }
+        combatSystem.SwapWeapon(0); //performs the actual game system rotation
         isRotating = false;
 
     }

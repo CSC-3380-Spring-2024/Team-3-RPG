@@ -10,6 +10,7 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
     [SerializeField]
     private Animator anim;
 
+    public bool attackUsed;
     public bool inAttack;
 
     //for weapon floating
@@ -19,20 +20,29 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
 
     private void Start()
     {
+        attackUsed = false;
         inAttack = false;
         gameObject.SetActive(true);
         anim.enabled = true;
         anim.Rebind();
+
+        render = gameObject.GetComponent<SpriteRenderer>();
+        weapon.originalColor = render.color;
     }
+
+    public void resetUse()
+    {
+        attackUsed = false;
+        render.color = weapon.originalColor;
+    }
+
     public void BeginAbilityAnimation(int id, CombatEnemy enemy) //id is 0 or 1
     {
-        gameObject.SetActive(true);
-        Debug.Log(gameObject.activeInHierarchy);
-        //if (inAttack)
-        //{
-        //    Debug.Log("already in attack");
-        //    return;
-        //}
+        if (inAttack || attackUsed)
+        {
+            Debug.Log("already in attack");
+            return;
+        }
 
         inAttack = true;
 
@@ -44,7 +54,7 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
         }
         else
         {
-            Debug.Log("called");
+            //Debug.Log("melee attack called");
             originalLocation = transform;
             targetLocation = enemy.GetComponentInParent<Transform>();
             StartCoroutine(PerformAttack(transform.position, enemy.transform.position - new Vector3(1, 0, 0), id));
@@ -88,7 +98,10 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
 
     void ReturnToIdle() //called via animation events
     {
+        render.color = Color.gray;
         anim.SetTrigger("Idle");
+        attackUsed = true;
         inAttack = false;
+        CombatSystem.instance.selectedEnemy.Deselect();
     }
 }

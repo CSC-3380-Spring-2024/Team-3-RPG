@@ -116,6 +116,12 @@ public class CombatSystem : MonoBehaviour
 
     void EnterPlayerTurn()
     {
+        //reset all weapon usedWeapon variables
+        for (int i = 0; i < numOfWeapons; i++)
+        {
+            weapons[i].GetComponent<WeaponObject>().resetUse();
+        }
+
         StartCoroutine(PlayerTurn());
     }
 
@@ -124,9 +130,6 @@ public class CombatSystem : MonoBehaviour
         yield return new WaitUntil(() => state != CombatState.PLAYERTURN);
         EnterEnemyTurn();
     }
-
-    // public void EnterSelectWeapon()
-    // public void ConfirmSelectWeapon()
 
     public void EnterSelectEnemy()
     {
@@ -187,6 +190,15 @@ public class CombatSystem : MonoBehaviour
         }
 
         currentWeaponObject.GetComponent<WeaponObject>().BeginAbilityAnimation(id, selectedEnemy); //attacks
+
+        //check if all weapon turns are used
+        for (int i = 0; i < numOfWeapons; i++)
+        {
+            if (!weapons[i].GetComponent<WeaponObject>().attackUsed)
+            {
+                return true;
+            }
+        }
 
         state = CombatState.ENEMYTURN;
         return true;

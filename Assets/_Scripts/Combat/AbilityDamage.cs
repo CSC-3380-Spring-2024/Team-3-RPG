@@ -20,7 +20,6 @@ public class AbilityDamage : Ability
         {
             CombatSystem.instance.selectedEnemy.statuses.Remove(markName);
         }
-        weapon.didAction = true;
         return true;
     }
 }
