@@ -8,7 +8,10 @@ public class TouchGrassCompletion : MonoBehaviour
     private QuestManager questManager;
 
     // name of the quest to complete
-    public string questToComplete;
+    public Quest questToComplete;
+
+    // flag to determine if the player is in range
+    public bool isPlayerInRange = false;
 
     // function to ensure the QuestManager is initialized
     private void Awake()
@@ -16,17 +19,50 @@ public class TouchGrassCompletion : MonoBehaviour
         questManager = QuestManager.Instance;
     }
 
+    private void Update()
+    {
+        if (isPlayerInRange && questManager != null && questManager.quests.Contains(questToComplete))
+        {
+            questManager.CompleteQuest(questToComplete); // Complete the quest
+            questManager.DeactivateQuest(questToComplete);
+            Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
+            this.enabled = false;
+        }
+    }
     // function to check if the player enters the zone
     // if true, completes this specific quest
-    public void OnTriggerEnter2D(Collider2D other)
+    // public void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         if (questManager != null)
+    //         {
+    //             if(questManager.IsQuestComplete(questToComplete))
+    //             {
+    //                 return;
+    //             }
+    //             else
+    //             {
+    //                 questManager.CompleteQuest(questToComplete);
+    //                 Debug.Log($"Quest '{questToComplete}' has been completed");
+    //             }
+    //         }
+    //     }
+    // }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (questManager != null)
-            {
-                questManager.CompleteQuest(questToComplete);
-                Debug.Log($"Quest '{questToComplete}' has been completed");
-            }
+            isPlayerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            isPlayerInRange = false;
         }
     }
 }

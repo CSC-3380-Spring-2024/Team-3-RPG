@@ -10,12 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 676f8d9b4211f40489a4486211dbbbd8, type: 3}
-  m_Name: TouchGrass
+  m_Name: TalkToViking
   m_EditorClassIdentifier: 
-  questName: Touch Grass!
+  questName: Talk to Viking!
   description: asdf
-  dialogue:
-  - '"Soon after, you learn you are the fabled hero of a prophecy tasked to slay
-    Mikhail, Beast of the Ancient, located in the Ruins of Tiger Colosseum"'
-  killCount: 0
-  isActive: 0
+  dialogue: []

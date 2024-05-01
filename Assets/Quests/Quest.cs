@@ -15,19 +15,17 @@ public class Quest : ScriptableObject
     // quest dialogue
     public string[] dialogue;
 
-    // flag to show completion of this quest
-    public bool isComplete = false;
+    // kill count
+    public int killCount = 0;
+
+    // is the quest active
+    public bool isActive = false;
 
     // constructor for this quest
-    public Quest(string name, string description, string[] dialogue)
+    public void Initialize(string name, string description, string[] dialogue)
     {
         this.questName = name;
         this.description = description;
         this.dialogue = dialogue;
-    }
-
-    public void CompleteQuest()
-    {
-        isComplete = true;
     }
 }

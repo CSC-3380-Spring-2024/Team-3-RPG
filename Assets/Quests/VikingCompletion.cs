@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CasperCompletion : MonoBehaviour
+public class VikingCompletion : MonoBehaviour
 {
     // QuestManager reference
     private QuestManager questManager;
