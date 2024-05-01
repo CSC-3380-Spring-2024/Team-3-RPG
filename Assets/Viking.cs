@@ -6,8 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Viking", menuName = "ScriptableObjects/Viking", order = 1)]
 public class Viking : ScriptableObject
 {
-    public static string[] lines = { "hello Viking", "hello again Viking" };    // Array of dialogue lines for the IntroductionPrompt
-    public static string[] finishViking = { "you met Viking", "quest done" };
+    public static string[] lines = { "Hello there old viking" };    // Array of dialogue lines for the IntroductionPrompt
+    public static string[] finishViking = { "Great job my sorcerer/sorceress!", "You've met the dear old viking" };
     public float textSpeed;  // Speed at which the text is displayed
 }
 //make one for goblin and make one with jld  = hello sorcess

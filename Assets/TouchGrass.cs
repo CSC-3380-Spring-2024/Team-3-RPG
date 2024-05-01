@@ -6,8 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TouchGrass", menuName = "ScriptableObjects/TouchGrass", order = 1)]
 public class TouchGrass : ScriptableObject
 {
-    public static string[] lines = { "touch some grass", "touch grass again1", "touch grass again2" };    // Array of dialogue lines for the IntroductionPrompt
-    public static string[] finishGrass = { "you touched grass", "quest done" };
+    public static string[] lines = { "Check your screen time", "Go outside and touch some grass" };    // Array of dialogue lines for the IntroductionPrompt
+    public static string[] finishGrass = { "Congratulations!", "You touched grass!" };
     public float textSpeed;  // Speed at which the text is displayed
 }
 //make one for goblin and make one with jld  = hello sorcess
