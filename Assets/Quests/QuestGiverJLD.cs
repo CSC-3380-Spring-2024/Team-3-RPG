@@ -11,6 +11,11 @@ public class QuestGiverJLD : MonoBehaviour
     public Quest quest3;
     public Quest quest4;
 
+    private bool giveGoblin = false;
+    private bool giveGrass = false;
+    private bool giveViking = false;
+    private bool giveSister = false;
+
     // QuestManager reference
     private QuestManager questManager;
 
@@ -30,7 +35,7 @@ public class QuestGiverJLD : MonoBehaviour
                 Debug.Log($"Quest '{questManager.startingQuest}' has been completed!");
             }
 
-            else if(questManager.IsQuestComplete(questManager.startingQuest))
+            else if (questManager.IsQuestComplete(questManager.startingQuest))
             {
                 // gives first quest
                 if (questManager.IsQuestComplete(questManager.startingQuest) && !questManager.quests.Contains(quest1))
@@ -70,10 +75,27 @@ public class QuestGiverJLD : MonoBehaviour
             }
         }
 
-        if(questManager.IsQuestActive(quest1) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        if (questManager.IsQuestActive(quest1) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange && giveGrass == false)
         {
             Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+            giveGrass = true;
         }
+        if (questManager.IsQuestActive(quest2) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange && giveGoblin == false)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.goblinLines);
+            giveGoblin = true;
+        }
+        if (questManager.IsQuestActive(quest3) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange && giveViking == false)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.vikingLines);
+            giveViking = true;
+        }
+        if (questManager.IsQuestActive(quest4) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange && giveSister == false)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.sisterCindylines);//i figured wed eventually make this sister cindy so i put her in for the casper one
+            giveSister = true;
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)

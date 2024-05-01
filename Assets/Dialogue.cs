@@ -9,13 +9,17 @@ public class Dialogue : MonoBehaviour
     public TextMeshProUGUI textComponent;
     public IntroductionPrompt IntroductionPrompt;
     //public GiveQuestPrompt GiveQuestPrompt;
+    public Viking viking;
     public SisterCindy SisterCindy;
     public TouchGrass TouchGrass;
+    public GoblinQuest goblin;
     public float textSpeed = 0.05f; // Default text speed value
     private string[] introductionLines;
     //private string[] giveQuestLines;
     public string[] sisterCindylines;
     public string[] touchGrasslines;
+    public string[] vikingLines;
+    public string[] goblinLines;
     private bool introCompleted = false; // Indicates if the intro dialogue is completed
     //private bool giveQuestCompleted = false;
     private bool sisterCindyCompleted = false;
@@ -27,11 +31,12 @@ public class Dialogue : MonoBehaviour
     public Quest sisterCindyQuest;
     public Quest vikingQuest;
     public Quest casperQuest;
-    public static Dialogue Instance {get; private set;}
+    public Quest goblinQuest;
+    public static Dialogue Instance { get; private set; }
 
     private void Awake()
     {
-        if(Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
@@ -48,6 +53,8 @@ public class Dialogue : MonoBehaviour
         // giveQuestLines = GiveQuestPrompt.lines;
         sisterCindylines = SisterCindy.lines;
         touchGrasslines = TouchGrass.lines;
+        vikingLines = Viking.lines;
+        goblinLines = GoblinQuest.lines;
 
         StartCoroutine(ShowDialogue(introductionLines));
 
@@ -99,8 +106,8 @@ public class Dialogue : MonoBehaviour
     public IEnumerator ShowDialogue(string[] lines)
     {
         dialogueBox.SetActive(true); // Activate the dialogue box
-        //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
- 
+                                     //Debug.Log("Dialogue box is active: " + dialogueBox.activeSelf);
+
 
         // Display the current line character by character
         foreach (string line in lines)
