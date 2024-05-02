@@ -34,6 +34,7 @@ public class VikingCompletion : MonoBehaviour
                 {
                     questManager.CompleteQuest(questToComplete); // Complete the quest
                     questManager.DeactivateQuest(questToComplete);
+                    Dialogue.Instance.TriggerDialogue(Viking.finishViking);
                     Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
                     this.enabled = false;
                 }

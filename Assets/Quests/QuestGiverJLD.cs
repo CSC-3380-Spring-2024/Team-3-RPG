@@ -11,6 +11,7 @@ public class QuestGiverJLD : MonoBehaviour
     public Quest quest3;
     public Quest quest4;
 
+
     // QuestManager reference
     private QuestManager questManager;
 
@@ -27,13 +28,14 @@ public class QuestGiverJLD : MonoBehaviour
             {
                 questManager.CompleteQuest(questManager.startingQuest);
                 questManager.DeactivateQuest(questManager.startingQuest);
+                Dialogue.Instance.TriggerDialogue(IntroductionPrompt.introDone);
                 Debug.Log($"Quest '{questManager.startingQuest}' has been completed!");
             }
 
-            else if(questManager.IsQuestComplete(questManager.startingQuest))
+            else if (questManager.IsQuestComplete(questManager.startingQuest))
             {
                 // gives first quest
-                if (questManager != null && !questManager.quests.Contains(quest1))
+                if (questManager.IsQuestComplete(questManager.startingQuest) && !questManager.quests.Contains(quest1))
                 {
                     questManager.AddQuest(quest1);
                     questManager.ActivateQuest(quest1);
@@ -65,10 +67,33 @@ public class QuestGiverJLD : MonoBehaviour
                     questManager.AddQuest(quest4);
                     questManager.ActivateQuest(quest4);
                     Debug.Log($"Quest '{quest4}' has been accepted!");
-                    this.enabled = false;
+
                 }
+
+            }
+            if (questManager.IsQuestComplete(quest4))
+            {
+                this.enabled = false;
             }
         }
+
+        if (questManager.IsQuestActive(quest1) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+        }
+        if (questManager.IsQuestActive(quest2) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.goblinLines);
+        }
+        if (questManager.IsQuestActive(quest3) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.vikingLines);
+        }
+        if (questManager.IsQuestActive(quest4) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.sisterCindylines);//i figured wed eventually make this sister cindy so i put her in for the casper one
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -25,9 +25,9 @@ public class Dialogue : MonoBehaviour
         introductionLines = IntroductionPrompt.lines; // intro
         giveQuestLines = GiveQuestPrompt.lines;//give quest
         sisterCindylines = SisterCindy.lines;//sister cindy
-
         StartCoroutine(ShowDialogue(introductionLines));//intro starts immediately - no more button click for it
     }
+
 
     void Update()
     {
@@ -53,9 +53,9 @@ public class Dialogue : MonoBehaviour
             //  intro is completed and "E" is pressed, proceed to the give quest prompt
             StartCoroutine(ShowDialogue(giveQuestLines));
         }
-
     }
-    IEnumerator ShowDialogue(string[] lines)
+
+    public IEnumerator ShowDialogue(string[] lines)
     {
         dialogueBox.SetActive(true); // Activate the dialogue box to display text
 
@@ -72,7 +72,9 @@ public class Dialogue : MonoBehaviour
                 if (instantFinish == true) // space is clicked
                 {
                     break;//break out of the char loop
+
                 }
+                yield return new WaitForSeconds(textSpeed); // Wait before showing the next character
             }
             textComponent.text = lines[i];//set the textbox to have the whole line
 
@@ -85,7 +87,12 @@ public class Dialogue : MonoBehaviour
                 yield return null;//do nothing if waiting for space
             }
             //if waiting for space is false, exits loop, and restarts with the next line in the dialogue
+
         }
+        dialogueRunning = false;
+        dialogueBox.SetActive(false);
+        playerController.canMove = true;
+
 
         if (lines == introductionLines) // set the intro as done
         {
@@ -100,6 +107,7 @@ public class Dialogue : MonoBehaviour
         {
             sisterCindyCompleted = true;//done
             dialogueBox.SetActive(false);//hide the dialogue box
+
         }
     }
 }

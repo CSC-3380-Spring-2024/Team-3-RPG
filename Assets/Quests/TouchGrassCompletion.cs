@@ -25,6 +25,7 @@ public class TouchGrassCompletion : MonoBehaviour
         {
             questManager.CompleteQuest(questToComplete); // Complete the quest
             questManager.DeactivateQuest(questToComplete);
+            Dialogue.Instance.TriggerDialogue(TouchGrass.finishGrass);
             Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
             this.enabled = false;
         }
