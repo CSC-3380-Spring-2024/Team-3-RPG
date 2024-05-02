@@ -32,7 +32,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     private HUDManager inventoryManager;   // Reference to MenuManager.cs
 
     private void Start() {;
-        inventoryManager = GameObject.Find("Canvas").GetComponent<HUDManager>();
+        inventoryManager = GameObject.Find("HUD").GetComponent<HUDManager>();
     }
 
     // Sets the item data player obtained

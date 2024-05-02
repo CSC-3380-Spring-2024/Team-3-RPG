@@ -6,7 +6,7 @@ public class Item : MonoBehaviour
     public ItemSO itemSO;                   // References ItemSO.cs
 
     void Start() {
-        inventoryManager = GameObject.Find("Canvas").GetComponent<HUDManager>();
+        inventoryManager = GameObject.Find("HUD").GetComponent<HUDManager>();
     }
 
     // Item must have a Box Collider 2D for this to work

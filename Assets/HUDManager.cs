@@ -144,12 +144,14 @@ public class HUDManager : MonoBehaviour
     // Opens map
     public void OpenMap() {
         mapPanel.SetActive(true);
+        Time.timeScale = 0f;
         isMapOpen = true;
     }
 
     // Closes map 
     public void CloseMap() {
         mapPanel.SetActive(false);
+        Time.timeScale = 1f;
         isMapOpen = false;
     }
 }
