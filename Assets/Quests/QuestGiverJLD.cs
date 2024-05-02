@@ -31,7 +31,7 @@ public class QuestGiverJLD : MonoBehaviour
                 Debug.Log($"Quest '{questManager.startingQuest}' has been completed!");
             }
 
-            else if(questManager.IsQuestComplete(questManager.startingQuest))
+            else if (questManager.IsQuestComplete(questManager.startingQuest))
             {
                 // gives first quest
                 if (questManager.IsQuestComplete(questManager.startingQuest) && !questManager.quests.Contains(quest1))
@@ -72,31 +72,31 @@ public class QuestGiverJLD : MonoBehaviour
                     Debug.Log($"Quest '{quest4}' has been accepted!");
                 }
             }
-            
-            if(questManager.IsQuestComplete(quest4))
+
+            if (questManager.IsQuestComplete(quest4))
             {
                 this.enabled = false;
             }
         }
 
-        if(questManager.IsQuestActive(quest1) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        if (questManager.IsQuestActive(quest1) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
-            //Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
         }
 
-        if(questManager.IsQuestActive(quest2) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        if (questManager.IsQuestActive(quest2) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
-            //Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
         }
 
-        if(questManager.IsQuestActive(quest3) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        if (questManager.IsQuestActive(quest3) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
-            //Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
         }
 
-        if(questManager.IsQuestActive(quest4) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        if (questManager.IsQuestActive(quest4) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
-            //Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
         }
     }
 
