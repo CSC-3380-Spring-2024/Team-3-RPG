@@ -2,109 +2,104 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
     public GameObject dialogueBox; // Reference to the GameObject containing the dialogue box UI elements
-    public Button yourButton; // Reference to your intro button
-    public Button giveQuestButton; // Reference to your give quest button
-    public TextMeshProUGUI textComponent;
-    private int currentLineIndex; // Index of the current line within the prompt
-    private Coroutine typingCoroutine; // Reference to the typing coroutine
-    public IntroductionPrompt IntroductionPrompt;
-    public GiveQuestPrompt GiveQuestPrompt;
-    string[] introductionLines = IntroductionPrompt.lines;
-
-    // Accessing the lines array of the give quest prompt
-    string[] giveQuestLines = GiveQuestPrompt.lines;
+    public TextMeshProUGUI textComponent; // this is how unity sees the text
+    public IntroductionPrompt IntroductionPrompt; // getting the introduction prompt
+    public GiveQuestPrompt GiveQuestPrompt;// getting the first quest prompt - jld
+    public SisterCindy SisterCindy; // getting the sister cindy prompt
+    public float textSpeed = 0.05f; // Default text speed value
+    private string[] introductionLines; // getting the lines from intro
+    private string[] giveQuestLines;// getting the lines from jld
+    private string[] sisterCindylines;// getting the lines from sister cindy
+    private bool introCompleted = false; //  if the intro dialogue is completed
+    private bool giveQuestCompleted = false; // these are used to make sure the order is correct -- for questing
+    private bool sisterCindyCompleted = false; // need to add mrore dialogue promots, not used now will be used later
+    private bool waitingForSpace = false; //  if the script is waiting for space bar input
+    private bool instantFinish = false; // if user puts spacebar before line is finished
 
     void Start()
     {
-        if (dialogueBox != null)
-        {
-            dialogueBox.SetActive(false);
-            // we dont need the dialogue box until 
-        }
+        introductionLines = IntroductionPrompt.lines; // intro
+        giveQuestLines = GiveQuestPrompt.lines;//give quest
+        sisterCindylines = SisterCindy.lines;//sister cindy
 
-        if (yourButton != null)
-        {
-            yourButton.onClick.AddListener(() => StartDialogue(introductionLines));
-            Debug.Log("start button is clicked");
-        }
-
+        StartCoroutine(ShowDialogue(introductionLines));//intro starts immediately - no more button click for it
     }
 
     void Update()
     {
-        if (giveQuestButton != null)
+        if (waitingForSpace && Input.GetKeyDown(KeyCode.Space)) // this is for going to the next line
         {
-            giveQuestButton.onClick.AddListener(() => StartDialogue(giveQuestLines));
-            Debug.Log("quest button is clicked");
+            waitingForSpace = false;
+            //  waiting for space and space bar is pressed, proceed to the next line
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (instantFinish == false && Input.GetKeyDown(KeyCode.Space)) // this is if the space bar is clicked during the character by character display
         {
-            // Check if there's an ongoing typing coroutine
-            if (typingCoroutine != null)
+            instantFinish = true; // finish the line of text
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted) // e is for the next prompts
+        {
+            //  intro is completed and "E" is pressed, proceed to the sister cindy  prompt
+            StartCoroutine(ShowDialogue(sisterCindylines));
+        }
+
+        //  "E" key to proceed to the give quest prompt
+        else if (Input.GetKeyDown(KeyCode.E) && introCompleted)
+        {
+            //  intro is completed and "E" is pressed, proceed to the give quest prompt
+            StartCoroutine(ShowDialogue(giveQuestLines));
+        }
+
+    }
+    IEnumerator ShowDialogue(string[] lines)
+    {
+        dialogueBox.SetActive(true); // Activate the dialogue box to display text
+
+        for (int i = 0; i < lines.Length; i++)//for all the lines in the prompt
+        {
+            textComponent.text = string.Empty; // make it clean
+            instantFinish = false; // dont finish yet
+
+            // display the current line character by character
+            foreach (char c in lines[i].ToCharArray())// all characters
             {
-                StopCoroutine(typingCoroutine);
+                textComponent.text += c;//add/display character 
+                yield return new WaitForSeconds(textSpeed); // Use textSpeed variable to let it display at a set rate
+                if (instantFinish == true) // space is clicked
+                {
+                    break;//break out of the char loop
+                }
             }
+            textComponent.text = lines[i];//set the textbox to have the whole line
 
-            // Proceed to the next line or prompt
-            NextLine(introductionLines);
-        }
-    }
+            // set waiting for space to true after displaying the line
+            waitingForSpace = true;
 
-    public void StartDialogue(string[] linesArray)
-    {
-        dialogueBox.SetActive(true); // Activate the dialogue box
-
-        // Start with the introduction prompt
-        currentLineIndex = 0;
-        typingCoroutine = StartCoroutine(TypeLine(linesArray));
-    }
-
-    void NextLine(string[] linesArray)
-    {
-
-        // Check if there are more lines in the current prompt
-        if (currentLineIndex < linesArray.Length - 1)
-        {
-            // Move to the next line
-            currentLineIndex++;
-            typingCoroutine = StartCoroutine(TypeLine(giveQuestLines));
-        }
-        else
-        {
-
-            // Hide the dialogue box when all lines are finished
-            dialogueBox.SetActive(false);
-
-        }
-    }
-
-    IEnumerator TypeLine(string[] linesArray)
-    {
-        textComponent.text = string.Empty;
-
-        // Display each line of the prompt one by one
-        for (int i = 0; i < linesArray.Length; i++)
-        {
-            // Display the current line character by character
-            foreach (char c in linesArray[i].ToCharArray())
+            // wait until space bar is pressed to proceed to the next line
+            while (waitingForSpace)
             {
-                textComponent.text += c;
-                yield return null; // Wait for one frame
+                yield return null;//do nothing if waiting for space
             }
-
-            // Wait for a short delay after displaying each line
-            yield return new WaitForSeconds(1f);
-            textComponent.text = string.Empty;
-            //if i want to change between making it an enter or space do it here
+            //if waiting for space is false, exits loop, and restarts with the next line in the dialogue
         }
-        //dialogueBox.SetActive(false);
 
-        // After displaying all lines, move to the next prompt
-        //NextLine(giveQuestLines); this will make it go onto the give questlines
+        if (lines == introductionLines) // set the intro as done
+        {
+            introCompleted = true;//done
+
+        }
+        else if (lines == giveQuestLines)// set jld as done
+        {
+            giveQuestCompleted = true;//done
+        }
+        else if (lines == sisterCindylines)// set the sister cindy as done
+        {
+            sisterCindyCompleted = true;//done
+            dialogueBox.SetActive(false);//hide the dialogue box
+        }
     }
 }
