@@ -27,16 +27,18 @@ public class QuestGiverJLD : MonoBehaviour
             {
                 questManager.CompleteQuest(questManager.startingQuest);
                 questManager.DeactivateQuest(questManager.startingQuest);
+                Dialogue.Instance.TriggerDialogue(IntroductionPrompt.introDone);
                 Debug.Log($"Quest '{questManager.startingQuest}' has been completed!");
             }
 
             else if(questManager.IsQuestComplete(questManager.startingQuest))
             {
                 // gives first quest
-                if (questManager != null && !questManager.quests.Contains(quest1))
+                if (questManager.IsQuestComplete(questManager.startingQuest) && !questManager.quests.Contains(quest1))
                 {
                     questManager.AddQuest(quest1);
                     questManager.ActivateQuest(quest1);
+                    Dialogue.Instance.TriggerDialogue(TouchGrass.lines);
                     Debug.Log($"Quest '{quest1}' has been accepted!");
                 }
 
@@ -46,6 +48,7 @@ public class QuestGiverJLD : MonoBehaviour
                 {
                     questManager.AddQuest(quest2);
                     questManager.ActivateQuest(quest2);
+                    Dialogue.Instance.TriggerDialogue(GoblinQuest.lines);
                     Debug.Log($"Quest '{quest2}' has been accepted!");
                 }
 
@@ -55,6 +58,7 @@ public class QuestGiverJLD : MonoBehaviour
                 {
                     questManager.AddQuest(quest3);
                     questManager.ActivateQuest(quest3);
+                    Dialogue.Instance.TriggerDialogue(Viking.lines);
                     Debug.Log($"Quest '{quest3}' has been accepted!");
                 }
 
@@ -64,10 +68,35 @@ public class QuestGiverJLD : MonoBehaviour
                 {
                     questManager.AddQuest(quest4);
                     questManager.ActivateQuest(quest4);
+                    Dialogue.Instance.TriggerDialogue(SisterCindy.lines);
                     Debug.Log($"Quest '{quest4}' has been accepted!");
-                    this.enabled = false;
                 }
             }
+            
+            if(questManager.IsQuestComplete(quest4))
+            {
+                this.enabled = false;
+            }
+        }
+
+        if(questManager.IsQuestActive(quest1) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            //Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+        }
+
+        if(questManager.IsQuestActive(quest2) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            //Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+        }
+
+        if(questManager.IsQuestActive(quest3) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            //Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+        }
+
+        if(questManager.IsQuestActive(quest4) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            //Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
         }
     }
 
