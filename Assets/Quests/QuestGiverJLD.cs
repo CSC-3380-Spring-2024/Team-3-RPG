@@ -86,17 +86,17 @@ public class QuestGiverJLD : MonoBehaviour
 
         if (questManager.IsQuestActive(quest2) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
-            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.goblinLines);
         }
 
         if (questManager.IsQuestActive(quest3) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
-            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.vikingLines);
         }
 
         if (questManager.IsQuestActive(quest4) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
         {
-            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.sisterCindylines);
         }
     }
 
