@@ -9,11 +9,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Tilemap groundTilemap;
     [SerializeField]
-    private Tilemap collisionTilemap;
+    private Tilemap[] collisionTilemap; //Array of collision tilemaps
 
     public bool isMoving = false;
     private float timeToMove = 0.2f;
     private Vector3 movement = Vector3.zero;
+    
     // Update is called once per frame
     void Update()
     {
@@ -58,10 +59,13 @@ public class PlayerController : MonoBehaviour
 
     private bool CanMove(Vector3 direction)
     {
+        //If there's no tile from the ground tile or if it's a part of the collision map, return false ->can't walk in it.
         Vector3Int gridPosition = groundTilemap.WorldToCell(transform.position + (Vector3)direction);
-        if (!groundTilemap.HasTile(gridPosition) || collisionTilemap.HasTile(gridPosition)) //if the ground doesnt have a tile at the targeted direction OR the collision tile does, return false
-        {
-            return false;
+        foreach (Tilemap collisionTilemap in collisionTilemap){
+            if (!groundTilemap.HasTile(gridPosition) || collisionTilemap.HasTile(gridPosition))
+            {
+                return false;
+            }
         }
         return true;
     }
