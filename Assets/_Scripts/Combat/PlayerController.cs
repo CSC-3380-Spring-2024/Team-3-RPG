@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
 
     public bool isMoving = false;
     private float timeToMove = 0.2f;
-
     private Vector3 movement = Vector3.zero;
     
     // Update is called once per frame
@@ -78,7 +77,7 @@ public class PlayerController : MonoBehaviour
         Vector3 originalPosition = transform.position;
         Vector3 targetPosition = originalPosition + (Vector3)direction;
 
-        while (elapsedTime < timeToMove)
+        while(elapsedTime < timeToMove)
         {
             transform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / timeToMove)); //smooths the movement
             elapsedTime += Time.deltaTime;

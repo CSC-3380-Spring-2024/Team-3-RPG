@@ -24,13 +24,12 @@ public class KillGoblinsCompletion : MonoBehaviour
 
     private void Update()
     {
-        if (questToComplete.killCount == 5)
+        if(questToComplete.killCount == 5)
         {
             if (questManager.IsQuestComplete(prerequisiteQuest))
             {
                 questManager.CompleteQuest(questToComplete);
                 questManager.DeactivateQuest(questToComplete);
-                Dialogue.Instance.TriggerDialogue(GoblinQuest.finishGob);
                 Debug.Log("ALL GOBLINS DEFEATED");
                 this.enabled = false;
             }
