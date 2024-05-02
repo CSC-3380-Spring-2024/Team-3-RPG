@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         Vector3 originalPosition = transform.position;
         Vector3 targetPosition = originalPosition + (Vector3)direction;
 
-        while (elapsedTime < timeToMove)
+        while(elapsedTime < timeToMove)
         {
             transform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / timeToMove)); //smooths the movement
             elapsedTime += Time.deltaTime;
