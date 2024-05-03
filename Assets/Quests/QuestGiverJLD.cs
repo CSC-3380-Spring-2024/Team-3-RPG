@@ -68,6 +68,34 @@ public class QuestGiverJLD : MonoBehaviour
                     this.enabled = false;
                 }
             }
+<<<<<<< HEAD
+=======
+
+            if (questManager.IsQuestComplete(quest4))
+            {
+                this.enabled = false;
+            }
+        }
+
+        if (questManager.IsQuestActive(quest1) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+        }
+
+        if (questManager.IsQuestActive(quest2) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+        }
+
+        if (questManager.IsQuestActive(quest3) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+        }
+
+        if (questManager.IsQuestActive(quest4) && Input.GetKeyDown(KeyCode.E) && isPlayerInRange)
+        {
+            Dialogue.Instance.TriggerDialogue(Dialogue.Instance.touchGrasslines);
+>>>>>>> parent of 4b273e0 (completed integration of dialogue and quests in world scene)
         }
     }
 
