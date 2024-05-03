@@ -30,6 +30,7 @@ public class Dialogue : MonoBehaviour
     public Quest goblinQuest;
     private bool dialogueRunning;
     public static Dialogue Instance { get; private set; }
+    [SerializeField]
     private PlayerController playerController;
 
     private void Awake()
@@ -47,7 +48,6 @@ public class Dialogue : MonoBehaviour
 
     void Start()
     {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         introductionLines = IntroductionPrompt.lines;
         sisterCindylines = SisterCindy.lines;
         touchGrasslines = TouchGrass.lines;
@@ -63,6 +63,7 @@ public class Dialogue : MonoBehaviour
 
     public IEnumerator ShowDialogue(string[] lines)
     {
+        playerController.enabled = false; // Disable movement script
         dialogueRunning = true;
         dialogueBox.SetActive(true); // Activate the dialogue box
         // Display the current line character by character
@@ -90,14 +91,9 @@ public class Dialogue : MonoBehaviour
         }
         dialogueRunning = false;
         dialogueBox.SetActive(false);
-
-
-        if (lines == introductionLines)
-        {
-            introCompleted = true;
-
-        }
+        playerController.enabled = true; // Disable movement script
     }
+
     public void TriggerDialogue(string[] lines)
     {
         dialogueBox.SetActive(true);
