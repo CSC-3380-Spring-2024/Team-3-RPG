@@ -32,11 +32,11 @@ public class VikingCompletion : MonoBehaviour
             {
                 if (!questManager.IsQuestComplete(questToComplete)) // Check if this quest isn't already complete
                 {
-                    questManager.CompleteQuest(questToComplete); // Complete the quest
-                    questManager.DeactivateQuest(questToComplete);
-                    Dialogue.Instance.TriggerDialogue(Viking.finishViking);
+                    // questManager.CompleteQuest(questToComplete); // Complete the quest
+                    // questManager.DeactivateQuest(questToComplete);
+                    // Dialogue.Instance.TriggerDialogue(Viking.finishViking);
                     Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
-                    this.enabled = false;
+                    // this.enabled = false;
                 }
             }
             else
