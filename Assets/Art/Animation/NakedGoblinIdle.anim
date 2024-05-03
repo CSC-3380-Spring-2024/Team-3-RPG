@@ -21,15 +21,10 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 288392256, guid: 5e7d7ed85f7e9a043b1dda39e032895f, type: 3}
-    attribute: m_Sprite
-    path: 
-    classID: 212
-    script: {fileID: 0}
-  - curve:
-    - time: 0
-      value: {fileID: 288392256, guid: 5e7d7ed85f7e9a043b1dda39e032895f, type: 3}
-    - time: 0.625
+    - time: 0.875
       value: {fileID: -807862912, guid: 5e7d7ed85f7e9a043b1dda39e032895f, type: 3}
+    - time: 1.75
+      value: {fileID: 288392256, guid: 5e7d7ed85f7e9a043b1dda39e032895f, type: 3}
     attribute: m_Sprite
     path: Enemy Sprite
     classID: 212
@@ -42,13 +37,6 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    - serializedVersion: 2
       path: 3028585050
       attribute: 0
       script: {fileID: 0}
@@ -57,14 +45,14 @@ AnimationClip:
       isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 288392256, guid: 5e7d7ed85f7e9a043b1dda39e032895f, type: 3}
-    - {fileID: 288392256, guid: 5e7d7ed85f7e9a043b1dda39e032895f, type: 3}
     - {fileID: -807862912, guid: 5e7d7ed85f7e9a043b1dda39e032895f, type: 3}
+    - {fileID: 288392256, guid: 5e7d7ed85f7e9a043b1dda39e032895f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.75
+    m_StopTime: 1.875
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

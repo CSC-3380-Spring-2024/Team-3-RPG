@@ -138,6 +138,8 @@ MonoBehaviour:
   button: {fileID: 2948915587468994635}
   render: {fileID: 613846099757427528}
   anim: {fileID: 8047174673917803090}
+  name: 
+  damage: 0
   turnTaken: 0
   isDead: 0
 --- !u!95 &8047174673917803090
@@ -199,8 +201,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -54869761
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
