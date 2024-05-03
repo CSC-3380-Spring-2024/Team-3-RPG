@@ -6,100 +6,121 @@ using TMPro;
 public class Dialogue : MonoBehaviour
 {
     public GameObject dialogueBox; // Reference to the GameObject containing the dialogue box UI elements
-    public TextMeshProUGUI textComponent; // this is how unity sees the text
-    public IntroductionPrompt IntroductionPrompt; // getting the introduction prompt
-    public GiveQuestPrompt GiveQuestPrompt;// getting the first quest prompt - jld
-    public SisterCindy SisterCindy; // getting the sister cindy prompt
+    public TextMeshProUGUI textComponent;
+    public IntroductionPrompt IntroductionPrompt;
+    public Viking viking;
+    public SisterCindy SisterCindy;
+    public TouchGrass TouchGrass;
+    public GoblinQuest goblin;
     public float textSpeed = 0.05f; // Default text speed value
-    private string[] introductionLines; // getting the lines from intro
-    private string[] giveQuestLines;// getting the lines from jld
-    private string[] sisterCindylines;// getting the lines from sister cindy
-    private bool introCompleted = false; //  if the intro dialogue is completed
-    private bool giveQuestCompleted = false; // these are used to make sure the order is correct -- for questing
-    private bool sisterCindyCompleted = false; // need to add mrore dialogue promots, not used now will be used later
-    private bool waitingForSpace = false; //  if the script is waiting for space bar input
-    private bool instantFinish = false; // if user puts spacebar before line is finished
+    private string[] introductionLines;
+    public string[] sisterCindylines;
+    public string[] touchGrasslines;
+    public string[] vikingLines;
+    public string[] goblinLines;
+    private bool introCompleted = false; // Indicates if the intro dialogue is completed
+    public bool touchGrassGiven = false;
+    private bool waitingForSpace = false; // Indicates if the script is waiting for space bar input
+    private bool instantFinish = false;
+    private QuestManager questManager;
+    public Quest questToCheck;//touch grass
+    public Quest sisterCindyQuest;
+    public Quest vikingQuest;
+    public Quest casperQuest;
+    public Quest goblinQuest;
+    private bool dialogueRunning;
+    public static Dialogue Instance { get; private set; }
+    private PlayerController playerController;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            questManager = QuestManager.Instance;
+        }
+    }
 
     void Start()
     {
-        introductionLines = IntroductionPrompt.lines; // intro
-        giveQuestLines = GiveQuestPrompt.lines;//give quest
-        sisterCindylines = SisterCindy.lines;//sister cindy
-
-        StartCoroutine(ShowDialogue(introductionLines));//intro starts immediately - no more button click for it
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        introductionLines = IntroductionPrompt.lines;
+        sisterCindylines = SisterCindy.lines;
+        touchGrasslines = TouchGrass.lines;
+        vikingLines = Viking.lines;
+        goblinLines = GoblinQuest.lines;
+        StartCoroutine(ShowDialogue(introductionLines));
     }
 
     void Update()
     {
-        if (waitingForSpace && Input.GetKeyDown(KeyCode.Space)) // this is for going to the next line
-        {
-            waitingForSpace = false;
-            //  waiting for space and space bar is pressed, proceed to the next line
-        }
-        if (instantFinish == false && Input.GetKeyDown(KeyCode.Space)) // this is if the space bar is clicked during the character by character display
-        {
-            instantFinish = true; // finish the line of text
-        }
-
-        if (Input.GetKeyDown(KeyCode.E) && introCompleted && giveQuestCompleted) // e is for the next prompts
-        {
-            //  intro is completed and "E" is pressed, proceed to the sister cindy  prompt
-            StartCoroutine(ShowDialogue(sisterCindylines));
-        }
-
-        //  "E" key to proceed to the give quest prompt
-        else if (Input.GetKeyDown(KeyCode.E) && introCompleted)
-        {
-            //  intro is completed and "E" is pressed, proceed to the give quest prompt
-            StartCoroutine(ShowDialogue(giveQuestLines));
-        }
-
+        HandleInput();
     }
-    IEnumerator ShowDialogue(string[] lines)
+
+    public IEnumerator ShowDialogue(string[] lines)
     {
-        dialogueBox.SetActive(true); // Activate the dialogue box to display text
-
-        for (int i = 0; i < lines.Length; i++)//for all the lines in the prompt
+        dialogueRunning = true;
+        dialogueBox.SetActive(true); // Activate the dialogue box
+        // Display the current line character by character
+        foreach (string line in lines)
         {
-            textComponent.text = string.Empty; // make it clean
-            instantFinish = false; // dont finish yet
-
-            // display the current line character by character
-            foreach (char c in lines[i].ToCharArray())// all characters
+            textComponent.text = ""; // Clear the text component at the start of each line
+            foreach (char c in line)
             {
-                textComponent.text += c;//add/display character 
-                yield return new WaitForSeconds(textSpeed); // Use textSpeed variable to let it display at a set rate
-                if (instantFinish == true) // space is clicked
+                textComponent.text += c; // Add each character to the text component
+                if (instantFinish)
                 {
-                    break;//break out of the char loop
+                    // If the player presses space to finish the line instantly
+                    break; // Exit the character loop
                 }
+                yield return new WaitForSeconds(textSpeed); // Wait before showing the next character
             }
-            textComponent.text = lines[i];//set the textbox to have the whole line
+            textComponent.text = line; // Display the full line immediately
+            yield return new WaitForSeconds(.2f);
 
-            // set waiting for space to true after displaying the line
-            waitingForSpace = true;
+            instantFinish = false; // Reset the instant finish flag
+            waitingForSpace = true; // Wait for the player to press space to continue
 
-            // wait until space bar is pressed to proceed to the next line
-            while (waitingForSpace)
+            // Wait until the space bar is pressed to proceed to the next line
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+        }
+        dialogueRunning = false;
+        dialogueBox.SetActive(false);
+
+
+        if (lines == introductionLines)
+        {
+            introCompleted = true;
+
+        }
+    }
+    public void TriggerDialogue(string[] lines)
+    {
+        dialogueBox.SetActive(true);
+        if (dialogueRunning == false)
+        {
+            StartCoroutine(ShowDialogue(lines));
+        }
+    }
+
+    private void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (waitingForSpace)
             {
-                yield return null;//do nothing if waiting for space
+                // Proceed to the next line of dialogue if the space bar is pressed
+                waitingForSpace = false;
             }
-            //if waiting for space is false, exits loop, and restarts with the next line in the dialogue
-        }
-
-        if (lines == introductionLines) // set the intro as done
-        {
-            introCompleted = true;//done
-
-        }
-        else if (lines == giveQuestLines)// set jld as done
-        {
-            giveQuestCompleted = true;//done
-        }
-        else if (lines == sisterCindylines)// set the sister cindy as done
-        {
-            sisterCindyCompleted = true;//done
-            dialogueBox.SetActive(false);//hide the dialogue box
+            else
+            {
+                // Allow instant finishing of the current line
+                instantFinish = true;
+            }
         }
     }
 }
