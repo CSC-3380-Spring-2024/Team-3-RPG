@@ -19,7 +19,7 @@ MonoBehaviour:
   itemDescription: 'Cheers!
 
 
-    [Attack +10]'
+    [Attack +1]'
   restoreHealth: 0
-  attackBonus: 10
+  attackBonus: 1
   debuffDmg: 0
