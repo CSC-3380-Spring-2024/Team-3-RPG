@@ -58,7 +58,9 @@ public class QuestGiverJLD : MonoBehaviour
                 {
                     questManager.AddQuest(quest3);
                     questManager.ActivateQuest(quest3);
-                    Dialogue.Instance.TriggerDialogue(Viking.lines);
+                    questManager.DeactivateQuest(quest3);
+                    questManager.CompleteQuest(quest3); // Complete the quest
+                    // Dialogue.Instance.TriggerDialogue(Viking.lines);
                     Debug.Log($"Quest '{quest3}' has been accepted!");
                 }
 

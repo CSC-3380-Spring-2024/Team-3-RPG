@@ -18,7 +18,7 @@ public class Dialogue : MonoBehaviour
     public string[] touchGrasslines;
     public string[] vikingLines;
     public string[] goblinLines;
-    private bool introCompleted = false; // Indicates if the intro dialogue is completed
+    //private bool introCompleted = false; // Indicates if the intro dialogue is completed
     public bool touchGrassGiven = false;
     private bool waitingForSpace = false; // Indicates if the script is waiting for space bar input
     private bool instantFinish = false;
@@ -29,9 +29,11 @@ public class Dialogue : MonoBehaviour
     public Quest casperQuest;
     public Quest goblinQuest;
     private bool dialogueRunning;
-    public static Dialogue Instance { get; private set; }
+
     [SerializeField]
     private PlayerController playerController;
+
+    public static Dialogue Instance { get; private set; }
 
     private void Awake()
     {

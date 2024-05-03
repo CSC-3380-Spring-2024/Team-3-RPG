@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
-  currentHealth: 0
-  maxHealth: 0
+  currentHealth: 20
+  maxHealth: 20
   render: {fileID: 4315228975576643312}
 --- !u!114 &3983458422230140871
 MonoBehaviour:

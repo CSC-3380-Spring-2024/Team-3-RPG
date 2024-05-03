@@ -86,8 +86,7 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
 
     public void SelectWeapon() //called when player chooses a weapon
     {
-        combatSystem.SelectWeapon();
-
+        if (!combatSystem.SelectWeapon()) return;
         combatSystem.EnterSelectEnemy(); //allow player to select enemies; turns on enemyselect buttons
 
         abilityButton1.setAbility(combatSystem.currentWeapon.GetComponent<WeaponObject>().weapon.abilityList[0]); //initialize ability buttons

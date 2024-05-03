@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum CombatState //1 will be reserved for events that happen in the player's turn
 {
@@ -18,6 +19,7 @@ public class CombatSystem : MonoBehaviour
     private GameObject playerPrefab;
     [SerializeField]
     private GameObject[] enemyPrefab; //size will be 6
+    public int numOfEnemies;
 
     [SerializeField]
     private Transform playerBattleStation;
@@ -54,6 +56,8 @@ public class CombatSystem : MonoBehaviour
             instance = this;
         }
 
+        numOfEnemies = 0;
+
         enemyCombat = new CombatEnemy[6];
 
         enemyBattleStationsArray = new Transform[6];
@@ -64,16 +68,24 @@ public class CombatSystem : MonoBehaviour
 
         enemyProcessed = false;
 
-        for (int i = 0; i < weapons.Length; i++)
-        {
-            if (weapons[i] == null) break;
-            numOfWeapons++;
-        }
+        playerCombat = playerPrefab.GetComponent<PlayerCombat>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        //Debug.Log(CombatTransitionManager.instance.currentHealth);
+        playerCombat.currentHealth = CombatTransitionManager.instance.currentHealth;
+        weapons = CombatTransitionManager.instance.weapons;
+
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i] == null) break;
+            numOfWeapons++;
+        }
+
+        enemyPrefab = CombatTransitionManager.instance.combatEnemies;
+
         for (int i = 0; i < enemyBattleStations.transform.childCount; i++)
         {
             enemyBattleStationsArray[i] = enemyBattleStations.transform.GetChild(i);
@@ -112,6 +124,25 @@ public class CombatSystem : MonoBehaviour
             {
                 enemyCombat[i] = enemy.GetComponent<CombatEnemy>();
             }
+            numOfEnemies++;
+        }
+    }
+
+    public void SpawnEnemy(GameObject enemyPrefab)
+    {
+        for (int i = 0; i < enemyBattleStationsArray.Length; i++) //length should be 6
+        {
+            if (enemyBattleStationsArray[i].childCount == 0)
+            {
+                GameObject enemy = Instantiate(enemyPrefab, enemyBattleStationsArray[i]);
+                if (enemyCombat[i] == null)
+                {
+                    enemyCombat[i] = enemy.GetComponent<CombatEnemy>();
+                }
+                numOfEnemies++;
+                break;
+            }
+
         }
     }
     #endregion
@@ -138,6 +169,7 @@ public class CombatSystem : MonoBehaviour
         bool shouldContinue = false;
         while (state == CombatState.PLAYERTURN) //perpetually check if theres still a living enemy
         {
+            shouldContinue = false;
             for (int i = 0; i < enemyCombat.Length; i++)
             {
                 if (enemyCombat[i] == null)
@@ -146,6 +178,7 @@ public class CombatSystem : MonoBehaviour
                 }
                 if (!enemyCombat[i].isDead) //if there exists a living enemy, then game isnt over
                 {
+                    Debug.Log(enemyCombat[i].name + " is still alive");
                     shouldContinue = true;
                     break;
                 }
@@ -198,10 +231,12 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
-    public void SelectWeapon() //called by uimanager
+    public bool SelectWeapon() //called by uimanager, true if successful selection
     {
+        if (weapons[currentWeaponIndex].GetComponent<WeaponObject>().attackUsed) return false; //dont let them selected used weapon
         currentWeaponObject = weapons[currentWeaponIndex];
         currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
+        return true;
     }
 
     public bool Attack(int id) //returns true if attack is successful, false if fails
@@ -269,6 +304,12 @@ public class CombatSystem : MonoBehaviour
             yield return new WaitUntil(() => enemyCombat[i].turnTaken == true);
             yield return new WaitForSeconds(0.5f);
             enemyProcessed = true;
+
+            if (playerCombat.currentHealth <= 0)
+            {
+                EnterLoss();
+                break;
+            }
         }
         enemyProcessed = false;
 
@@ -290,6 +331,10 @@ public class CombatSystem : MonoBehaviour
     public void EnterWin()
     {
         state = CombatState.WON;
+        //return to world scene
+        CombatTransitionManager.instance.combatEnemies = null;
+        CombatTransitionManager.instance.currentHealth = playerCombat.currentHealth;
+        SceneManager.LoadScene(2);
     }
 
     public void EnterLoss()

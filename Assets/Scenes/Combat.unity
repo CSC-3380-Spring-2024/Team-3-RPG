@@ -8818,12 +8818,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4315228973898012064, guid: 4dddfa28870ad4e4d9ab94a6446b0112, type: 3}
   enemyPrefab:
-  - {fileID: 1676072191438340863, guid: abbb081d1281224448dbff06865b788d, type: 3}
-  - {fileID: 4309960165921371182, guid: a56225ec82ab8d049a387e22fecc002e, type: 3}
-  - {fileID: 7647783199405116001, guid: 7600a86ef32b1d84c8bbcbcb57d2a50f, type: 3}
-  - {fileID: 1811608264879319294, guid: 94f3e5a443af10e46a9f0ff61332d059, type: 3}
-  - {fileID: 1676072191438340863, guid: abbb081d1281224448dbff06865b788d, type: 3}
-  - {fileID: 1676072191438340863, guid: abbb081d1281224448dbff06865b788d, type: 3}
+  - {fileID: 613846100051958014, guid: c72158182d60f03409a683b1b066ed21, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  numOfEnemies: 0
   playerBattleStation: {fileID: 63224246}
   enemyBattleStations: {fileID: 196202004}
   playerCombat: {fileID: 0}
