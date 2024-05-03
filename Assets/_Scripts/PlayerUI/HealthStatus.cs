@@ -11,12 +11,12 @@ public class HealthStatus : MonoBehaviour
 
     void Start()
     {
-        // healthStatus.text = playerHealth.currentHealth.ToString();
+        healthStatus.text = playerHealth.currentHealth.ToString();
     }
 
     void Update()
     {
-        // healthStatus.text = playerHealth.currentHealth.ToString();
+        healthStatus.text = playerHealth.currentHealth.ToString();
     }
 
 }
