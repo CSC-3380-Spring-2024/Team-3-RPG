@@ -39,20 +39,20 @@ public class CombatEnemy : CombatEntity
         isDead = false;
     }
 
-    public void StartTurn()
+    public virtual void StartTurn()
     {
         if (isDead) return;
         Attack();
     }
 
-    private void Attack() //triggers attack animation
+    protected void Attack() //triggers attack animation
     {
         string output = name + " is attacking for " + damage + " damage!";
         CombatUIManager.instance.PlayDialogue(output);
         anim.SetTrigger("Attack");
     }
 
-    private void DoDamage() //called in animation
+    protected void DoDamage() //called in animation
     {
         CombatSystem.instance.playerCombat.TakeDamage(damage);
     }

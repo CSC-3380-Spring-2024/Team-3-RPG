@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 8047174673917803100}
   - component: {fileID: 8047174673917803090}
   - component: {fileID: 8047174673917803091}
+  - component: {fileID: 5338428129738515198}
   m_Layer: 0
   m_Name: Cinder inCombat
   m_TagString: Untagged
@@ -215,6 +216,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5338428129738515198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613846100051958014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b44b4601e5eb84db3be507ec8565f655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6520850313148950434
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +264,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 6, y: 8}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6520850313148950439
 CanvasRenderer:
@@ -330,7 +343,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 5.7604, y: 7.2563}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6520850313199403277
 Canvas:
@@ -506,8 +519,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 210.6758, y: 55.3993}
+  m_AnchoredPosition: {x: 0, y: 1.3841}
+  m_SizeDelta: {x: 1.8882, y: 0.5672}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6520850314087040216
 MonoBehaviour:
@@ -609,8 +622,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.084, y: -247.6}
-  m_SizeDelta: {x: 204.51, y: 344.1}
+  m_AnchoredPosition: {x: 0.0728, y: 0.0082}
+  m_SizeDelta: {x: 1.7406, y: 2.1846}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5846138631085758505
 CanvasRenderer:
