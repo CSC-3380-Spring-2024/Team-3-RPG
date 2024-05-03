@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponSlot : MonoBehaviour
 {
-    private Weapon weapon;
+    private WeaponData weapon;
     private SpriteRenderer render;
 
     private void Awake()
@@ -18,13 +18,13 @@ public class WeaponSlot : MonoBehaviour
         
     //}
 
-    public void SetWeapon(Weapon weapon)
+    public void SetWeapon(WeaponData weapon)
     {
         this.weapon = weapon;
         render.sprite = weapon.defaultSprite;
     }
 
-    public void UnsetWeapon(Weapon weapon)
+    public void UnsetWeapon(WeaponData weapon)
     {
         this.weapon = null;
         render.sprite = null;

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65fd187112d148359c41db032e602ff, type: 3}
   m_Name: WeaponGNasher
   m_EditorClassIdentifier: 
-  name: Hammer
-  defaultSprite: {fileID: 1421693130, guid: 8106c5f6fb86a4dd7a46c6826e5df2d9, type: 3}
+  name: GNasher
+  defaultSprite: {fileID: 0}
   selectedSprite: {fileID: 0}
   abilityList:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 4aec5eda03df6454ea216473ff80bc7c, type: 2}
+  - {fileID: 11400000, guid: 4ec96ceb74b114f0b9db4024bc366207, type: 2}
   didAction: 0
+  isRanged: 0
