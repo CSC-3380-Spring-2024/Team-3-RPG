@@ -46,7 +46,9 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
 
         inAttack = true;
 
-        Debug.Log(weapon.abilityList[id].name);
+        //Debug.Log(weapon.abilityList[id].name);
+
+        PlayerWeaponManager.instance.anim.SetBool("Attack", true);
 
         if (weapon.isRanged)
         {
@@ -102,6 +104,9 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
         anim.SetTrigger("Idle");
         attackUsed = true;
         inAttack = false;
+        PlayerWeaponManager.instance.anim.SetBool("Attack", false);
+
+
         CombatSystem.instance.selectedEnemy.Deselect();
         CombatSystem.instance.CheckTurnOver();
     }

@@ -72,10 +72,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 604780193
-  m_SortingLayer: 1
+  m_SortingLayerID: -54869761
+  m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1786389213, guid: 8106c5f6fb86a4dd7a46c6826e5df2d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b2704bc71cb944108714211703cd574, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: d2cf08e9ec8674561878899d917ed09f, type: 2}
   anim: {fileID: 3329264076959300139}
+  attackUsed: 0
   inAttack: 0
 --- !u!95 &3329264076959300139
 Animator:

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4315228973898012070}
   - component: {fileID: 4315228973898012071}
   - component: {fileID: 3983458422230140871}
+  - component: {fileID: 774672435604787579}
   m_Layer: 0
   m_Name: Player InCombat
   m_TagString: Untagged
@@ -63,8 +64,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 4315228973898012070}
+  anim: {fileID: 774672435604787579}
   weapons:
   - {fileID: 0}
+--- !u!95 &774672435604787579
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4315228973898012064}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 337a2955eed9c49c39911420d65372a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4315228975576643314
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,10 +158,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 604780193
-  m_SortingLayer: 1
+  m_SortingLayerID: -54869761
+  m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1348499138, guid: 8106c5f6fb86a4dd7a46c6826e5df2d9, type: 3}
+  m_Sprite: {fileID: 1381863051, guid: 5348e8d585555814aa9d674b531ef493, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -13,12 +13,15 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField]
     private Transform parent;
 
+    [SerializeField]
+    public Animator anim;
+
     public GameObject[] weapons; //stores the created weapons
     private Vector3[] weaponPositions; //all the weapon positionings for the orbit; initialized in DrawOrbit()
     private int index; //used to rotate weapons array
 
     private int numOfWeapons;
-    private float radius = 1f;
+    private float radius = 1.75f;
 
     private bool isRotating = false;
 
