@@ -1,19 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WorldEnemy : MonoBehaviour
 {
     public GameObject[] enemies; //will store enemeis to bring into combatscene
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private PlayerCombat player;
+
+    private bool isPlayerInRange = false;
+
+    private void Update()
     {
-        
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E)) //transition into combat
+        {
+            CombatTransitionManager.instance.combatEnemies = enemies;
+            CombatTransitionManager.instance.currentHealth = player.currentHealth;
+            SceneManager.LoadScene(4);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            isPlayerInRange = true;
+        }
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            isPlayerInRange = false;
+        }
+    }
+
 }

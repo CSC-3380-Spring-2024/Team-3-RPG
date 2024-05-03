@@ -8,15 +8,19 @@ public class PlayerCombat : CombatEntity
     private SpriteRenderer render;
     private Color originalColor;
 
+    public bool inWorld;
+
     // Start is called before the first frame update
     void Awake()
     {
-        maxHealth = 5f;
-        currentHealth = maxHealth;
+        maxHealth = 20f;
     }
 
     private void Start()
     {
+        currentHealth = CombatTransitionManager.instance.currentHealth;
+
+        if (!inWorld)
         healthBar = CombatUIManager.instance.GetPlayerHealthbar();
     }
 
