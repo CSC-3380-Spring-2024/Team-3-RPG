@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class KillGoblinsCompletion : MonoBehaviour
 {
@@ -16,22 +17,43 @@ public class KillGoblinsCompletion : MonoBehaviour
     // flag to determine if the player is in range
     public bool isPlayerInRange = false;
 
+    private bool wasInCombatScene = false;
+
     // function to ensure the QuestManager is initialized
     private void Awake()
     {
         questManager = QuestManager.Instance;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "WorldScene" && wasInCombatScene)
+        {
+            questToComplete.killCount += 1;  // Increment the kill count
+            wasInCombatScene = false; // Reset the flag
+        }
+        else if (scene.name == "CombatScene")
+        {
+            wasInCombatScene = true; // Set the flag when entering the combat scene
+        }
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded; // Unsubscribe to avoid memory leaks
     }
 
     private void Update()
     {
-        if(questToComplete.killCount == 5)
+        if(questToComplete.killCount >= 1)
         {
             if (questManager.IsQuestComplete(prerequisiteQuest))
             {
                 questManager.CompleteQuest(questToComplete);
                 questManager.DeactivateQuest(questToComplete);
                 Dialogue.Instance.TriggerDialogue(GoblinQuest.finishGob);
-                Debug.Log("ALL GOBLINS DEFEATED");
+                Debug.Log("GOBLIN DEFEATED");
                 this.enabled = false;
             }
         }
