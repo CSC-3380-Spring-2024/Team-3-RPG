@@ -704,8 +704,8 @@ MonoBehaviour:
     Quality
     Assurer'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a06f3cec82d464b5aad1618df753bcf5, type: 2}
-  m_sharedMaterial: {fileID: -7336757180030491391, guid: a06f3cec82d464b5aad1618df753bcf5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bbcc650779c2d4b0d8bf6c1a8fafc0a7, type: 2}
+  m_sharedMaterial: {fileID: -7336757180030491391, guid: bbcc650779c2d4b0d8bf6c1a8fafc0a7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -713,13 +713,13 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.27450982, g: 0.11372549, b: 0.4862745, a: 1}
+    topRight: {r: 0.8392157, g: 0.7882353, b: 0.8901961, a: 1}
+    bottomLeft: {r: 0.73333335, g: 0.53333336, b: 1, a: 1}
+    bottomRight: {r: 0.6431373, g: 0.57254905, b: 0.7764706, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -735,7 +735,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1270,8 +1270,8 @@ MonoBehaviour:
 
     "Gnasher"'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a06f3cec82d464b5aad1618df753bcf5, type: 2}
-  m_sharedMaterial: {fileID: -7336757180030491391, guid: a06f3cec82d464b5aad1618df753bcf5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bbcc650779c2d4b0d8bf6c1a8fafc0a7, type: 2}
+  m_sharedMaterial: {fileID: -7336757180030491391, guid: bbcc650779c2d4b0d8bf6c1a8fafc0a7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1279,13 +1279,13 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.27450982, g: 0.11372549, b: 0.4862745, a: 1}
+    topRight: {r: 0.6431373, g: 0.57254905, b: 0.7764706, a: 1}
+    bottomLeft: {r: 0.73333335, g: 0.53333336, b: 1, a: 1}
+    bottomRight: {r: 0.8392157, g: 0.7882353, b: 0.8901961, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -1685,8 +1685,8 @@ MonoBehaviour:
 
     Dialogue'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a06f3cec82d464b5aad1618df753bcf5, type: 2}
-  m_sharedMaterial: {fileID: -7336757180030491391, guid: a06f3cec82d464b5aad1618df753bcf5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bbcc650779c2d4b0d8bf6c1a8fafc0a7, type: 2}
+  m_sharedMaterial: {fileID: -7336757180030491391, guid: bbcc650779c2d4b0d8bf6c1a8fafc0a7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1694,13 +1694,13 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.27450982, g: 0.11372549, b: 0.4862745, a: 1}
+    topRight: {r: 0.6431373, g: 0.57254905, b: 0.7764706, a: 1}
+    bottomLeft: {r: 0.73333335, g: 0.53333336, b: 1, a: 1}
+    bottomRight: {r: 0.8392157, g: 0.7882353, b: 0.8901961, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -1716,7 +1716,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
