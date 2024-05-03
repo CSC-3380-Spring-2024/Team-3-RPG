@@ -9,7 +9,7 @@ We used Unity as our game engine, C# as our programming language, and imported s
 ## How to run:
 If you'd like to play or game or work on it, here's how to do it:
 ### Prerequisites
-- Unity installed on your computer (make sure to use Unity 2021)
+- Unity installed on your computer (make sure to use Unity Editor 2021.3.26f1)
 - Git installed on your computer
 - Github would definitely make your life easier. (You're on this website for a reason)
 
@@ -17,8 +17,8 @@ If you'd like to play or game or work on it, here's how to do it:
 - use: git clone https://github.com/CSC-3380-Spring-2024/Team-3-RPG.git
 
 ### Running the Game
-1. Open Unity. Once again, make sure it is the 2021 version.
-2. From the Unity Hub, click on "Open".
+1. Open Unity. Once again, make sure it is the 2021.3.26f1 version.
+2. From the Unity Hub, click on "Projects," then "Add."
 3. Navigate to the directory where you cloned the repository and select the folder.
 4. Once the project is open in Unity, locate the main scene file ('Menu') in the project hierarchy.
 5. Double-click on the main scene file to open it.
