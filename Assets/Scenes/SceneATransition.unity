@@ -392,6 +392,79 @@ PrefabInstance:
       propertyPath: transitionTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3941539190655506678, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_text
+      value: Click to load >
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941539190655506678, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.12687784
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941539190655506678, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.6065166
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941539190655506678, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.9339623
+      objectReference: {fileID: 0}
+    - target: {fileID: 3941539190655506678, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4280327150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351233802632689092, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_text
+      value: "Controls:\n\n[WASD] to Move\t\t\n[E] to Interact with NPCs\t\n[SPACE]
+        for Dialogue\n\n[M] for Map\n[I] for Inventory\n[ESC] to Pause\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351233802632689092, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_margin.z
+      value: 490.62695
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351233802632689092, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.26415092
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351233802632689092, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.045852605
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351233802632689092, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.18746267
+      objectReference: {fileID: 0}
+    - target: {fileID: 4351233802632689092, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4282584112
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.37223262
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.49999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 288.432
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 144.22
+      objectReference: {fileID: 0}
     - target: {fileID: 6484336978242259869, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
       propertyPath: m_RootOrder
       value: 0

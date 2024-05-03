@@ -49,7 +49,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
         for (int i = 0; i < numOfWeapons; i++)
         {
-            weapons[i] = combatSystem.weapons[i];
+            weapons[i] = CombatTransitionManager.instance.weapons[i];
         }
         DrawOrbit();
     }
