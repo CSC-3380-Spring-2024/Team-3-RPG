@@ -19,7 +19,6 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 30
-
     width: 1536
     height: 730.8
   m_MinSize: {x: 300, y: 200}
@@ -327,9 +326,9 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: -141, y: -224}
+      snapOffset: {x: -141, y: 149}
       snapOffsetDelta: {x: 0, y: 0}
-      snapCorner: 3
+      snapCorner: 1
       id: unity-grid-and-snap-toolbar
       index: 1
       layout: 1
@@ -780,7 +779,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12003, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: 
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
@@ -847,7 +846,6 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-
   - Assets/Art/Animation
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\kimbe\OneDrive\Desktop\VSCODE\Team-3-RPG-1
@@ -910,7 +908,6 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-
     m_SelectedInstanceIDs: d24effff
     m_LastClickedInstanceID: -45358
     m_HadKeyboardFocusLastEvent: 1

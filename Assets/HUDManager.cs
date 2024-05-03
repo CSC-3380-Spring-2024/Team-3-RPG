@@ -66,6 +66,11 @@ public class HUDManager : MonoBehaviour
         isPaused = true;
     }
 
+    // Returns to the main menu
+    public void MainMenu() {
+        SceneManager.LoadScene("Menu");
+    }
+
     // Turns off game completely
     public void QuitGame() {
         Debug.Log("[*]QUITTING GAME...");
