@@ -628,6 +628,8 @@ MonoBehaviour:
   button: {fileID: 9070193960980337550}
   render: {fileID: 6753072353910919309}
   anim: {fileID: 1057008918191735459}
+  name: Ghost
+  damage: 2
   turnTaken: 0
   isDead: 0
 --- !u!95 &1057008918191735459

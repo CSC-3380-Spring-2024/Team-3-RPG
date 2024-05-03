@@ -16,7 +16,10 @@ public class CombatEnemy : CombatEntity
     private Animator anim;
     private bool inAnim;
 
+    public new string name;
+
     public Dictionary<string, int> statuses; // keeps track of names and duration of marks, buffs, debuffs
+    public float damage;
 
     public bool turnTaken;
 
@@ -44,13 +47,14 @@ public class CombatEnemy : CombatEntity
 
     private void Attack() //triggers attack animation
     {
+        string output = name + " is attacking for " + damage + " damage!";
+        CombatUIManager.instance.PlayDialogue(output);
         anim.SetTrigger("Attack");
     }
 
     private void DoDamage() //called in animation
     {
-        CombatSystem.instance.playerCombat.TakeDamage(2);
-        Debug.Log(CombatSystem.instance.playerCombat.currentHealth);
+        CombatSystem.instance.playerCombat.TakeDamage(damage);
     }
 
     private void EndTurn()
@@ -89,7 +93,7 @@ public class CombatEnemy : CombatEntity
 
     public override void Die()
     {
-        Debug.Log("enemy died");
+        //Debug.Log("enemy died");
         anim.SetBool("isDead", true);
         isDead = true;
     }
@@ -104,15 +108,15 @@ public class CombatEnemy : CombatEntity
             return;
         }
         if (CombatSystem.instance.selectedEnemy == gameObject) Deselect();
-        Debug.Log("selected");
+        //Debug.Log("selected");
         render.color = Color.red;
-        Debug.Log(render.color.ToString());
+        //Debug.Log(render.color.ToString());
         CombatSystem.instance.setEnemy(this);
     }
 
     public void Deselect()
     {
-        Debug.Log("unselected");
+        //Debug.Log("unselected");
         render.color = originalColor;
         CombatSystem.instance.unsetEnemy();
     }
