@@ -13,7 +13,7 @@ public class CombatEnemy : CombatEntity
 
     //animation stuff
     [SerializeField]
-    private Animator anim;
+    protected Animator anim;
     private bool inAnim;
 
     public new string name;
@@ -28,7 +28,6 @@ public class CombatEnemy : CombatEntity
     // Start is called before the first frame update
     void Awake()
     {
-        maxHealth = 3f;
         currentHealth = maxHealth;
         originalColor = render.color;
 
@@ -102,6 +101,7 @@ public class CombatEnemy : CombatEntity
 
     public void Select()
     {
+        Debug.Log("select attempted");
         if (!CombatSystem.instance.inSelect)
         {
             Debug.Log("not in select mode!");
