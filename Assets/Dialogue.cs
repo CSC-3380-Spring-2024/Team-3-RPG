@@ -53,12 +53,7 @@ public class Dialogue : MonoBehaviour
         touchGrasslines = TouchGrass.lines;
         vikingLines = Viking.lines;
         goblinLines = GoblinQuest.lines;
-        playerController.canMove = false;
         StartCoroutine(ShowDialogue(introductionLines));
-        if (introCompleted)
-        {
-            playerController.canMove = true;
-        }
     }
 
     void Update()
@@ -95,7 +90,6 @@ public class Dialogue : MonoBehaviour
         }
         dialogueRunning = false;
         dialogueBox.SetActive(false);
-        playerController.canMove = true;
 
 
         if (lines == introductionLines)
@@ -109,7 +103,6 @@ public class Dialogue : MonoBehaviour
         dialogueBox.SetActive(true);
         if (dialogueRunning == false)
         {
-            playerController.canMove = false;
             StartCoroutine(ShowDialogue(lines));
         }
     }

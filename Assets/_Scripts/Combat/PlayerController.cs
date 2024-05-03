@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
     private bool CanMove(Vector3 direction)
     {
         //If there's no tile from the ground tile or if it's a part of the collision map, return false ->can't walk in it.
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
-    IEnumerator Move(Vector3 direction) //search up enumerators unity
+    private IEnumerator Move(Vector3 direction) //search up enumerators unity
     {
         isMoving = true;
         float elapsedTime = 0;
@@ -84,6 +85,8 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.position = targetPosition; //just in case
+
         isMoving = false;
     }
+
 }
