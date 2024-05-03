@@ -19,9 +19,11 @@ public class CombatSystem : MonoBehaviour
     [SerializeField]
     private GameObject[] enemyPrefab; //size will be 6
 
-    public Transform playerBattleStation;
-    public GameObject enemyBattleStations; //parent gameobject that has 6 stations
-    public Transform[] enemyBattleStationsArray; //size will be 6
+    [SerializeField]
+    private Transform playerBattleStation;
+    [SerializeField]
+    private GameObject enemyBattleStations; //parent gameobject that has 6 stations
+    private Transform[] enemyBattleStationsArray; //size will be 6
 
     [HideInInspector]
     public CombatEntity playerCombat;
@@ -39,6 +41,7 @@ public class CombatSystem : MonoBehaviour
     public CombatState state;
     public bool inSelect; //tells if in enemy selection mode
 
+    public bool enemyProcessed; //for combat dialogue to read
     #region Setup
     private void Awake()
     {
@@ -59,6 +62,7 @@ public class CombatSystem : MonoBehaviour
 
         currentWeaponIndex = 0;
 
+        enemyProcessed = false;
 
         for (int i = 0; i < weapons.Length; i++)
         {
@@ -76,7 +80,7 @@ public class CombatSystem : MonoBehaviour
         }
 
         state = CombatState.START;
-         StartCoroutine(SetupCombat());
+        StartCoroutine(SetupCombat());
     }
 
     IEnumerator SetupCombat() //uses a coroutine to buffer the setup
@@ -116,6 +120,10 @@ public class CombatSystem : MonoBehaviour
 
     void EnterPlayerTurn()
     {
+        state = CombatState.PLAYERTURN;
+
+        CombatUIManager.instance.ShowOnly(CombatUIManager.instance.defaultPanel);
+
         //reset all weapon usedWeapon variables
         for (int i = 0; i < numOfWeapons; i++)
         {
@@ -125,9 +133,29 @@ public class CombatSystem : MonoBehaviour
         StartCoroutine(PlayerTurn());
     }
 
-    IEnumerator PlayerTurn()
+    IEnumerator PlayerTurn() //waits until player turn ends and also checks for 
     {
-        yield return new WaitUntil(() => state != CombatState.PLAYERTURN);
+        bool shouldContinue = false;
+        while (state == CombatState.PLAYERTURN) //perpetually check if theres still a living enemy
+        {
+            for (int i = 0; i < enemyCombat.Length; i++)
+            {
+                if (enemyCombat[i] == null)
+                {
+                    continue;
+                }
+                if (!enemyCombat[i].isDead) //if there exists a living enemy, then game isnt over
+                {
+                    shouldContinue = true;
+                    break;
+                }
+            }
+            if (!shouldContinue) //won
+            {
+                EnterWin();
+            }
+            yield return null;
+        }
         EnterEnemyTurn();
     }
 
@@ -190,18 +218,21 @@ public class CombatSystem : MonoBehaviour
         }
 
         currentWeaponObject.GetComponent<WeaponObject>().BeginAbilityAnimation(id, selectedEnemy); //attacks
+        return true;
+    }
 
+    public void CheckTurnOver()
+    {
         //check if all weapon turns are used
         for (int i = 0; i < numOfWeapons; i++)
         {
             if (!weapons[i].GetComponent<WeaponObject>().attackUsed)
             {
-                return true;
+                return;
             }
         }
 
         state = CombatState.ENEMYTURN;
-        return true;
     }
 
     public void EndPlayerTurn() //for skipping turn
@@ -209,32 +240,37 @@ public class CombatSystem : MonoBehaviour
         state = CombatState.ENEMYTURN;
     }
 
-
     #endregion
 
     #region Enemy Turn
 
-
-
     void EnterEnemyTurn()
     {
         Debug.Log("enemy turn time");
-        StartCoroutine(EnemyTurn());
-
+        StartCoroutine(ProcessEnemyTurns());
     }
 
-    IEnumerator EnemyTurn()
+    IEnumerator ProcessEnemyTurns()
     {
         Debug.Log("enemy turn coroutine started");
         for (int i = 0; i < enemyCombat.Length; i++)
         {
+            enemyProcessed = false;
             if (enemyCombat[i] == null)
             {
-                break;
+                continue;
             }
+            if (enemyCombat[i].isDead)
+            {
+                continue;
+            }
+            Debug.Log("yeah");
             enemyCombat[i].StartTurn();
             yield return new WaitUntil(() => enemyCombat[i].turnTaken == true);
+            yield return new WaitForSeconds(0.5f);
+            enemyProcessed = true;
         }
+        enemyProcessed = false;
 
         for (int i = 0; i < enemyCombat.Length; i++) //reset turn taken on all enemies
         {
@@ -244,7 +280,21 @@ public class CombatSystem : MonoBehaviour
             }
             enemyCombat[i].turnTaken = false;
         }
-        state = CombatState.PLAYERTURN;
+        EnterPlayerTurn();
+    }
+
+    #endregion
+
+    #region End Conditions
+
+    public void EnterWin()
+    {
+        state = CombatState.WON;
+    }
+
+    public void EnterLoss()
+    {
+        state = CombatState.LOST;
     }
 
     #endregion

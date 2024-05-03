@@ -103,5 +103,6 @@ public class WeaponObject : MonoBehaviour //purpose is to handle animation essen
         attackUsed = true;
         inAttack = false;
         CombatSystem.instance.selectedEnemy.Deselect();
+        CombatSystem.instance.CheckTurnOver();
     }
 }

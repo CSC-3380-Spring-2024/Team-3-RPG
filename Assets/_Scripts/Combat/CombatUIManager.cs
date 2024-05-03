@@ -9,9 +9,10 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
 
     [SerializeField] private HealthBar playerHealth;
 
-    [SerializeField] private GameObject defaultPanel;
+    [SerializeField] public GameObject defaultPanel;
     [SerializeField] private GameObject selectWeaponPanel;
     [SerializeField] private GameObject attackPanel;
+    [SerializeField] private GameObject dialoguePanel;
 
     [SerializeField] private AbilityButton abilityButton1;
     [SerializeField] private AbilityButton abilityButton2;
@@ -19,6 +20,8 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
     public int numOfPanels;
     private GameObject[] panels;
     private int currentPanelIndex;
+
+    public bool showingDialogue;
 
     private void Awake()
     {
@@ -34,6 +37,8 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
         panels[0] = defaultPanel;
         panels[1] = selectWeaponPanel;
         panels[2] = attackPanel;
+        panels[3] = dialoguePanel;
+        dialoguePanel.SetActive(false);
         currentPanelIndex = 0;
     }
 
@@ -106,6 +111,21 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
 
         currentPanelIndex = 0; //return to default panel
         ShowOnly(defaultPanel);
+    }
+
+    public void PlayDialogue(string dialogue)
+    {
+        dialoguePanel.SetActive(true);
+        showingDialogue = true;
+        StartCoroutine(DialogueCoroutine(dialogue));
+    }
+
+    IEnumerator DialogueCoroutine(string dialogue)
+    {
+        dialoguePanel.GetComponent<CombatTextbox>().ShowText(dialogue);
+        yield return new WaitUntil(() => combatSystem.enemyProcessed == true);
+        dialoguePanel.SetActive(false);
+        showingDialogue = false;
     }
 
     public void ShowBag()
