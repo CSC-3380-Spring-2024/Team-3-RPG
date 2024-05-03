@@ -12,9 +12,6 @@ public class QuestManager : MonoBehaviour
     // Dictionary to track the completion status of each quest
     private Dictionary<Quest, bool> questCompletionStatus = new Dictionary<Quest, bool>();
 
-    // Dictionary to hold quests and their active status
-    private Dictionary<Quest, bool> questActiveStatus = new Dictionary<Quest, bool>();
-
     // starter quest
     public Quest startingQuest;
     public Quest goblinQuest;
@@ -110,7 +107,7 @@ public class QuestManager : MonoBehaviour
     {
         if (questToActivate != null && !IsQuestActive(questToActivate))
         {
-            questActiveStatus[questToActivate] = true;
+            questToActivate.isActive = true;
             Debug.Log($"Quest '{questToActivate.questName}' is now active.");
         }
     }
@@ -120,7 +117,7 @@ public class QuestManager : MonoBehaviour
     {
         if (questToDeactivate != null && IsQuestActive(questToDeactivate))
         {
-            questActiveStatus[questToDeactivate] = false;
+            questToDeactivate.isActive = false;
             Debug.Log($"Quest '{questToDeactivate.questName}' has been deactivated.");
         }
     }
@@ -128,25 +125,11 @@ public class QuestManager : MonoBehaviour
     // New function similar to IsQuestComplete to check if a quest is active
     public bool IsQuestActive(Quest questToCheck)
     {
-        if (questActiveStatus.TryGetValue(questToCheck, out bool isActive))
+        if (questToCheck != null)
         {
-            return isActive; // Return the isActive status
+            return questToCheck.isActive; // Return the isActive status
         }
 
         return false; // If the quest is null, return false
-    }
-
-    public void SaveQuestState(Quest quest)
-    {
-        PlayerPrefs.SetInt("QuestActive_" + quest.questName, IsQuestActive(quest) ? 1 : 0);
-        PlayerPrefs.Save();
-    }
-
-    public void LoadQuestState(Quest quest)
-    {
-        if (PlayerPrefs.HasKey("QuestActive_" + quest.questName))
-        {
-            questActiveStatus[quest] = PlayerPrefs.GetInt("QuestActive_" + quest.questName) == 1;
-        }
     }
 }

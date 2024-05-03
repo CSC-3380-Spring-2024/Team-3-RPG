@@ -34,7 +34,6 @@ public class CasperCompletion : MonoBehaviour
                 {
                     questManager.CompleteQuest(questToComplete); // Complete the quest
                     questManager.DeactivateQuest(questToComplete);
-                    Dialogue.Instance.TriggerDialogue(SisterCindy.sisterDone);
                     Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
                     this.enabled = false;
                 }

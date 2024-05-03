@@ -25,11 +25,30 @@ public class TouchGrassCompletion : MonoBehaviour
         {
             questManager.CompleteQuest(questToComplete); // Complete the quest
             questManager.DeactivateQuest(questToComplete);
-            Dialogue.Instance.TriggerDialogue(TouchGrass.finishGrass);
             Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
             this.enabled = false;
         }
     }
+    // function to check if the player enters the zone
+    // if true, completes this specific quest
+    // public void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         if (questManager != null)
+    //         {
+    //             if(questManager.IsQuestComplete(questToComplete))
+    //             {
+    //                 return;
+    //             }
+    //             else
+    //             {
+    //                 questManager.CompleteQuest(questToComplete);
+    //                 Debug.Log($"Quest '{questToComplete}' has been completed");
+    //             }
+    //         }
+    //     }
+    // }
 
     private void OnTriggerEnter2D(Collider2D other)
     {

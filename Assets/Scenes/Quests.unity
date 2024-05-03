@@ -1937,12 +1937,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179105efd2b0742629cf90b6d589fdef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
   groundTilemap: {fileID: 2098526264}
-  collisionTilemap:
-  - {fileID: 0}
+  collisionTilemap: {fileID: 1039439241}
   isMoving: 0
-  canMove: 0
 --- !u!4 &2022401667
 Transform:
   m_ObjectHideFlags: 0

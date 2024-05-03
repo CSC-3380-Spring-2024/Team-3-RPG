@@ -30,7 +30,6 @@ public class KillGoblinsCompletion : MonoBehaviour
             {
                 questManager.CompleteQuest(questToComplete);
                 questManager.DeactivateQuest(questToComplete);
-                Dialogue.Instance.TriggerDialogue(GoblinQuest.finishGob);
                 Debug.Log("ALL GOBLINS DEFEATED");
                 this.enabled = false;
             }
