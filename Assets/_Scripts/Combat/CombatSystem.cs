@@ -231,10 +231,12 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
-    public void SelectWeapon() //called by uimanager
+    public bool SelectWeapon() //called by uimanager, true if successful selection
     {
+        if (weapons[currentWeaponIndex].GetComponent<WeaponObject>().attackUsed) return false; //dont let them selected used weapon
         currentWeaponObject = weapons[currentWeaponIndex];
         currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
+        return true;
     }
 
     public bool Attack(int id) //returns true if attack is successful, false if fails
