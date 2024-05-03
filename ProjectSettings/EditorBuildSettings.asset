@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 5a92bce8576476247a466aa28bb40a30
   - enabled: 1
+    path: Assets/Scenes/SceneATransition.unity
+    guid: d3dc4f9419e71104d9f798add643dc2c
+  - enabled: 1
     path: Assets/Scenes/WorldScene.unity
     guid: 631c87c49a12220408cd50e1a656761a
   m_configObjects: {}
