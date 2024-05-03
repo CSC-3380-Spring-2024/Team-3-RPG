@@ -20,7 +20,7 @@ MonoBehaviour:
     cup of lemonade.
 
 
-    [Attack +20]'
+    [Attack +2]'
   restoreHealth: 0
-  attackBonus: 20
+  attackBonus: 2
   debuffDmg: 0

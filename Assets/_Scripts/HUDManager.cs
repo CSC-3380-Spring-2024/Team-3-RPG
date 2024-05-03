@@ -11,13 +11,23 @@ public class HUDManager : MonoBehaviour
     public GameObject mapPanel;
 
     // Declare and initialize variables for game state
-    private static bool isPaused = false;
-    private static bool isInvenOpen = false;
-    private static bool isMapOpen = false;
+    private bool isPaused = false;
+    public bool isInvenOpen = false;
+    private bool isMapOpen = false;
 
     /* INVENTORY DATA */
     public ItemSlot[] itemSlot;     // Number of slots avaliable in inventory
     public ItemSO[] itemSO;         // Item Scriptable Objects
+
+    /* Instance */
+    public static HUDManager instance;
+    
+    private void Awake() {
+        if(instance != null && instance != this)
+            Destroy(this);
+        else
+            instance = this;
+    }
 
     // Player may either click the buttons
     // OR press a key on keyboard to pull up the menu
@@ -27,24 +37,30 @@ public class HUDManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape)) {
             if(isPaused)
                 ResumeGame();
-            else
-                PauseGame();
+            else {
+                if(!isMapOpen && !isInvenOpen)
+                    PauseGame();
+            }
         }
 
         // INVENTORY toggle
         if(Input.GetKeyDown(KeyCode.I)) {
             if(isInvenOpen)
                 CloseInven();
-            else
-                OpenInven();
+            else {
+                if(!isMapOpen && !isPaused)
+                    OpenInven();
+            }
         }
 
         // MAP toggle
         if(Input.GetKeyDown(KeyCode.M)) {
             if(isMapOpen)
                 CloseMap();
-            else
-                OpenMap();
+            else {
+                if(!isInvenOpen && !isPaused)
+                    OpenMap();
+            }
         }
     }
 

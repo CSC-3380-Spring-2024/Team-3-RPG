@@ -6,6 +6,7 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
 {
     public static CombatUIManager instance;
     private CombatSystem combatSystem;
+    private HUDManager bag;     // References HUDManager.cs
 
     [SerializeField] private HealthBar playerHealth;
 
@@ -22,6 +23,7 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
     private int currentPanelIndex;
 
     public bool showingDialogue;
+
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
     private void Start()
     {
         combatSystem = CombatSystem.instance;
+        bag = HUDManager.instance;
         ShowOnly(defaultPanel);
     }
 
@@ -129,7 +132,10 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
 
     public void ShowBag()
     {
-        Debug.Log("pressed the bag button");
+        Debug.Log("Bag is open");
+        if(!bag.isInvenOpen) {
+            bag.OpenInven();
+        }
     }
 
 
