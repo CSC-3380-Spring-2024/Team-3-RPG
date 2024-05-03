@@ -414,17 +414,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4351233802632689092, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
       propertyPath: m_text
-      value: 'Controls:
-
-
-        [WASD] to Move
-
-        [E] to Interact with NPCs
-
-        [SPACE]
-        for Dialogue
-
-'
+      value: "Controls:\n\n[WASD] to Move\t\t\n[E] to Interact with NPCs\t\n[SPACE]
+        for Dialogue\n\n[M] for Map\n[I] for Inventory\n[ESC] to Pause\n"
       objectReference: {fileID: 0}
     - target: {fileID: 4351233802632689092, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
       propertyPath: m_margin.z
@@ -460,19 +451,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 155.2538
-      objectReference: {fileID: 0}
-    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
-      propertyPath: m_AnchoredPosition.x
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 288.432
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5547871172148098849, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 100.84
+      value: 144.22
       objectReference: {fileID: 0}
     - target: {fileID: 6484336978242259869, guid: 3bec2f5ced8624e40a2bff37876e5090, type: 3}
       propertyPath: m_RootOrder
