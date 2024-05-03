@@ -14,40 +14,38 @@ public class PlayerController : MonoBehaviour
     public bool isMoving = false;
     private float timeToMove = 0.2f;
     private Vector3 movement = Vector3.zero;
-    public bool canMove = true;
     
     // Update is called once per frame
     void Update()
     {
-        if (canMove && !isMoving) // Only allow input if not currently moving
-        {
-            //Vector3 intendedMove = Vector3.zero; // This will store the intended movement direction
-            movement = Vector3.zero;
-            if (Input.GetKey(KeyCode.W) && !isMoving)
-            {
-                MovePlayer(Vector3.up);
-            }
-            if (Input.GetKey(KeyCode.A) && !isMoving)
-            {
-                MovePlayer(Vector3.left);
-            }
-            if (Input.GetKey(KeyCode.S) && !isMoving)
-            {
-                MovePlayer(Vector3.down);
-            }
-            if (Input.GetKey(KeyCode.D) && !isMoving)
-            {
-                MovePlayer(Vector3.right);
-            }
+        movement = Vector3.zero;
 
-            if (!isMoving && movement != Vector3.zero) // Check if movement is non-zero before moving
-            {
-                MovePlayer(movement);
-            }
-            animator.SetFloat("Horizontal", transform.position.x);
-            animator.SetFloat("Vertical", transform.position.y);
-            animator.SetFloat("Speed", movement.sqrMagnitude); // Using isMoving to set Speed
+        if (Input.GetKey(KeyCode.W))
+        {
+            movement += Vector3.up; // Add to the movement vector
         }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            movement += Vector3.left;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            movement += Vector3.down;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            movement += Vector3.right;
+        }
+        
+        if (!isMoving && movement != Vector3.zero) // Check if movement is non-zero before moving
+        {
+            MovePlayer(movement);
+        }
+
+        animator.SetFloat("Horizontal", movement.x);
+        animator.SetFloat("Vertical", movement.y);
+        //Using magnitude, length of movement vector aka speed
+        animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
     private void MovePlayer(Vector3 direction)
@@ -58,18 +56,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public bool CanMove(Vector3 direction)
+    private bool CanMove(Vector3 direction)
     {
         //If there's no tile from the ground tile or if it's a part of the collision map, return false ->can't walk in it.
         Vector3Int gridPosition = groundTilemap.WorldToCell(transform.position + (Vector3)direction);
-        // foreach (Tilemap collisionTilemap in collisionTilemap){
-        //     if (!groundTilemap.HasTile(gridPosition) || collisionTilemap.HasTile(gridPosition))
-        //     {
-        //         return false;
-        //     }
-        // }
-        foreach (Tilemap collisionTilemap in collisionTilemap)
-        {
+        foreach (Tilemap collisionTilemap in collisionTilemap){
             if (!groundTilemap.HasTile(gridPosition) || collisionTilemap.HasTile(gridPosition))
             {
                 return false;
