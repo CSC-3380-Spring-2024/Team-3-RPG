@@ -18,4 +18,5 @@ public class Coin : MonoBehaviour
         }
     }
 
+    // The max amount the player can collect is 170
 }
