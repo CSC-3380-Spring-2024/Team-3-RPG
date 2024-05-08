@@ -29,7 +29,7 @@ public class CombatSystem : MonoBehaviour
 
     [HideInInspector]
     public CombatEntity playerCombat;
-    CombatEnemy[] enemyCombat; //size will be 6
+    public CombatEnemy[] enemyCombat; //size will be 6
 
     public GameObject[] weapons; //size will be 6
     public GameObject currentWeaponObject;
@@ -340,6 +340,7 @@ public class CombatSystem : MonoBehaviour
     public void EnterLoss()
     {
         state = CombatState.LOST;
+        SceneManager.LoadScene(2);
     }
 
     #endregion
