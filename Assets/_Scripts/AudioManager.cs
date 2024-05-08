@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource backgroundAudio;
     public AudioSource soundEffectsAudio;
 
+    public static AudioManager Instance { get; private set; }
     void Start()
     {
         firstPlayInt = PlayerPrefs.GetInt(FirstPlay);
@@ -34,6 +35,21 @@ public class AudioManager : MonoBehaviour
             soundEffectsSlider.value = soundEffectsFloat;
         }
     }
+
+    // private void Awake()
+    // {
+    //     if (Instance == null)
+    //     {
+    //         Instance = this;
+    //         // ensures persistence across scenes
+    //         DontDestroyOnLoad(gameObject);
+    //     }
+    //     else
+    //     {
+    //         // destroys any duplicate instances
+    //         Destroy(gameObject);
+    //     }
+    // }
 
     public void save()
     {

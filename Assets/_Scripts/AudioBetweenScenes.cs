@@ -9,10 +9,25 @@ public class AudioBetweenScenes : MonoBehaviour
     private float backgroundFloat, soundEffectsFloat;
     public AudioSource backgroundAudio;
     public AudioSource soundEffectsAudio;
+    //public static AudioBetweenScenes Instance { get; private set; }
 
     void Awake()
     {
         continueSetting();
+
+        // if (Instance == null)
+        // {
+        //     Instance = this;
+        //     // ensures persistence across scenes
+        //     DontDestroyOnLoad(gameObject);
+        // }
+        // else
+        // {
+        //     // destroys any duplicate instances
+        //     Destroy(gameObject);
+        // }
+
+
     }
 
     private void continueSetting()
