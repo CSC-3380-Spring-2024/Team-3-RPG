@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CinderBlockCompletion : MonoBehaviour
+public class CinderBlockComplete : MonoBehaviour
 {
     // QuestManager reference
     private QuestManager questManager;
