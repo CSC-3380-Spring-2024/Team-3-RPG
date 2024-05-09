@@ -73,9 +73,17 @@ public class AudioManager : MonoBehaviour
 
     public void save()
     {
-        PlayerPrefs.SetFloat(backgroundPref, backgroundSlider.value);
-        PlayerPrefs.SetFloat(soundEffectsPref, soundEffectsSlider.value);
+        if (backgroundSlider != null && backgroundPref != null)
+        {
+            PlayerPrefs.SetFloat(backgroundPref, backgroundSlider.value);
+        }
+
+        if (soundEffectsSlider != null && soundEffectsPref != null)
+        {
+            PlayerPrefs.SetFloat(soundEffectsPref, soundEffectsSlider.value);
+        }
     }
+
 
     void OnApplicationFocus(bool inFocus)
     {
