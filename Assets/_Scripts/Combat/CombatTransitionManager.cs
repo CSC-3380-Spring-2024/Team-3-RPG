@@ -17,7 +17,7 @@ public class CombatTransitionManager : MonoBehaviour { //class is responsible fo
         if (instance != null && instance != this) //singleton
         {
             Debug.Log("attempted to create duplicate CombatTransitionManager instance");
-            Destroy(this);
+            Destroy(gameObject);
         }
         else
         {
