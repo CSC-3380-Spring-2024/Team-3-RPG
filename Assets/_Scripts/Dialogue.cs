@@ -30,6 +30,7 @@ public class Dialogue : MonoBehaviour
     public Quest goblinQuest;
     private bool dialogueRunning;
     public static Dialogue Instance { get; private set; }
+
     [SerializeField]
     private PlayerController playerController;
 

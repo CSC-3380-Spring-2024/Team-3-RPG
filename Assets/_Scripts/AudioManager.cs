@@ -6,9 +6,13 @@ public class AudioManager : MonoBehaviour
     private static readonly string FirstPlay = "FirstPlay";
     private static readonly string backgroundPref = "backgroundPref";
     private static readonly string soundEffectsPref = "soundEffectsPref";
+
     private int firstPlayInt;
     public Slider backgroundSlider, soundEffectsSlider;
     private float backgroundFloat, soundEffectsFloat;
+
+    [SerializeField]
+    public PlayerController playerController;
 
     public AudioSource backgroundAudio;
     public AudioSource soundEffectsAudio;
@@ -34,6 +38,22 @@ public class AudioManager : MonoBehaviour
             soundEffectsFloat = PlayerPrefs.GetFloat(soundEffectsPref);
             soundEffectsSlider.value = soundEffectsFloat;
         }
+    }
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            if (playerController != null && playerController.enabled)
+            {
+                soundEffectsAudio.enabled = true;
+            }
+
+        }
+        else
+        {
+            soundEffectsAudio.enabled = false;
+        }
+
     }
 
     // private void Awake()
