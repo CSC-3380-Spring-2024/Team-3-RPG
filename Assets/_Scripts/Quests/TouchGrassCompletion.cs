@@ -10,6 +10,8 @@ public class TouchGrassCompletion : MonoBehaviour
     // name of the quest to complete
     public Quest questToComplete;
 
+    public DialoguePrompt dialoguePrompt;
+
     // flag to determine if the player is in range
     public bool isPlayerInRange = false;
 
@@ -25,7 +27,7 @@ public class TouchGrassCompletion : MonoBehaviour
         {
             questManager.CompleteQuest(questToComplete); // Complete the quest
             questManager.DeactivateQuest(questToComplete);
-            Dialogue.Instance.TriggerDialogue(TouchGrass.finishGrass);
+            DialogueManager.Instance.TriggerDialogue(dialoguePrompt.finishLines);
             Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
             this.enabled = false;
         }
