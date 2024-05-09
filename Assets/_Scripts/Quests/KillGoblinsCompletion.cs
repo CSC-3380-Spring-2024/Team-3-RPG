@@ -11,6 +11,8 @@ public class KillGoblinsCompletion : MonoBehaviour
     // name of the quest to complete
     public Quest questToComplete;
 
+    public DialoguePrompt dialoguePrompt;
+
     // name of prerequisite quest that should be completed before
     public Quest prerequisiteQuest;
 
@@ -18,6 +20,11 @@ public class KillGoblinsCompletion : MonoBehaviour
     public bool isPlayerInRange = false;
 
     private bool wasInCombatScene = false;
+
+    private void Start()
+    {
+        questToComplete.killCount = 0;
+    }
 
     // function to ensure the QuestManager is initialized
     private void Awake()
@@ -52,7 +59,7 @@ public class KillGoblinsCompletion : MonoBehaviour
             {
                 questManager.CompleteQuest(questToComplete);
                 questManager.DeactivateQuest(questToComplete);
-                Dialogue.Instance.TriggerDialogue(GoblinQuest.finishGob);
+                DialogueManager.Instance.TriggerDialogue(dialoguePrompt.finishLines);
                 Debug.Log("GOBLIN DEFEATED");
                 this.enabled = false;
             }
@@ -63,7 +70,9 @@ public class KillGoblinsCompletion : MonoBehaviour
     {
         if (questManager.IsQuestActive(questToComplete))
         {
-            QuestEvents.TriggerGoblinDeath(null);
+            isPlayerInRange = true;
+            // delete next line once ricky finishes the transition
+            questToComplete.killCount += 1;
             Debug.Log("Killed a goblin!");
         }
     }

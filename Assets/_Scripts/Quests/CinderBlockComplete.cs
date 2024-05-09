@@ -11,6 +11,8 @@ public class CinderBlockComplete : MonoBehaviour
     // name of the quest to complete
     public Quest questToComplete;
 
+    public DialoguePrompt dialoguePrompt;
+
     // name of prerequisite quest that should be completed before
     public Quest prerequisiteQuest;
 
@@ -41,7 +43,7 @@ public class CinderBlockComplete : MonoBehaviour
                 {
                     questManager.CompleteQuest(questToComplete); // Complete the quest
                     questManager.DeactivateQuest(questToComplete);
-                    Dialogue.Instance.TriggerDialogue(SisterCindy.sisterDone);
+                    DialogueManager.Instance.TriggerDialogue(dialoguePrompt.finishLines);
                     Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
                     this.enabled = false;
                 }
@@ -70,7 +72,7 @@ public class CinderBlockComplete : MonoBehaviour
                 {
                     questManager.CompleteQuest(questToComplete); // Complete the quest
                     questManager.DeactivateQuest(questToComplete);
-                    Dialogue.Instance.TriggerDialogue(SisterCindy.sisterDone);
+                    DialogueManager.Instance.TriggerDialogue(dialoguePrompt.finishLines);
                     Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
                     this.enabled = false;
                 }

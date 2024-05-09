@@ -3,17 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // this makes quests scriptable objects
-[CreateAssetMenu(fileName = "NewQuest", menuName = "Quest/New Quest", order = 1)]
+[CreateAssetMenu(fileName = "New Quest SO", menuName = "ScriptableObjects/New Quest", order = 1)]
 public class Quest : ScriptableObject
 {
     // quest name
     public string questName;
-
-    // quest description
-    public string description;
-
-    // quest dialogue
-    public string[] dialogue;
 
     // kill count
     public int killCount = 0;
@@ -22,10 +16,8 @@ public class Quest : ScriptableObject
     public bool isActive = false;
 
     // constructor for this quest
-    public void Initialize(string name, string description, string[] dialogue)
+    public void Initialize(string name)
     {
         this.questName = name;
-        this.description = description;
-        this.dialogue = dialogue;
     }
 }

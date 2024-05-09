@@ -17,7 +17,6 @@ public class QuestManager : MonoBehaviour
 
     // starter quest
     public Quest startingQuest;
-    public Quest goblinQuest;
 
     // function to start at beginning of game to make sure there is only one instance
     // of this manager
@@ -36,34 +35,6 @@ public class QuestManager : MonoBehaviour
         }
         AddQuest(startingQuest);
         ActivateQuest(startingQuest);
-    }
-
-    public void Start()
-    {
-        goblinQuest.isActive = false;
-        goblinQuest.killCount = 0;
-    }
-
-    private void OnEnable()
-    {
-        // Subscribe to the Goblin death event when the Quest Manager is enabled
-        QuestEvents.OnGoblinDied += OnGoblinDeath;
-    }
-
-    private void OnDisable()
-    {
-        // Unsubscribe from the event when the Quest Manager is disabled
-        QuestEvents.OnGoblinDied -= OnGoblinDeath;
-    }
-
-    // Handler for Goblin death event
-    private void OnGoblinDeath(Goblin goblin)
-    {
-        if (goblinQuest != null)
-        {
-            goblinQuest.killCount++; // Increment the quest's kill count
-            Debug.Log("Quest updated due to Goblin death");
-        }
     }
 
     // function to add quest to the quest list
