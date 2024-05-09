@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: WeaponGNasher
   m_EditorClassIdentifier: 
   name: GNasher
-  defaultSprite: {fileID: 0}
-  selectedSprite: {fileID: 0}
+  defaultSprite: {fileID: 21300000, guid: 323edad6a88ec4ee69fb89d8eda9e036, type: 3}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
   abilityList:
   - {fileID: 11400000, guid: 4aec5eda03df6454ea216473ff80bc7c, type: 2}
   - {fileID: 11400000, guid: 4ec96ceb74b114f0b9db4024bc366207, type: 2}
-  didAction: 0
   isRanged: 0
