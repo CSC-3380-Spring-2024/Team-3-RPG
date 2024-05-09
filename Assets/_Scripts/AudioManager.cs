@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance { get; private set; }
     void Start()
     {
+        //initialzed the deafult settings for the first time you run it
         firstPlayInt = PlayerPrefs.GetInt(FirstPlay);
         if (firstPlayInt == 0)
         {
@@ -33,6 +34,8 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
+            //if you already hit the start
+            //the player prefs get funcitons help get the previous settings
             backgroundFloat = PlayerPrefs.GetFloat(backgroundPref);
             backgroundSlider.value = backgroundFloat;
             soundEffectsFloat = PlayerPrefs.GetFloat(soundEffectsPref);
@@ -47,6 +50,7 @@ public class AudioManager : MonoBehaviour
             {
                 soundEffectsAudio.enabled = true;
             }
+            //if hit wasd and the player can move then make the footsteps sound
 
         }
         else
@@ -56,23 +60,10 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    // private void Awake()
-    // {
-    //     if (Instance == null)
-    //     {
-    //         Instance = this;
-    //         // ensures persistence across scenes
-    //         DontDestroyOnLoad(gameObject);
-    //     }
-    //     else
-    //     {
-    //         // destroys any duplicate instances
-    //         Destroy(gameObject);
-    //     }
-    // }
 
     public void save()
     {
+        //save between scenes, get the player current values ans aves
         if (backgroundSlider != null && backgroundPref != null)
         {
             PlayerPrefs.SetFloat(backgroundPref, backgroundSlider.value);
@@ -87,13 +78,14 @@ public class AudioManager : MonoBehaviour
 
     void OnApplicationFocus(bool inFocus)
     {
+        //if in settings/ bw scenes
         if (!inFocus)
         {
             save();
         }
     }
     public void UpdateSound()
-    {
+    {//while using slider, save
         backgroundAudio.volume = backgroundSlider.value;
         soundEffectsAudio.volume = soundEffectsSlider.value;
     }
