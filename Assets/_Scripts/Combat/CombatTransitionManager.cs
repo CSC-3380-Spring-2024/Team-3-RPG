@@ -11,7 +11,7 @@ public class CombatTransitionManager : MonoBehaviour { //class is responsible fo
 
     bool inCombat = false;
 
-    // private int nextWeaponIndex = 0;    // Index weapon array list
+    private int nextWeaponIndex = 0;    // Index weapon array list
 
     private void Awake()
     {
@@ -27,12 +27,12 @@ public class CombatTransitionManager : MonoBehaviour { //class is responsible fo
         }
     }
 
-    // // Adds weapon into array list
-    // public void AddWeapon(GameObject weaponPrefab) {
-    //     Debug.Log("Equipped the weapon!");
+    // Adds weapon into array list
+    public void AddWeapon(GameObject weaponPrefab) {
+        Debug.Log("Weapon added to use!");
 
-    //     weapons[nextWeaponIndex] = weaponPrefab;
-    //     nextWeaponIndex++;          // Move to the next available index
+        weapons[nextWeaponIndex] = weaponPrefab;
+        nextWeaponIndex++;          // Move to the next available index
         
-    // }
+    }
 }
