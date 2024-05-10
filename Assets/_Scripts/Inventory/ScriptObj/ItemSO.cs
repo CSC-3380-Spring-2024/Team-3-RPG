@@ -22,6 +22,7 @@ public class ItemSO : ScriptableObject
     // Use the item that player obtained
     // Base object class
     public virtual bool UseItem() {
+        Debug.Log("Unable to use item!");
         return false;   // Unable to use item
     }
 

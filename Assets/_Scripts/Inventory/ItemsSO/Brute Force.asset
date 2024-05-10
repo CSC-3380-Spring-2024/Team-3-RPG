@@ -17,4 +17,4 @@ MonoBehaviour:
   quantity: 1
   itemSprite: {fileID: 21300000, guid: 0d6cd288ca9d04cfe80ab49af02f21ec, type: 3}
   itemDescription: 
-  attackDmg: 0
+  weaponPrefab: {fileID: 3924278044030013801, guid: d8bdc1785d8844643aab21da272935cc, type: 3}

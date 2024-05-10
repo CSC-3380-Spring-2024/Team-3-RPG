@@ -23,6 +23,7 @@ public class ConsumableObj : ItemSO
         /******************************************/
         /*               HEALING                  */
         /******************************************/
+        Debug.Log("You ate something!");
         // Get player's heal status (max and current health)
         healPlayer = GameObject.Find("Player").GetComponent<PlayerCombat>();
 

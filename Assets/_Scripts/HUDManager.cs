@@ -29,6 +29,10 @@ public class HUDManager : MonoBehaviour
             instance = this;
     }
 
+    private void Start() {
+        DontDestroyOnLoad(this);
+    }
+
     // Player may either click the buttons
     // OR press a key on keyboard to pull up the menu
     void Update()
