@@ -7,9 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Weapon Object", menuName = "Inventory/Items/Weapon")]
 public class WeaponObj : ItemSO
 {
-    private CombatTransitionManager combatTransitionManager;    // Reference CombatTransitionManager.cs
-    [SerializeField]
-    private GameObject weaponPrefab;    // Stores the associated weapon prefab
+    // private CombatTransitionManager combatTransitionManager;    // Reference CombatTransitionManager.cs
+    // public GameObject weaponPrefab;    // Stores the associated weapon prefab
 
     public void Awake() {
         itemType = ItemType.Weapon;
@@ -17,15 +16,17 @@ public class WeaponObj : ItemSO
 
     public override bool UseItem() {
         Debug.Log("You equipped a weapon!");
-        
-        combatTransitionManager = CombatTransitionManager.instance;
-                
-        if(combatTransitionManager == null) {
-            Debug.Log("Weapon slots currently full!");
-            return false;
-        }
 
-        combatTransitionManager.AddWeapon(weaponPrefab);
+        // // Finds Combat Transition Manager in hierarchy
+        // combatTransitionManager = GameObject.Find("~~~Managers~~~").GetComponent<CombatTransitionManager>();
+            
+        // if(combatTransitionManager == null) {
+        //     Debug.Log("Weapon slots currently full!");
+        //     return false;
+        // }
+
+        // // Adds weapon prefab into array
+        // combatTransitionManager.AddWeapon(weaponPrefab);
         return true;
     }
 }
