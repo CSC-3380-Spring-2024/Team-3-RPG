@@ -56,6 +56,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             soundEffectsAudio.enabled = false;
+            //if not, do not play the footsteps sound
         }
 
     }
@@ -64,6 +65,7 @@ public class AudioManager : MonoBehaviour
     public void save()
     {
         //save between scenes, get the player current values ans aves
+        //mull checks
         if (backgroundSlider != null && backgroundPref != null)
         {
             PlayerPrefs.SetFloat(backgroundPref, backgroundSlider.value);
