@@ -11,7 +11,12 @@ public class AbilityMark : Ability
 
     public override bool OnActivated()
     {
-        CombatSystem.instance.selectedEnemy.statuses.Add(name, duration);
+        if (CombatSystem.instance.selectedEnemy.statuses.ContainsKey(name)) //do not add if already has effect
+        {
+            return false;
+        }
+
+        CombatSystem.instance.selectedEnemy.AddEffect(name, duration);
         return true;
     }
 }

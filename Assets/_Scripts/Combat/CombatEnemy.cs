@@ -18,7 +18,12 @@ public class CombatEnemy : CombatEntity
 
     public new string name;
 
+    [SerializeField]
+    private Sprite mark;
+    [SerializeField]
+    private SpriteRenderer markRender;
     public Dictionary<string, int> statuses; // keeps track of names and duration of marks, buffs, debuffs
+
     public float damage;
 
     public bool turnTaken;
@@ -32,7 +37,6 @@ public class CombatEnemy : CombatEntity
         originalColor = render.color;
 
         statuses = new Dictionary<string, int>();
-
         turnTaken = false;
 
         isDead = false;
@@ -73,11 +77,20 @@ public class CombatEnemy : CombatEntity
     public void AddEffect(string effectName, int duration)
     {
         statuses.Add(effectName, duration);
+        markRender.sprite = mark;
+        Debug.Log("mark added");
     }
 
     public bool CheckEffect(string effectName)
     {
         return statuses.ContainsKey(effectName);
+    }
+
+    public void RemoveEffect(string effectName)
+    {
+        CombatSystem.instance.selectedEnemy.statuses.Remove(effectName);
+        markRender.sprite = null;
+        Debug.Log("mark removed");
     }
 
     public override void TakeDamage(float damage)
@@ -101,16 +114,24 @@ public class CombatEnemy : CombatEntity
 
     public void Select()
     {
-        Debug.Log("select attempted");
         if (!CombatSystem.instance.inSelect)
         {
             Debug.Log("not in select mode!");
             return;
         }
-        if (CombatSystem.instance.selectedEnemy == gameObject) Deselect();
-        //Debug.Log("selected");
+        if (CombatSystem.instance.selectedEnemy == gameObject) //if this enemy is already selected, then user wants to deselect
+        {
+            Deselect();
+            return;
+        }
+
+        if (CombatSystem.instance.selectedEnemy != null) //if there is another enemy already selected, then deselect that first
+        {
+            CombatSystem.instance.selectedEnemy.Deselect();
+        }
+
         render.color = Color.red;
-        //Debug.Log(render.color.ToString());
+        Debug.Log("selected");
         CombatSystem.instance.setEnemy(this);
     }
 

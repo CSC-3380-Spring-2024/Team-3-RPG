@@ -104,6 +104,11 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
     {
         //id is 0 or 1; which attack to use
         if (combatSystem.selectedEnemy == null) return;
+        //if the ability needs a mark to perform, check if the enemy has the mark
+        if (combatSystem.currentWeapon.weapon.abilityList[id].needsMarking)
+        {
+            if (!combatSystem.selectedEnemy.statuses.ContainsKey(combatSystem.currentWeapon.weapon.abilityList[id].markName)) return;
+        }
         if (!combatSystem.Attack(id)) return; //attempt to perform the attack
 
         combatSystem.EndSelectEnemy(); //unallow player to select enemies; turns off enemyselect buttons

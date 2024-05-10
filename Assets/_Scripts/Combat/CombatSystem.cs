@@ -178,7 +178,7 @@ public class CombatSystem : MonoBehaviour
                 }
                 if (!enemyCombat[i].isDead) //if there exists a living enemy, then game isnt over
                 {
-                    Debug.Log(enemyCombat[i].name + " is still alive");
+                    //Debug.Log(enemyCombat[i].name + " is still alive");
                     shouldContinue = true;
                     break;
                 }
@@ -281,13 +281,13 @@ public class CombatSystem : MonoBehaviour
 
     void EnterEnemyTurn()
     {
-        Debug.Log("enemy turn time");
+        //Debug.Log("enemy turn time");
         StartCoroutine(ProcessEnemyTurns());
     }
 
     IEnumerator ProcessEnemyTurns()
     {
-        Debug.Log("enemy turn coroutine started");
+        //Debug.Log("enemy turn coroutine started");
         for (int i = 0; i < enemyCombat.Length; i++)
         {
             enemyProcessed = false;
@@ -299,7 +299,6 @@ public class CombatSystem : MonoBehaviour
             {
                 continue;
             }
-            Debug.Log("yeah");
             enemyCombat[i].StartTurn();
             yield return new WaitUntil(() => enemyCombat[i].turnTaken == true);
             yield return new WaitForSeconds(0.5f);

@@ -18,4 +18,4 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: 53d4e6971a79d477e8a403dc3ff4d5b8, type: 2}
   needsMarking: 1
   markName: Try
-  damage: 5
+  damage: 1
