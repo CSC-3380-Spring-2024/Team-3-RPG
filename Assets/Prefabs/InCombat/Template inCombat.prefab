@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 1057008918191735459}
   - component: {fileID: 3058581023356802850}
   m_Layer: 0
-  m_Name: Enemy inCombat
+  m_Name: Template inCombat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
