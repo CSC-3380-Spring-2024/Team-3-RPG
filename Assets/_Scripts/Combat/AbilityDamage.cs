@@ -4,12 +4,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/Ability/Damage")]
 public class AbilityDamage : Ability
 {
-    public bool needsMarking; //if enemy needs to be marked before damage is done
-    public string markName; //name of the marking ability
     public float damage;
 
     public override bool OnActivated()
     {
+        if (CombatSystem.instance.selectedEnemy == null)
+        {
+            Debug.Log("hey theres no enemy selected");
+            return false;
+        }
         if (needsMarking && !CombatSystem.instance.selectedEnemy.CheckEffect(markName)) //fails when needs marking and there exists no mark
         {
             Debug.Log("mark not applied!");
@@ -18,7 +21,7 @@ public class AbilityDamage : Ability
         CombatSystem.instance.selectedEnemy.TakeDamage(damage);
         if (needsMarking) //remove mark if there exists
         {
-            CombatSystem.instance.selectedEnemy.statuses.Remove(markName);
+            CombatSystem.instance.selectedEnemy.RemoveEffect(markName);
         }
         return true;
     }

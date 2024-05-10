@@ -5760,6 +5760,7 @@ MonoBehaviour:
   pausePanel: {fileID: 2040882425}
   inventoryPanel: {fileID: 929812468}
   mapPanel: {fileID: 405456205}
+  isInvenOpen: 0
   itemSlot:
   - {fileID: 1746611875}
   - {fileID: 1559223353}
@@ -9446,8 +9447,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.2552948, y: 0}
+  m_SizeDelta: {x: -24.3466, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1127342696
 MonoBehaviour:
@@ -16727,6 +16728,7 @@ MonoBehaviour:
   playerBattleStation: {fileID: 63224246}
   enemyBattleStations: {fileID: 196202004}
   playerCombat: {fileID: 0}
+  enemyCombat: []
   weapons:
   - {fileID: 2065646149825480827, guid: 477dacd577db544ba969d83c101b4361, type: 3}
   - {fileID: 3329264076959300137, guid: d72fba2b8aab74648b90772a8dc49401, type: 3}
