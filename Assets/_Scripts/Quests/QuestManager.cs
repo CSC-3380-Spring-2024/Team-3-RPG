@@ -25,6 +25,8 @@ public class QuestManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            // ensures persistence across scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {

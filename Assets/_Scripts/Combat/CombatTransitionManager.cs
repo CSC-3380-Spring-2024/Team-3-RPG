@@ -23,6 +23,5 @@ public class CombatTransitionManager : MonoBehaviour { //class is responsible fo
         {
             instance = this;
         }
-        currentHealth = 20;
     }
 }
