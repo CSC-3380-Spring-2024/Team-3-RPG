@@ -9,9 +9,6 @@ public class Quest : ScriptableObject
     // quest name
     public string questName;
 
-    // kill count
-    public int killCount = 0;
-
     // is the quest active
     public bool isActive = false;
 

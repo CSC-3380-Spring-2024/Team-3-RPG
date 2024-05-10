@@ -25,6 +25,7 @@ public class CombatTransitionManager : MonoBehaviour { //class is responsible fo
         {
             instance = this;
         }
+        currentHealth = 20;
     }
 
     // Adds weapon into array list
