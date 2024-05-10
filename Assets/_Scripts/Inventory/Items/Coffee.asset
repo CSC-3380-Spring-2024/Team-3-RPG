@@ -16,8 +16,8 @@ MonoBehaviour:
   itemType: 0
   quantity: 1
   itemSprite: {fileID: 21300000, guid: 33423b83357fc428bab4c08ad3e43145, type: 3}
-  itemDescription: "That assignment you said you'll do tomorrow? \nIt's due today.\n\n[Attack
-    +3]"
-  restoreHealth: 0
-  attackBonus: 3
+  itemDescription: "That assignment you said you'll do tomorrow? \nIt's due today.\n\n
+    [Attack +10]"
+  restoreHealth: 10
+  attackBonus: 10
   debuffDmg: 0

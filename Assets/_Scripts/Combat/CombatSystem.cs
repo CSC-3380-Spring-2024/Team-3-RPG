@@ -19,7 +19,6 @@ public class CombatSystem : MonoBehaviour
     private GameObject playerPrefab;
     [SerializeField]
     private GameObject[] enemyPrefab; //size will be 6
-    public int numOfEnemies;
 
     [SerializeField]
     private Transform playerBattleStation;
@@ -29,7 +28,7 @@ public class CombatSystem : MonoBehaviour
 
     [HideInInspector]
     public CombatEntity playerCombat;
-    public CombatEnemy[] enemyCombat; //size will be 6
+    CombatEnemy[] enemyCombat; //size will be 6
 
     public GameObject[] weapons; //size will be 6
     public GameObject currentWeaponObject;
@@ -56,8 +55,6 @@ public class CombatSystem : MonoBehaviour
             instance = this;
         }
 
-        numOfEnemies = 0;
-
         enemyCombat = new CombatEnemy[6];
 
         enemyBattleStationsArray = new Transform[6];
@@ -74,7 +71,7 @@ public class CombatSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log(CombatTransitionManager.instance.currentHealth);
+        Debug.Log(CombatTransitionManager.instance.currentHealth);
         playerCombat.currentHealth = CombatTransitionManager.instance.currentHealth;
         weapons = CombatTransitionManager.instance.weapons;
 
@@ -124,25 +121,6 @@ public class CombatSystem : MonoBehaviour
             {
                 enemyCombat[i] = enemy.GetComponent<CombatEnemy>();
             }
-            numOfEnemies++;
-        }
-    }
-
-    public void SpawnEnemy(GameObject enemyPrefab)
-    {
-        for (int i = 0; i < enemyBattleStationsArray.Length; i++) //length should be 6
-        {
-            if (enemyBattleStationsArray[i].childCount == 0)
-            {
-                GameObject enemy = Instantiate(enemyPrefab, enemyBattleStationsArray[i]);
-                if (enemyCombat[i] == null)
-                {
-                    enemyCombat[i] = enemy.GetComponent<CombatEnemy>();
-                }
-                numOfEnemies++;
-                break;
-            }
-
         }
     }
     #endregion
@@ -231,12 +209,10 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
-    public bool SelectWeapon() //called by uimanager, true if successful selection
+    public void SelectWeapon() //called by uimanager
     {
-        if (weapons[currentWeaponIndex].GetComponent<WeaponObject>().attackUsed) return false; //dont let them selected used weapon
         currentWeaponObject = weapons[currentWeaponIndex];
         currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
-        return true;
     }
 
     public bool Attack(int id) //returns true if attack is successful, false if fails
@@ -340,7 +316,6 @@ public class CombatSystem : MonoBehaviour
     public void EnterLoss()
     {
         state = CombatState.LOST;
-        SceneManager.LoadScene(2);
     }
 
     #endregion

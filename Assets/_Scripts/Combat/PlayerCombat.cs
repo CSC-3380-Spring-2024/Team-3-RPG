@@ -13,6 +13,7 @@ public class PlayerCombat : CombatEntity
     // Start is called before the first frame update
     void Awake()
     {
+        maxHealth = 20f;
     }
 
     private void Start()

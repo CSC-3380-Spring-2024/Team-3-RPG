@@ -6,7 +6,6 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
 {
     public static CombatUIManager instance;
     private CombatSystem combatSystem;
-    private HUDManager bag;     // References HUDManager.cs
 
     [SerializeField] private HealthBar playerHealth;
 
@@ -23,7 +22,6 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
     private int currentPanelIndex;
 
     public bool showingDialogue;
-
 
     private void Awake()
     {
@@ -47,7 +45,6 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
     private void Start()
     {
         combatSystem = CombatSystem.instance;
-        bag = HUDManager.instance;
         ShowOnly(defaultPanel);
     }
 
@@ -89,7 +86,8 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
 
     public void SelectWeapon() //called when player chooses a weapon
     {
-        if (!combatSystem.SelectWeapon()) return;
+        combatSystem.SelectWeapon();
+
         combatSystem.EnterSelectEnemy(); //allow player to select enemies; turns on enemyselect buttons
 
         abilityButton1.setAbility(combatSystem.currentWeapon.GetComponent<WeaponObject>().weapon.abilityList[0]); //initialize ability buttons
@@ -132,10 +130,7 @@ public class CombatUIManager : MonoBehaviour //provides functions for all button
 
     public void ShowBag()
     {
-        Debug.Log("Bag is open");
-        if(!bag.isInvenOpen) {
-            bag.OpenInven();
-        }
+        Debug.Log("pressed the bag button");
     }
 
 

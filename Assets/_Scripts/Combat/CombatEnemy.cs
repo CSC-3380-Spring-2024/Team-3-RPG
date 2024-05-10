@@ -13,7 +13,7 @@ public class CombatEnemy : CombatEntity
 
     //animation stuff
     [SerializeField]
-    protected Animator anim;
+    private Animator anim;
     private bool inAnim;
 
     public new string name;
@@ -28,6 +28,7 @@ public class CombatEnemy : CombatEntity
     // Start is called before the first frame update
     void Awake()
     {
+        maxHealth = 3f;
         currentHealth = maxHealth;
         originalColor = render.color;
 
@@ -38,20 +39,20 @@ public class CombatEnemy : CombatEntity
         isDead = false;
     }
 
-    public virtual void StartTurn()
+    public void StartTurn()
     {
         if (isDead) return;
         Attack();
     }
 
-    protected void Attack() //triggers attack animation
+    private void Attack() //triggers attack animation
     {
         string output = name + " is attacking for " + damage + " damage!";
         CombatUIManager.instance.PlayDialogue(output);
         anim.SetTrigger("Attack");
     }
 
-    protected void DoDamage() //called in animation
+    private void DoDamage() //called in animation
     {
         CombatSystem.instance.playerCombat.TakeDamage(damage);
     }
@@ -101,7 +102,6 @@ public class CombatEnemy : CombatEntity
 
     public void Select()
     {
-        Debug.Log("select attempted");
         if (!CombatSystem.instance.inSelect)
         {
             Debug.Log("not in select mode!");

@@ -21,7 +21,7 @@ MonoBehaviour:
 
 
     [Heal
-    +3]'
-  restoreHealth: 3
+    +10]'
+  restoreHealth: 10
   attackBonus: 0
   debuffDmg: 0

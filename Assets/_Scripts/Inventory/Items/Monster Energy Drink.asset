@@ -19,7 +19,7 @@ MonoBehaviour:
   itemDescription: 'Inside you, there are two wolves...
 
 
-    [Attack +3]'
+    [Attack +25]'
   restoreHealth: 0
-  attackBonus: 3
+  attackBonus: 25
   debuffDmg: 5

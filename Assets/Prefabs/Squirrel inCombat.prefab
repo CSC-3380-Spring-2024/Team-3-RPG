@@ -525,7 +525,7 @@ MonoBehaviour:
   render: {fileID: 1811608263344000326}
   anim: {fileID: 5480312774776100383}
   name: 
-  damage: 1
+  damage: 0
   turnTaken: 0
   isDead: 0
 --- !u!95 &5480312774776100383

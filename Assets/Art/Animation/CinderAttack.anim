@@ -21,10 +21,21 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 1626377987, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
-    - time: 0.5
-      value: {fileID: 1417888424, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
-    - time: 1
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 1626377987, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
+    - time: 0.375
+      value: {fileID: 309177507, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
+    - time: 0.75
       value: {fileID: 181824175, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
+    - time: 1.125
+      value: {fileID: 1417888424, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
+    - time: 1.5
+      value: {fileID: 1626377987, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
     attribute: m_Sprite
     path: Enemy Sprite
     classID: 212
@@ -37,6 +48,13 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    - serializedVersion: 2
       path: 3028585050
       attribute: 0
       script: {fileID: 0}
@@ -45,14 +63,17 @@ AnimationClip:
       isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 1626377987, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
-    - {fileID: 1417888424, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
+    - {fileID: 1626377987, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
+    - {fileID: 309177507, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
     - {fileID: 181824175, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
+    - {fileID: 1417888424, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
+    - {fileID: 1626377987, guid: 0891bcc9798cd3c438cc38130cda8a64, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.125
+    m_StopTime: 1.625
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -71,18 +92,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.5
-    functionName: DoDamage
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1
-    functionName: EndTurn
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []
