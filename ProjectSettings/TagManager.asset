@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,13 @@ TagManager:
     locked: 0
   - name: Combat Entities
     uniqueID: 604780193
+    locked: 0
+  - name: Background
+    uniqueID: 3370525743
+    locked: 0
+  - name: Foreground
+    uniqueID: 4240097535
+    locked: 0
+  - name: HUD
+    uniqueID: 398155759
     locked: 0

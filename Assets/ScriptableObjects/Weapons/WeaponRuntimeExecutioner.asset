@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65fd187112d148359c41db032e602ff, type: 3}
+  m_Name: WeaponRuntimeExecutioner
+  m_EditorClassIdentifier: 
+  name: Runtime Executioner
+  defaultSprite: {fileID: -1479526263, guid: 8106c5f6fb86a4dd7a46c6826e5df2d9, type: 3}
+  selectedSprite: {fileID: 0}
+  abilityList:
+  - {fileID: 11400000, guid: 0b2d8d33cd1ab443aa6ba9666e44141c, type: 2}
+  - {fileID: 11400000, guid: 8b0179e2a02b4443a947f314edd409c4, type: 2}
+  didAction: 0

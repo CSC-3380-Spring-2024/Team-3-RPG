@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5c54f332369d04eb15d238fc11305e, type: 3}
+  m_Name: GoblinDialogue
+  m_EditorClassIdentifier: 
+  lines:
+  - Goblins have invaded! Kill them to show off your strength!
+  finishLines:
+  - The goblins are defeated!
+  - Go back to Jonathan Lucas Dennington to retrieve your next quest.

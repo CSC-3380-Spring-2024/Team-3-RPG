@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum CombatState //1 will be reserved for events that happen in the player's turn
 {
@@ -18,26 +19,31 @@ public class CombatSystem : MonoBehaviour
     private GameObject playerPrefab;
     [SerializeField]
     private GameObject[] enemyPrefab; //size will be 6
+    public int numOfEnemies;
 
-    public Transform playerBattleStation;
-    public GameObject enemyBattleStations; //parent gameobject that has 6 stations
-    public Transform[] enemyBattleStationsArray; //size will be 6
+    [SerializeField]
+    private Transform playerBattleStation;
+    [SerializeField]
+    private GameObject enemyBattleStations; //parent gameobject that has 6 stations
+    private Transform[] enemyBattleStationsArray; //size will be 6
 
     [HideInInspector]
     public CombatEntity playerCombat;
-    CombatEnemy[] enemyCombat; //size will be 6
+    public CombatEnemy[] enemyCombat; //size will be 6
 
-    public Weapon[] weapons; //size will be 6
-    public Weapon currentWeapon;
+    public GameObject[] weapons; //size will be 6
+    public GameObject currentWeaponObject;
+    public WeaponObject currentWeapon;
+
     public int currentWeaponIndex;
-    private int numOfWeapons;
-
+    public int numOfWeapons;
 
     public CombatEnemy selectedEnemy;
 
     public CombatState state;
     public bool inSelect; //tells if in enemy selection mode
 
+    public bool enemyProcessed; //for combat dialogue to read
     #region Setup
     private void Awake()
     {
@@ -50,6 +56,8 @@ public class CombatSystem : MonoBehaviour
             instance = this;
         }
 
+        numOfEnemies = 0;
+
         enemyCombat = new CombatEnemy[6];
 
         enemyBattleStationsArray = new Transform[6];
@@ -57,7 +65,18 @@ public class CombatSystem : MonoBehaviour
         inSelect = false;
 
         currentWeaponIndex = 0;
-        currentWeapon = weapons[currentWeaponIndex];
+
+        enemyProcessed = false;
+
+        playerCombat = playerPrefab.GetComponent<PlayerCombat>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //Debug.Log(CombatTransitionManager.instance.currentHealth);
+        playerCombat.currentHealth = CombatTransitionManager.instance.currentHealth;
+        weapons = CombatTransitionManager.instance.weapons;
 
         for (int i = 0; i < weapons.Length; i++)
         {
@@ -65,11 +84,8 @@ public class CombatSystem : MonoBehaviour
             numOfWeapons++;
         }
 
-    }
+        enemyPrefab = CombatTransitionManager.instance.combatEnemies;
 
-    // Start is called before the first frame update
-    void Start()
-    {
         for (int i = 0; i < enemyBattleStations.transform.childCount; i++)
         {
             enemyBattleStationsArray[i] = enemyBattleStations.transform.GetChild(i);
@@ -108,6 +124,25 @@ public class CombatSystem : MonoBehaviour
             {
                 enemyCombat[i] = enemy.GetComponent<CombatEnemy>();
             }
+            numOfEnemies++;
+        }
+    }
+
+    public void SpawnEnemy(GameObject enemyPrefab)
+    {
+        for (int i = 0; i < enemyBattleStationsArray.Length; i++) //length should be 6
+        {
+            if (enemyBattleStationsArray[i].childCount == 0)
+            {
+                GameObject enemy = Instantiate(enemyPrefab, enemyBattleStationsArray[i]);
+                if (enemyCombat[i] == null)
+                {
+                    enemyCombat[i] = enemy.GetComponent<CombatEnemy>();
+                }
+                numOfEnemies++;
+                break;
+            }
+
         }
     }
     #endregion
@@ -116,18 +151,56 @@ public class CombatSystem : MonoBehaviour
 
     void EnterPlayerTurn()
     {
+        state = CombatState.PLAYERTURN;
+
+        CombatUIManager.instance.ShowOnly(CombatUIManager.instance.defaultPanel);
+
+        //reset all weapon usedWeapon variables
+        for (int i = 0; i < numOfWeapons; i++)
+        {
+            weapons[i].GetComponent<WeaponObject>().resetUse();
+        }
+
         StartCoroutine(PlayerTurn());
     }
 
-    IEnumerator PlayerTurn()
+    IEnumerator PlayerTurn() //waits until player turn ends and also checks for 
     {
-        Debug.Log("player turn time");
-        yield return new WaitUntil(() => state != CombatState.PLAYERTURN);
+        bool shouldContinue = false;
+        while (state == CombatState.PLAYERTURN) //perpetually check if theres still a living enemy
+        {
+            shouldContinue = false;
+            for (int i = 0; i < enemyCombat.Length; i++)
+            {
+                if (enemyCombat[i] == null)
+                {
+                    continue;
+                }
+                if (!enemyCombat[i].isDead) //if there exists a living enemy, then game isnt over
+                {
+                    //Debug.Log(enemyCombat[i].name + " is still alive");
+                    shouldContinue = true;
+                    break;
+                }
+            }
+            if (!shouldContinue) //won
+            {
+                EnterWin();
+            }
+            yield return null;
+        }
         EnterEnemyTurn();
     }
 
-    // public void EnterSelectWeapon()
-    // public void ConfirmSelectWeapon()
+    public void EnterSelectEnemy()
+    {
+        inSelect = true;
+    }
+
+    public void EndSelectEnemy()
+    {
+        inSelect = false;
+    }
 
     public void SwapWeapon(int direction) //0 to select the left weapon, 1 to select the right weapon
                                           //should not be called on its own; use the rotate functions in PlayerWeaponManager
@@ -139,38 +212,61 @@ public class CombatSystem : MonoBehaviour
         }
         if (direction == 0) //switch to the weapon on left
         {
+            Debug.Log("to left");
             currentWeaponIndex--;
             if (currentWeaponIndex < 0) //needs to loop around
             {
                 currentWeaponIndex = numOfWeapons - 1;
             }
-            currentWeapon = weapons[currentWeaponIndex];
+            SelectWeapon();
         } else //switch to the weapon on right
         {
+            Debug.Log("to right");
             currentWeaponIndex++;
             if (currentWeaponIndex >= numOfWeapons) //needs to loop around
             {
                 currentWeaponIndex = 0;
             }
-            currentWeapon = weapons[currentWeaponIndex];
+            SelectWeapon();
         }
     }
 
-    public void Attack()
+    public bool SelectWeapon() //called by uimanager, true if successful selection
+    {
+        if (weapons[currentWeaponIndex].GetComponent<WeaponObject>().attackUsed) return false; //dont let them selected used weapon
+        currentWeaponObject = weapons[currentWeaponIndex];
+        currentWeapon = currentWeaponObject.GetComponent<WeaponObject>();
+        return true;
+    }
+
+    public bool Attack(int id) //returns true if attack is successful, false if fails
     {
         if ((int) state != 1) //not in player turn
         {
-            return;
+            return false;
         }
 
-        if (selectedEnemy == null) //deal damage to selected enemy
+        if (selectedEnemy == null) 
         {
             Debug.Log("no enemy assigned!");
-            return;
+            return false;
         }
-        Debug.Log("attemping damage");
-        selectedEnemy.TakeDamage(currentWeapon.damage);
-        selectedEnemy.Deselect();
+
+        currentWeaponObject.GetComponent<WeaponObject>().BeginAbilityAnimation(id, selectedEnemy); //attacks
+        return true;
+    }
+
+    public void CheckTurnOver()
+    {
+        //check if all weapon turns are used
+        for (int i = 0; i < numOfWeapons; i++)
+        {
+            if (!weapons[i].GetComponent<WeaponObject>().attackUsed)
+            {
+                return;
+            }
+        }
+
         state = CombatState.ENEMYTURN;
     }
 
@@ -179,44 +275,44 @@ public class CombatSystem : MonoBehaviour
         state = CombatState.ENEMYTURN;
     }
 
-
-
-    public void EnterSelectEnemy()
-    {
-        inSelect = true;
-    }
-
-    public void ConfirmSelectEnemy()
-    {
-        inSelect = false;
-    }
     #endregion
 
     #region Enemy Turn
 
-
-
     void EnterEnemyTurn()
     {
-        Debug.Log("enemy turn time");
-        StartCoroutine(EnemyTurn());
-
+        //Debug.Log("enemy turn time");
+        StartCoroutine(ProcessEnemyTurns());
     }
 
-    IEnumerator EnemyTurn()
+    IEnumerator ProcessEnemyTurns()
     {
-        Debug.Log("enemy turn coroutine started");
+        //Debug.Log("enemy turn coroutine started");
         for (int i = 0; i < enemyCombat.Length; i++)
         {
+            enemyProcessed = false;
             if (enemyCombat[i] == null)
             {
-                break;
+                continue;
+            }
+            if (enemyCombat[i].isDead)
+            {
+                continue;
             }
             enemyCombat[i].StartTurn();
             yield return new WaitUntil(() => enemyCombat[i].turnTaken == true);
-        }
+            yield return new WaitForSeconds(0.5f);
+            enemyProcessed = true;
 
-        for (int i = 0; i < enemyCombat.Length; i++) //reset turn taken
+            if (playerCombat.currentHealth <= 0)
+            {
+                EnterLoss();
+                break;
+            }
+        }
+        enemyProcessed = false;
+
+        for (int i = 0; i < enemyCombat.Length; i++) //reset turn taken on all enemies
         {
             if (enemyCombat[i] == null)
             {
@@ -224,7 +320,26 @@ public class CombatSystem : MonoBehaviour
             }
             enemyCombat[i].turnTaken = false;
         }
-        state = CombatState.PLAYERTURN;
+        EnterPlayerTurn();
+    }
+
+    #endregion
+
+    #region End Conditions
+
+    public void EnterWin()
+    {
+        state = CombatState.WON;
+        //return to world scene
+        CombatTransitionManager.instance.combatEnemies = null;
+        CombatTransitionManager.instance.currentHealth = playerCombat.currentHealth;
+        SceneManager.LoadScene(2);
+    }
+
+    public void EnterLoss()
+    {
+        state = CombatState.LOST;
+        SceneManager.LoadScene(5);
     }
 
     #endregion
@@ -241,9 +356,9 @@ public class CombatSystem : MonoBehaviour
         this.enemyPrefab = enemy;
     }
 
-    public void setWeapon(Weapon weapon)
+    public void setWeapon(GameObject weapon)
     {
-        currentWeapon = weapon;
+        currentWeaponObject = weapon;
     }
 
     public void unsetWeapon()

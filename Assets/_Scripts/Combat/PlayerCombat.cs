@@ -8,21 +8,19 @@ public class PlayerCombat : CombatEntity
     private SpriteRenderer render;
     private Color originalColor;
 
-    //animation stuff
-    [SerializeField]
-    private Animator anim;
-    private bool inAnim;
+    public bool inWorld;
 
     // Start is called before the first frame update
     void Awake()
     {
-        maxHealth = 5f;
-        currentHealth = maxHealth;
     }
 
     private void Start()
     {
-        healthBar = CombatUIManager.instance.playerHealth;
+        currentHealth = CombatTransitionManager.instance.currentHealth;
+
+        if (!inWorld)
+        healthBar = CombatUIManager.instance.GetPlayerHealthbar();
     }
 
     public override void TakeDamage(float damage)
