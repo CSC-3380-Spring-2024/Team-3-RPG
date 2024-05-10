@@ -11,7 +11,7 @@ public class EssentialObjectsSpawner : MonoBehaviour
         var existingObjects = FindObjectsOfType<PersistentData>();
         if (existingObjects.Length == 0)
         {
-            Instantiate(essentialObjectsPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            Instantiate(essentialObjectsPrefab, new Vector3(2.257163f, 4.304863f, 12.97192f), Quaternion.identity);
         }
     }
 }

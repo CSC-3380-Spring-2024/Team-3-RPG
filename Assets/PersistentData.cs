@@ -24,11 +24,16 @@ public class PersistentData : MonoBehaviour //only job is to keep its child data
         if (next.name.Equals("Combat"))
         {
             WorldSceneExclusive.SetActive(false);
-            vcam.Follow = GameObject.FindGameObjectWithTag("MainCamera").transform;
+            vcam.m_Lens.OrthographicSize = 6;
+            vcam.Follow = GameObject.FindGameObjectWithTag("CameraTarget").transform;
+            vcam.LookAt = GameObject.FindGameObjectWithTag("CameraTarget").transform;
+            player.GetComponent<PlayerController>().isMoving = false;
         }
         if (next.name.Equals("WorldScene"))
         {
             WorldSceneExclusive.SetActive(true);
+            vcam.m_Lens.OrthographicSize = 5;
+            vcam.LookAt = null;
             vcam.Follow = player.transform;
         }
     }

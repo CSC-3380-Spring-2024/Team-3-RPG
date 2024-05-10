@@ -1853,9 +1853,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combatEnemies: []
   weapons:
-  - {fileID: 3329264076959300137, guid: d72fba2b8aab74648b90772a8dc49401, type: 3}
-  - {fileID: 3329264076959300137, guid: d72fba2b8aab74648b90772a8dc49401, type: 3}
-  - {fileID: 3329264076959300137, guid: d72fba2b8aab74648b90772a8dc49401, type: 3}
+  - {fileID: 8452213621378018852, guid: 781e50a1f7ef54754964ccc755f3e89c, type: 3}
+  - {fileID: 8452213621378018852, guid: 781e50a1f7ef54754964ccc755f3e89c, type: 3}
+  - {fileID: 8452213621378018852, guid: 781e50a1f7ef54754964ccc755f3e89c, type: 3}
   currentHealth: 0
 --- !u!1 &750626673996320762
 GameObject:
@@ -2719,7 +2719,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 750626674199159481}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.257163, y: 4.3048635, z: 12.97192}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5236,7 +5236,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f769c3c26f1ceb8459170351ad9a071b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.128
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5657,7 +5657,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 66d2937d7f2dc7843872c1ca9810614c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
