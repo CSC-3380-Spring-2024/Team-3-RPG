@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691b3640e11134fa2ba02f2a2ba33dd1, type: 3}
   m_Name: Runtime Executioner
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Runtime Executioner
   itemType: 0
   quantity: 1
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 9b2704bc71cb944108714211703cd574, type: 3}
   itemDescription: 

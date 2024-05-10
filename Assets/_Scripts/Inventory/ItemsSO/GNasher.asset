@@ -15,6 +15,5 @@ MonoBehaviour:
   itemName: GNasher
   itemType: 0
   quantity: 1
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 323edad6a88ec4ee69fb89d8eda9e036, type: 3}
   itemDescription: 
-  attackDmg: 0
