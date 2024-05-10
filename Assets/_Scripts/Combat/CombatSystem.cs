@@ -339,7 +339,7 @@ public class CombatSystem : MonoBehaviour
     public void EnterLoss()
     {
         state = CombatState.LOST;
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(5);
     }
 
     #endregion

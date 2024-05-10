@@ -15,10 +15,16 @@ public class WorldEnemy : MonoBehaviour
     {
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E)) //transition into combat
         {
-            CombatTransitionManager.instance.combatEnemies = enemies;
-            CombatTransitionManager.instance.currentHealth = player.currentHealth;
-            SceneManager.LoadScene(4);
+            StartCoroutine(StartTransitionToCombat());
         }
+    }
+
+    IEnumerator StartTransitionToCombat()
+    {
+        DontDestroyOnLoad(gameObject);
+        CombatTransitionManager.instance.combatEnemies = enemies;
+        CombatTransitionManager.instance.currentHealth = player.currentHealth;
+        yield return SceneManager.LoadSceneAsync(4);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
