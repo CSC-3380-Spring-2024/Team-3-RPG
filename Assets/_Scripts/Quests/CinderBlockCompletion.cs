@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CinderBlockComplete : MonoBehaviour
+public class CinderBlockCompletion : MonoBehaviour
 {
     // QuestManager reference
     private QuestManager questManager;
@@ -39,7 +39,7 @@ public class CinderBlockComplete : MonoBehaviour
         {
             if (questManager.IsQuestComplete(prerequisiteQuest))
             {
-                if (!questManager.IsQuestComplete(questToComplete)) // Check if this quest isn't already complete
+                if (!questManager.IsQuestComplete(questToComplete) && questManager.IsQuestActive(questToComplete)) // Check if this quest isn't already complete
                 {
                     questManager.CompleteQuest(questToComplete); // Complete the quest
                     questManager.DeactivateQuest(questToComplete);
@@ -54,49 +54,49 @@ public class CinderBlockComplete : MonoBehaviour
             }
             wasInCombatScene = false; // Reset the flag
         }
-        else if (scene.name == "CombatScene")
+        else if (scene.name == "Combat")
         {
             wasInCombatScene = true; // Set the flag when entering the combat scene
         }
     }
 
-    // function to constantly check if the player is in range and has pressed E
-    // if true, completes this specific quest
-    private void Update()
-    {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E) && questManager != null && questManager.quests.Contains(questToComplete))
-        {
-            if (questManager.IsQuestComplete(prerequisiteQuest))
-            {
-                if (!questManager.IsQuestComplete(questToComplete)) // Check if this quest isn't already complete
-                {
-                    questManager.CompleteQuest(questToComplete); // Complete the quest
-                    questManager.DeactivateQuest(questToComplete);
-                    DialogueManager.Instance.TriggerDialogue(dialoguePrompt.finishLines);
-                    Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
-                    this.enabled = false;
-                }
-            }
-            else
-            {
-                Debug.Log($"Prerequisite quest '{prerequisiteQuest.questName}' is not completed.");
-            }
-        }
-    }
+    // THIS IS THE BACKUP METHOD TO COMPLETE THE QUEST
+    //
+    // private void Update()
+    // {
+    //     if (isPlayerInRange && Input.GetKeyDown(KeyCode.E) && questManager != null && questManager.quests.Contains(questToComplete))
+    //     {
+    //         if (questManager.IsQuestComplete(prerequisiteQuest))
+    //         {
+    //             if (!questManager.IsQuestComplete(questToComplete)) // Check if this quest isn't already complete
+    //             {
+    //                 questManager.CompleteQuest(questToComplete); // Complete the quest
+    //                 questManager.DeactivateQuest(questToComplete);
+    //                 DialogueManager.Instance.TriggerDialogue(dialoguePrompt.finishLines);
+    //                 Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
+    //                 this.enabled = false;
+    //             }
+    //         }
+    //         else
+    //         {
+    //             Debug.Log($"Prerequisite quest '{prerequisiteQuest.questName}' is not completed.");
+    //         }
+    //     }
+    // }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isPlayerInRange = true;
-        }
-    }
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         isPlayerInRange = true;
+    //     }
+    // }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isPlayerInRange = false;
-        }
-    }
+    // private void OnTriggerExit2D(Collider2D other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         isPlayerInRange = false;
+    //     }
+    // }
 }

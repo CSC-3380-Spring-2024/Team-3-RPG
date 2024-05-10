@@ -21,11 +21,6 @@ public class KillGoblinsCompletion : MonoBehaviour
 
     private bool wasInCombatScene = false;
 
-    private void Start()
-    {
-        questToComplete.killCount = 0;
-    }
-
     // function to ensure the QuestManager is initialized
     private void Awake()
     {
@@ -33,55 +28,75 @@ public class KillGoblinsCompletion : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "WorldScene" && wasInCombatScene)
-        {
-            questToComplete.killCount += 1;  // Increment the kill count
-            wasInCombatScene = false; // Reset the flag
-        }
-        else if (scene.name == "CombatScene")
-        {
-            wasInCombatScene = true; // Set the flag when entering the combat scene
-        }
-    }
-
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded; // Unsubscribe to avoid memory leaks
     }
 
-    private void Update()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(questToComplete.killCount >= 1)
+        if (scene.name == "WorldScene" && wasInCombatScene)
         {
             if (questManager.IsQuestComplete(prerequisiteQuest))
             {
-                questManager.CompleteQuest(questToComplete);
-                questManager.DeactivateQuest(questToComplete);
-                DialogueManager.Instance.TriggerDialogue(dialoguePrompt.finishLines);
-                Debug.Log("GOBLIN DEFEATED");
-                this.enabled = false;
+                if (!questManager.IsQuestComplete(questToComplete) && questManager.IsQuestActive(questToComplete)) // Check if this quest isn't already complete
+                {
+                    questManager.CompleteQuest(questToComplete); // Complete the quest
+                    questManager.DeactivateQuest(questToComplete);
+                    DialogueManager.Instance.TriggerDialogue(dialoguePrompt.finishLines);
+                    Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
+                    this.enabled = false;
+                }
             }
+            else
+            {
+                Debug.Log($"Prerequisite quest '{prerequisiteQuest.questName}' is not completed.");
+            }
+            wasInCombatScene = false; // Reset the flag
+        }
+        else if (scene.name == "Combat")
+        {
+            wasInCombatScene = true; // Set the flag when entering the combat scene
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (questManager.IsQuestActive(questToComplete))
-        {
-            isPlayerInRange = true;
-            // delete next line once ricky finishes the transition
-            questToComplete.killCount += 1;
-            Debug.Log("Killed a goblin!");
-        }
-    }
+    // THIS IS THE BACKUP METHOD TO COMPLETE THE QUEST
+    //
+    // private void Update()
+    // {
+    //     if (isPlayerInRange && Input.GetKeyDown(KeyCode.E) && questManager != null && questManager.quests.Contains(questToComplete))
+    //     {
+    //         if (questManager.IsQuestComplete(prerequisiteQuest))
+    //         {
+    //             if (!questManager.IsQuestComplete(questToComplete)) // Check if this quest isn't already complete
+    //             {
+    //                 questManager.CompleteQuest(questToComplete); // Complete the quest
+    //                 questManager.DeactivateQuest(questToComplete);
+    //                 DialogueManager.Instance.TriggerDialogue(dialoguePrompt.finishLines);
+    //                 Debug.Log($"Quest '{questToComplete.questName}' has been completed.");
+    //                 this.enabled = false;
+    //             }
+    //         }
+    //         else
+    //         {
+    //             Debug.Log($"Prerequisite quest '{prerequisiteQuest.questName}' is not completed.");
+    //         }
+    //     }
+    // }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isPlayerInRange = false;
-        }
-    }
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         isPlayerInRange = true;
+    //     }
+    // }
+
+    // private void OnTriggerExit2D(Collider2D other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         isPlayerInRange = false;
+    //     }
+    // }
 }
