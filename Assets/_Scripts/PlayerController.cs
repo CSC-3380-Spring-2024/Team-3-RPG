@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public bool isMoving = false;
     private float timeToMove = 0.2f;
     private Vector3 movement = Vector3.zero;
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         {
             movement += Vector3.right;
         }
-
+        
         if (!isMoving && movement != Vector3.zero) // Check if movement is non-zero before moving
         {
             MovePlayer(movement);
@@ -61,8 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         //If there's no tile from the ground tile or if it's a part of the collision map, return false ->can't walk in it.
         Vector3Int gridPosition = groundTilemap.WorldToCell(transform.position + (Vector3)direction);
-        foreach (Tilemap collisionTilemap in collisionTilemap)
-        {
+        foreach (Tilemap collisionTilemap in collisionTilemap){
             if (!groundTilemap.HasTile(gridPosition) || collisionTilemap.HasTile(gridPosition))
             {
                 return false;
@@ -78,7 +77,7 @@ public class PlayerController : MonoBehaviour
         Vector3 originalPosition = transform.position;
         Vector3 targetPosition = originalPosition + (Vector3)direction;
 
-        while (elapsedTime < timeToMove)
+        while(elapsedTime < timeToMove)
         {
             transform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / timeToMove)); //smooths the movement
             elapsedTime += Time.deltaTime;

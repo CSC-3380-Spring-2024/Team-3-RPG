@@ -3,35 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Dialogue : MonoBehaviour
+public class DialogueManager : MonoBehaviour
 {
     public GameObject dialogueBox; // Reference to the GameObject containing the dialogue box UI elements
     public TextMeshProUGUI textComponent;
-    public IntroductionPrompt IntroductionPrompt;
-    public Viking viking;
-    public SisterCindy SisterCindy;
-    public TouchGrass TouchGrass;
-    public GoblinQuest goblin;
     public float textSpeed = 0.05f; // Default text speed value
-    private string[] introductionLines;
-    public string[] sisterCindylines;
-    public string[] touchGrasslines;
-    public string[] vikingLines;
-    public string[] goblinLines;
-    private bool introCompleted = false; // Indicates if the intro dialogue is completed
-    public bool touchGrassGiven = false;
     private bool waitingForSpace = false; // Indicates if the script is waiting for space bar input
     private bool instantFinish = false;
     private QuestManager questManager;
-    public Quest questToCheck;//touch grass
-    public Quest sisterCindyQuest;
-    public Quest vikingQuest;
-    public Quest casperQuest;
-    public Quest goblinQuest;
     private bool dialogueRunning;
-    public static Dialogue Instance { get; private set; }
+    public DialoguePrompt introDialogue;
+    
     [SerializeField]
     private PlayerController playerController;
+    public static DialogueManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -48,12 +33,7 @@ public class Dialogue : MonoBehaviour
 
     void Start()
     {
-        introductionLines = IntroductionPrompt.lines;
-        sisterCindylines = SisterCindy.lines;
-        touchGrasslines = TouchGrass.lines;
-        vikingLines = Viking.lines;
-        goblinLines = GoblinQuest.lines;
-        StartCoroutine(ShowDialogue(introductionLines));
+        StartCoroutine(ShowDialogue(introDialogue.lines));
     }
 
     void Update()
