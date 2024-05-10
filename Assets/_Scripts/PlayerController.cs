@@ -6,18 +6,29 @@ using UnityEngine.Tilemaps;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    [SerializeField]
-    private Tilemap groundTilemap;
-    [SerializeField]
-    private Tilemap[] collisionTilemap; //Array of collision tilemaps
+
+    public Tilemap groundTilemap;
+    public Tilemap[] collisionTilemap; //Array of collision tilemaps
 
     public bool isMoving = false;
     private float timeToMove = 0.2f;
     private Vector3 movement = Vector3.zero;
-    
+
+    private void Start()
+    {
+        groundTilemap = CollisionTileMapManager.instance.groundTilemap;
+        collisionTilemap = CollisionTileMapManager.instance.collisionTilemap;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (CollisionTileMapManager.instance != null)
+        {
+            groundTilemap = CollisionTileMapManager.instance.groundTilemap;
+            collisionTilemap = CollisionTileMapManager.instance.collisionTilemap;
+        }
+
         movement = Vector3.zero;
 
         if (Input.GetKey(KeyCode.W))

@@ -18,4 +18,4 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: ddec3b60ffbda4e6184ceaab71d2a379, type: 2}
   needsMarking: 0
   markName: 
-  damage: 2
+  damage: 3
